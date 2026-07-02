@@ -5941,7 +5941,7 @@ contactsSubCoordinators: "ஒருங்கிணைப்பாளர்கள
 contactsSubAdminGroup: "நிர்வாகக் குழு",
 contactsCityTrichy: "திருச்சி",
 contactsCityMannachanallur: "மண்ணச்சநல்லூர்",
-contactsCityNatham: "நாத்தம்",
+contactsCityNatham: "நத்தம்",
 contactsCityOther: "பிற ஊர்கள்",
 
 // Key Organizers - Tamil
@@ -9974,6 +9974,47 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log('🎬 YouTube Button - Direct to Channel');
         console.log('🔗 Channel: ' + CHANNEL_URL);
         console.log('💡 Toggle live status with toggleLiveStatus()');
+
+              // ============================================================
+// UPI PAYMENT FUNCTION
+// ============================================================
+const UPI_URL = 'upi://pay?pa=ppr.08449.02022024.00406800@cnrb&pn=Sri%20Periyanachiamman%20Sametha%20Sri%20Veeriaperumal%20Arakattalai';
+
+function payWithUPI() {
+    console.log("💳 Opening UPI...");
+    
+    // Method 1: Direct redirect (works on most phones)
+    window.location.href = UPI_URL;
+    
+    // Method 2: Fallback - if UPI doesn't open after 2 seconds
+    setTimeout(function() {
+        // If the page is still visible, UPI didn't open
+        if (!document.hidden) {
+            // Try opening in new window
+            const newWindow = window.open(UPI_URL, '_blank');
+            if (!newWindow || newWindow.closed) {
+                // If popup blocked, show UPI ID
+                const upiId = 'ppr.08449.02022024.00406800@cnrb';
+                const msg = '📋 UPI ID: ' + upiId + '\n\nPlease copy this ID and paste in your UPI app (Google Pay, PhonePe, Paytm, etc.)';
+                alert(msg);
+            }
+        }
+    }, 2000);
+}
+
+// Also add a function to copy UPI ID (optional)
+function copyUPIID() {
+    const upiId = 'ppr.08449.02022024.00406800@cnrb';
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(upiId).then(() => {
+            alert('✅ UPI ID copied to clipboard!\n\nUPI ID: ' + upiId);
+        }).catch(() => {
+            alert('📋 UPI ID: ' + upiId + '\n\nPlease copy it manually.');
+        });
+    } else {
+        alert('📋 UPI ID: ' + upiId + '\n\nPlease copy it manually.');
+    }
+}
 
     </script>
   </body>
