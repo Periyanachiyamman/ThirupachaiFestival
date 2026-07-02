@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Tamil:wght@400;600;700&family=Mukta+Malar:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --crimson:#800020;--crimson-dark:#5A0015;
+  --gold:#C9963A;--gold-light:#F0C96A;
+  --cream:#FDF8F0;--parchment:#F5EDD8;
+  --text:#2A1A0E;--muted:#7A5C3C;--white:#FFFFFF;
+}
+body{font-family:'Mukta Malar',sans-serif;background:var(--cream);color:var(--text);min-height:100vh;overflow-x:hidden}
+
+.nav {
+  background: var(--crimson);
+  padding: 10px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid var(--gold);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.nav-brand {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--gold-light);
+  letter-spacing: 0.5px;
+}
+
+.nav-sub {
+  font-size: 0.72rem;
+  color: rgba(255, 255, 255, 0.65);
+  margin-top: 1px;
+}
+
+/* 🔥 FIX: Prevent nav-right from shifting */
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+  min-width: fit-content;
+}
+
+.clock {
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.85);
+  background: rgba(0, 0, 0, 0.2);
+  padding: 4px 10px;
+  border-radius: 6px;
+  border: 1px solid rgba(201, 150, 58, 0.25);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* 🔥 FIX: Language toggle - completely fixed */
+.lang-wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(201, 150, 58, 0.3);
+  border-radius: 20px;
+  padding: 4px 10px;
+  width: 130px;
+  min-width: 130px;
+  max-width: 130px;
+  justify-content: center;
+  flex-shrink: 0;
+  flex-grow: 0;
+  box-sizing: border-box;  /* ← Include padding in width */
+}
+
+.lang-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.6);
+  width: 30px;
+  min-width: 30px;
+  max-width: 30px;
+  text-align: center;
+  transition: color .25s;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.lang-label.active-lang {
+  color: #fff;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 36px;
+  height: 20px;
+  flex-shrink: 0;
+  flex-grow: 0;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.25);
+  transition: .3s;
+  border-radius: 20px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 14px;
+  width: 14px;
+  left: 3px;
+  bottom: 3px;
+  background: #fff;
+  transition: .3s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background: var(--gold);
+}
+
+input:checked + .slider:before {
+  transform: translateX(16px);
+}
+
+.banner{background:linear-gradient(160deg,var(--crimson) 0%,#3D0010 100%);color:#fff;text-align:center;padding:40px 20px 30px;border-bottom:3px solid var(--gold);position:relative;overflow:hidden}
+.banner::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none'%3E%3Cg fill='%23DAA520' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");pointer-events:none}
+.temple-icon{font-size:2.5rem;margin-bottom:10px;display:block}
+.banner h1{font-family:'Noto Serif Tamil',serif;font-size:1.3rem;font-weight:700;text-shadow:0 2px 8px rgba(0,0,0,0.4);margin-bottom:6px;line-height:1.4}
+.banner-addr{font: size 1.5rem;color:rgba(255,200,150,0.9);margin-bottom:14px}
+.fest-badge{display:inline-block;background:rgba(201,150,58,0.15);border:1px solid var(--gold);color:var(--gold-light);padding:5px 16px;border-radius:20px;font-size:0.85rem;font-weight:600}
+
+.container{max-width:1100px;margin:36px auto;padding:0 20px;display:grid;grid-template-columns:1.3fr 1fr;gap:28px}
+@media(max-width:860px){.container{grid-template-columns:1fr}}
+.info-card{background:var(--white);border-radius:14px;padding:28px;border-left:4px solid var(--crimson);box-shadow:0 2px 16px rgba(128,0,32,0.06)}
+.card-title{color:var(--crimson);font-size:1.3rem;font-weight:700;margin-bottom:6px;font-family:'Noto Serif Tamil',serif}
+.card-desc{font-size:0.95rem;color:var(--muted);line-height:1.7;margin-bottom:22px}
+.feature-list{list-style:none;display:flex;flex-direction:column;gap:16px}
+.feature-list li{display:flex;align-items:flex-start;gap:12px;font-size:0.92rem;line-height:1.6}
+.feat-icon{width:34px;height:34px;border-radius:8px;background:rgba(128,0,32,0.08);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1rem;border:1px solid rgba(128,0,32,0.12)}
+.feat-text{color:var(--muted)}
+.feat-text strong{color:var(--text);font-weight:700}
+
+.portal-card{background:var(--white);border-radius:14px;padding:28px;border-top:4px solid var(--gold);box-shadow:0 2px 16px rgba(128,0,32,0.06);height:fit-content}
+.tabs{display:flex;border-bottom:1.5px solid var(--parchment);margin-bottom:22px}
+.tab-btn{flex:1;padding:10px;background:none;border:none;font-size:0.95rem;font-weight:600;cursor:pointer;color:#AAA;transition:all .25s;font-family:'Mukta Malar',sans-serif}
+.tab-btn.active{color:var(--crimson);border-bottom:2.5px solid var(--crimson);margin-bottom:-1.5px}
+.form-section{display:none}
+.form-section.active{display:block}
+.form-group{margin-bottom:16px}
+.form-group label{display:block;margin-bottom:5px;font-weight:600;font-size:0.88rem;color:var(--muted)}
+.form-ctrl{width:100%;padding:11px 14px;border:1.5px solid #E8E0D0;border-radius:8px;font-size:0.95rem;outline:none;transition:border .2s;background:var(--cream);color:var(--text);font-family:'Mukta Malar',sans-serif}
+.form-ctrl:focus{border-color:var(--crimson);background:#fff}
+.btn-submit{width:100%;background:var(--crimson);color:#fff;border:none;padding:13px;font-size:1rem;font-weight:700;border-radius:8px;cursor:pointer;transition:background .2s,transform .1s;font-family:'Mukta Malar',sans-serif;margin-top:4px;letter-spacing:0.3px;display:flex;align-items:center;justify-content:center;gap:8px}
+.btn-submit:hover:not(:disabled){background:var(--crimson-dark)}
+.btn-submit:disabled{opacity:0.7;cursor:not-allowed}
+.btn-spinner{width:16px;height:16px;border:2px solid rgba(255,255,255,0.3);border-top-color:#fff;border-radius:50%;animation:spin 0.7s linear infinite;display:none}
+.btn-submit.loading .btn-spinner{display:block}
+
+.cloud-toast{display:none;align-items:center;gap:8px;background:rgba(201,150,58,0.1);border:1px solid rgba(201,150,58,0.3);border-radius:8px;padding:8px 12px;margin-bottom:14px;font-size:0.82rem;color:var(--muted)}
+.cloud-toast.show{display:flex}
+.cloud-dot{width:8px;height:8px;border-radius:50%;background:var(--gold);animation:pulse-dot 1.2s ease-in-out infinite}
+@keyframes pulse-dot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.4;transform:scale(0.7)}}
+
+.success-overlay{position:fixed;top:0;left:0;width:100vw;height:100vh;background:linear-gradient(160deg,#1A0008 0%,#3D0010 40%,#1A000A 100%);z-index:9999;display:none;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:20px}
+.success-overlay.show{display:flex;animation:fadeIn 0.5s ease}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.success-overlay::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+.success-overlay::after{content:'';position:absolute;bottom:0;left:0;right:0;height:4px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+.particles{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;overflow:hidden}
+.particle{position:absolute;border-radius:50%;opacity:0;animation:float var(--dur) ease-in-out infinite var(--delay)}
+@keyframes float{0%{opacity:0;transform:translateY(0) scale(0.5)}20%{opacity:0.7}80%{opacity:0.3}100%{opacity:0;transform:translateY(-130px) scale(1.5)}}
+.mandala-wrap{position:relative;width:160px;height:160px;margin:0 auto 24px}
+.mandala-ring{width:160px;height:160px;border-radius:50%;border:2px dashed rgba(201,150,58,0.3);position:absolute;top:0;left:0;animation:spinR 12s linear infinite}
+.mandala-ring-2{width:128px;height:128px;border-radius:50%;border:1.5px solid rgba(201,150,58,0.2);position:absolute;top:16px;left:16px;animation:spinR 8s linear infinite reverse}
+.mandala-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:88px;height:88px;border-radius:50%;background:rgba(201,150,58,0.12);border:1px solid rgba(201,150,58,0.4);display:flex;align-items:center;justify-content:center;animation:pulseC 2.5s ease-in-out infinite}
+.mandala-emoji{font-size:2.6rem;line-height:1}
+@keyframes spinR{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+@keyframes pulseC{0%,100%{box-shadow:0 0 0 0 rgba(201,150,58,0.3),0 0 30px rgba(201,150,58,0.1)}50%{box-shadow:0 0 0 14px rgba(201,150,58,0),0 0 55px rgba(201,150,58,0.25)}}
+.success-tag{display:inline-flex;align-items:center;gap:6px;background:rgba(201,150,58,0.15);border:1px solid rgba(201,150,58,0.4);color:var(--gold-light);font-size:0.78rem;font-weight:700;padding:4px 14px;border-radius:20px;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:14px;animation:fadeUp .7s ease .3s both}
+.success-name{font-family:'Noto Serif Tamil',serif;font-size:2rem;font-weight:700;color:#fff;margin-bottom:6px;animation:fadeUp .7s ease .5s both;text-shadow:0 2px 12px rgba(201,150,58,0.3)}
+.success-gothram{font-size:1rem;color:rgba(255,200,150,0.8);margin-bottom:28px;animation:fadeUp .7s ease .7s both}
+.success-blessing{font-size:0.95rem;color:var(--gold);letter-spacing:2px;font-weight:600;margin-bottom:36px;animation:fadeUp .7s ease .9s both}
+.btn-continue{background:var(--gold);color:#2A1A0E;border:none;padding:14px 36px;font-size:1rem;font-weight:700;border-radius:10px;cursor:pointer;font-family:'Mukta Malar',sans-serif;transition:all .2s;letter-spacing:0.5px;animation:fadeUp .7s ease 1.1s both;box-shadow:0 4px 20px rgba(201,150,58,0.35)}
+.btn-continue:hover{background:var(--gold-light);transform:translateY(-1px)}
+.countdown-wrap{margin-top:24px;display:flex;flex-direction:column;align-items:center;gap:10px;animation:fadeUp .7s ease 1.3s both}
+.countdown-ring-wrap{position:relative;width:64px;height:64px}
+.countdown-svg{transform:rotate(-90deg);width:64px;height:64px}
+.ring-bg{fill:none;stroke:rgba(255,255,255,0.08);stroke-width:4}
+.ring-fill{fill:none;stroke:var(--gold);stroke-width:4;stroke-linecap:round;stroke-dasharray:176;stroke-dashoffset:0;transition:stroke-dashoffset 1s linear}
+.countdown-num{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:1.3rem;font-weight:700;color:var(--gold-light);line-height:1}
+.countdown-label{font-size:0.75rem;color:rgba(255,255,255,0.4);letter-spacing:0.5px}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+@keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+
+
+footer{text-align:center;padding:20px;background:#800020;color:#F0C96A;font-size:0.8rem;font-weight:400;margin-top:50px;border-top:2px}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div>
+    <div class="nav-brand" id="lbl-brand">பச்சை பூஜை(AI)</div>
+    <div class="nav-sub" id="lbl-sub">பக்தர்களின் வசதிக்காக செயற்கை நுண்ணறிவால் இயங்கும் தளம்</div>
+  </div>
+  <div class="nav-right">
+    <div class="clock" id="clock"></div>
+    <div class="lang-wrap">
+      <span class="lang-label active-lang" id="lbl-ta">தமிழ்</span>
+      <label class="switch">
+        <input type="checkbox" id="langToggle" onchange="toggleLang()">
+        <span class="slider"></span>
+      </label>
+      <span class="lang-label" id="lbl-en">EN</span>
+    </div>
+  </div>
+</nav>
+
+<header class="banner">
+  <header>
+  <img src="https://drive.google.com/thumbnail?authuser=0&sz=w910&id=1w8zeTsDAZkb_fbJbkzJNQyj0qkTvaU9Q" 
+       alt="Header Image" 
+       style="width:80px; height:100px;">
+</header>
+
+
+  <h1 id="lbl-title">ஸ்ரீ பெரியநாச்சியம்மன் சமேத ஸ்ரீ வீரிய பெருமாள் திருக்கோயில்</h1>
+  <p class="banner-addr" id="lbl-addr">ஸ்ரீ பெரிய நாச்சியம்மன் சமேத ஸ்ரீ வீரிய பெருமாள் அறக்கட்டளை, தென்னூர், திருச்சிராப்பள்ளி - 17</p>
+  <span class="fest-badge" id="lbl-fest">திருபச்சை, முப்பூசை மற்றும் பாரிவேட்டை படுகள திருவிழா (ஆடி 2026)</span>
+</header>
+
+<div class="container">
+  <main class="info-card">
+    <div class="card-title" id="lbl-guide-title">வரவேற்பு! (Welcome Guide)</div>
+    <p class="card-desc" id="lbl-guide-desc">நமது குலதெய்வமாம் ஸ்ரீ வீரியபெருமாள் ஆலயத்தின் 100 வருட வரலாற்றுச் சிறப்புமிக்க மகா திருவிழா இணையதளத்திற்கு உங்களை அன்போடு வரவேற்கிறோம். இந்த தளம் நமது 5 கோத்திர குடிமக்களுக்காக பிரத்யேகமாக உருவாக்கப்பட்டுள்ளது.</p>
+    <ul class="feature-list">
+      <li><div class="feat-icon">📋</div><div class="feat-text" id="gi1"><strong>டிஜிட்டல் திருவிழா அழைப்பிதழ்:</strong> நிகழ்ச்சி நிரல் மற்றும் விரத விதிமுறைகளை பதிவிறக்கம் செய்து கொள்ளலாம்.</div></li>
+      <li><div class="feat-icon">📸</div><div class="feat-text" id="gi2"><strong>பக்தர்களின் பங்களிப்பு (Photo Hub):</strong> திருவிழா புகைப்படங்களை உங்கள் பெயருடன் பதிவேற்றலாம்.</div></li>
+      <li><div class="feat-icon">✨</div><div class="feat-text" id="gi3"><strong>AI பயணத் திட்டம்:</strong> நீங்கள் வரும் நேரத்தைக் குறிப்பிட்டால், உங்களுக்கான சிறப்புத் திட்டத்தை AI வடிவமைக்கும்.</div></li>
+      <li><div class="feat-icon">🗺️</div><div class="feat-text" id="gi4"><strong>முக்கிய வரைபடங்கள்:</strong> காவேரி அய்யாளம்மன் படித்துறை மற்றும் விழா மேடைகளின் வழிகாட்டிகள்.</div></li>
+    </ul>
+  </main>
+
+  <aside class="portal-card">
+    <div class="tabs">
+      <button class="tab-btn active" id="tab-login" onclick="switchTab('login')">உள்நுழைவு</button>
+      <button class="tab-btn" id="tab-reg" onclick="switchTab('register')">புதிய பதிவு</button>
+    </div>
+
+    <!-- LOGIN -->
+    <div id="login-form" class="form-section active">
+      <form onsubmit="handleAuth(event,'login')">
+        <div class="form-group"><label id="lbl-log-name">முழு பெயர் (Full Name) *</label><input type="text" id="login-name" class="form-ctrl" required></div>
+        <div class="form-group"><label id="lbl-log-phone">கைபேசி எண் (Mobile Number) *</label><input type="tel" id="login-phone" class="form-ctrl" pattern="[0-9]{10}" required placeholder="10 Digits"></div>
+        <button type="submit" class="btn-submit" id="btn-login-text">
+          <div class="btn-spinner"></div>
+          <span id="btn-login-label">இணையதளத்திற்குள் செல்க</span>
+        </button>
+      </form>
+    </div>
+
+    <!-- REGISTER -->
+    <div id="reg-form" class="form-section">
+      <form onsubmit="handleAuth(event,'register')">
+        <div class="cloud-toast" id="cloud-toast">
+          <div class="cloud-dot"></div>
+          <span id="cloud-msg">Google Sheet-ல் சேமிக்கப்படுகிறது...</span>
+        </div>
+        <div class="form-group"><label id="lbl-reg-name">முழு பெயர் (Full Name) *</label><input type="text" id="reg-name" class="form-ctrl" required></div>
+        <div class="form-group"><label id="lbl-reg-father">தந்தையின் பெயர் (Father's Name) *</label><input type="text" id="reg-father" class="form-ctrl" required></div>
+        <div class="form-group">
+          <label id="lbl-reg-goth">கோத்திரம் (Gothram) *</label>
+          <select id="reg-gothram" class="form-ctrl" required>
+            <option value="" id="opt-sel">தேர்வு செய்க--</option>
+            <option value="ஸ்ரீ பருத்திகுடையான் மகரிஷி">ஸ்ரீ பருத்திகுடையான் மகரிஷி</option>
+            <option value="ஸ்ரீ தென்னவராயன் மகரிஷி">ஸ்ரீ தென்னவராயன் மகரிஷி</option>
+            <option value="ஸ்ரீ பயிராளழகர் மகரிஷி">ஸ்ரீ பயிராளழகர் மகரிஷி</option>
+            <option value="ஸ்ரீ பாக்குமுடையான் மகரிஷி">ஸ்ரீ பாக்குமுடையான் மகரிஷி</option>
+            <option value="ஸ்ரீ மாத்துடையான் மகரிஷி">ஸ்ரீ மாத்துடையான் மகரிஷி</option>
+          </select>
+        </div>
+        <div class="form-group"><label id="lbl-reg-city">வசிக்கும் ஊர் (City) *</label><input type="text" id="reg-city" class="form-ctrl" required></div>
+        
+        <!-- 🔥 AGE FIELD -->
+        <div class="form-group">
+          <label id="lbl-reg-age">வயது (Age) *</label>
+          <input type="number" id="reg-age" class="form-ctrl" min="1" max="120" required placeholder="உங்கள் வயதை உள்ளிடவும்">
+        </div>
+        
+        <div class="form-group"><label id="lbl-reg-phone">கைபேசி எண் (Mobile Number) *</label>
+          <input type="tel" id="reg-phone" class="form-ctrl" pattern="[0-9]{10}" required placeholder="10 Digits">
+        </div>
+        <button type="submit" class="btn-submit" id="btn-reg-submit">
+          <div class="btn-spinner"></div>
+          <span id="btn-reg-label">விவரங்களைச் சேமித்து உள்நுழைக</span>
+        </button>
+      </form>
+    </div>
+  </aside>
+</div>
+
+<!-- SUCCESS OVERLAY -->
+<div class="success-overlay" id="success-overlay">
+  <div class="particles" id="particles"></div>
+  <div class="mandala-wrap">
+    <svg class="mandala-ring" viewBox="0 0 160 160" fill="none">
+      <circle cx="80" cy="80" r="78" stroke="rgba(201,150,58,0.3)" stroke-dasharray="8 6"/>
+      <circle cx="80" cy="2" r="4" fill="rgba(201,150,58,0.6)"/><circle cx="80" cy="158" r="4" fill="rgba(201,150,58,0.6)"/>
+      <circle cx="2" cy="80" r="4" fill="rgba(201,150,58,0.6)"/><circle cx="158" cy="80" r="4" fill="rgba(201,150,58,0.6)"/>
+      <circle cx="25" cy="25" r="3" fill="rgba(201,150,58,0.4)"/><circle cx="135" cy="25" r="3" fill="rgba(201,150,58,0.4)"/>
+      <circle cx="25" cy="135" r="3" fill="rgba(201,150,58,0.4)"/><circle cx="135" cy="135" r="3" fill="rgba(201,150,58,0.4)"/>
+    </svg>
+    <div class="mandala-ring-2"></div>
+    <div class="mandala-center"><span class="mandala-emoji">🙏</span></div>
+  </div>
+  <div class="success-tag" id="success-tag">✓ உள்நுழைவு வெற்றிகரமாக</div>
+  <div class="success-name" id="success-name">வணக்கம்!</div>
+  <div class="success-gothram" id="success-gothram">கோத்திரம்</div>
+  <div class="success-blessing" id="success-blessing">அருள்மிகு வீரியபெருமாள் ஆசிகள்...</div>
+  <button class="btn-continue" id="btn-continue" onclick="goDashboard()">🛕 இல்லப் பக்கத்திற்கு செல்க →</button>
+  <div class="countdown-wrap">
+    <div class="countdown-ring-wrap">
+      <svg class="countdown-svg" viewBox="0 0 64 64">
+        <circle class="ring-bg" cx="32" cy="32" r="28"/>
+        <circle class="ring-fill" id="ring-fill" cx="32" cy="32" r="28"/>
+      </svg>
+      <div class="countdown-num" id="countdown-num">10</div>
+    </div>
+    <div class="countdown-label" id="countdown-label">விநாடிகளில் தானாக திறக்கும்</div>
+  </div>
+</div>
+
+<footer>Developed by Lakshman Prabhu Kathirvel, 6379809495 &nbsp;|&nbsp; © Copyrights 2026. All Rights Reserved.</footer>
+
+<script>
+
+// =========================================================
+// SESSION MANAGEMENT - Save user session
+// =========================================================
+function saveUserSession(name, gothram, city) {
+    const session = {
+        user: name,
+        gothram: gothram,
+        city: city,
+        loginTime: Date.now(),
+        expiresIn: 24 * 60 * 60 * 1000 // 24 hours
+    };
+    localStorage.setItem('templeSession', JSON.stringify(session));
+    
+    // Keep backward compatibility
+    localStorage.setItem('templeUser', name);
+    localStorage.setItem('templeGothram', gothram);
+    localStorage.setItem('templeCity', city);
+}
+
+/* =========================================================
+   CONFIG — Google Apps Script Web App URL
+   ========================================================= */
+const GOOGLE_SHEET_WEBAPP_URL = "https://script.google.com/macros/s/AKfycbwnUdns-NyILpFPyLGHnnz5f7C-WLSQjlRg7JECp0ldDaexWWae5f99e17Sn7Q_ztYcOw/exec";
+const TOTAL_SECS = 10;
+const CIRCUMFERENCE = 2 * Math.PI * 28;
+
+/* =========================================================
+   LOCAL DATABASE (populated from Google Sheet)
+   ========================================================= */
+let templeDevoteeDatabase = [
+  {name:"Kathirvel", phone:"9443115689", gothram:"ஸ்ரீ தென்னவராயன் மகரிஷி",  gothramEn:"Sri Thennavarayan Maharishi",  city:"Trichy", cityEn:"Trichy", age:"35"},
+  {name:"Lakshman",  phone:"9677638335", gothram:"ஸ்ரீ பருத்திகுடையான் மகரிஷி", gothramEn:"Sri Paruthikudayan Maharishi", city:"Tennur", cityEn:"Tennur", age:"30"},
+  {name:"Ravikumar", phone:"9443532338", gothram:"ஸ்ரீ பாக்குமுடையான் மகரிஷி",  gothramEn:"Sri Pakkumudayan Maharishi",  city:"Trichy", cityEn:"Trichy", age:"40"},
+  {name:"Shanmugam", phone:"9677638335", gothram:"ஸ்ரீ பயிராளழகர் மகரிஷி",     gothramEn:"Sri Bayiralazhagar Maharishi", city:"Trichy", cityEn:"Trichy", age:"45"}
+];
+
+/* =========================================================
+   LOCALISATION
+   ========================================================= */
+const L = {
+  ta:{
+    brand:"பச்சை பூஜை(AI)", sub:"பக்தர்களின் வசதிக்காக செயற்கை நுண்ணறிவால் இயங்கும் தளம்",
+    title:"ஸ்ரீ பெரியநாச்சியம்மன் சமேத ஸ்ரீ வீரிய பெருமாள் திருக்கோயில்",
+    addr:"ஸ்ரீ பெரிய நாச்சியம்மன் சமேத ஸ்ரீ வீரிய பெருமாள் அறக்கட்டளை, தென்னூர், திருச்சிராப்பள்ளி - 17",
+    fest:"திருபச்சை, முப்பூசை மற்றும் பாரிவேட்டை படுகள திருவிழா (ஆடி 2026)",
+    guideTitle:"வரவேற்பு! (Welcome Guide)",
+    guideDesc:"நமது குலதெய்வமாம் ஸ்ரீ வீரியபெருமாள் ஆலயத்தின் 100 வருட வரலாற்றுச் சிறப்புமிக்க மகா திருவிழா இணையதளத்திற்கு உங்களை அன்போடு வரவேற்கிறோம்.",
+    gi1:"<strong>டிஜிட்டல் திருவிழா அழைப்பிதழ்:</strong> நிகழ்ச்சி நிரல் மற்றும் விரத விதிமுறைகளை பதிவிறக்கம் செய்து கொள்ளலாம்.",
+    gi2:"<strong>பக்தர்களின் பங்களிப்பு (Photo Hub):</strong> திருவிழா புகைப்படங்களை உங்கள் பெயருடன் பதிவேற்றலாம்.",
+    gi3:"<strong>AI பயணத் திட்டம்:</strong> நீங்கள் வரும் நேரத்தைக் குறிப்பிட்டால், உங்களுக்கான சிறப்புத் திட்டத்தை AI வடிவமைக்கும்.",
+    gi4:"<strong>முக்கிய வரைபடங்கள்:</strong> காவேரி அய்யாளம்மன் படித்துறை மற்றும் விழா மேடைகளின் வழிகாட்டிகள்.",
+    tabLogin:"உள்நுழைவு", tabReg:"புதிய பதிவு",
+    logName:"முழு பெயர் (Full Name) *", logPhone:"கைபேசி எண் (Mobile Number) *", btnLogin:"இணையதளத்திற்குள் செல்க",
+    logPhonePlaceholder:"10 இலக்க எண்ணை உள்ளிடுக",
+    rPhonePlaceholder:"10 இலக்க எண்ணை உள்ளிடுக",
+    rName:"முழு பெயர் (Full Name) *", rFather:"தந்தையின் பெயர் (Father's Name) *",
+    rGoth:"கோத்திரம் (Gothram) *", rCity:"வசிக்கும் ஊர் (City) *", rAge:"வயது (Age) *", rPhone:"கைபேசி எண் (Mobile Number) *",
+    rAgePlaceholder:"உங்கள் வயதை உள்ளிடவும்",
+    btnReg:"விவரங்களைச் சேமித்து உள்நுழைக",
+    optSel:"தேர்வு செய்க--", vanakkam:"வணக்கம்",
+    blessing:"அருள்மிகு வீரியபெருமாள் ஆசிகள்...",
+    successTag:"✓ உள்நுழைவு வெற்றிகரமாக",
+    btnContinue:"🛕 இல்லப் பக்கத்திற்கு செல்க →",
+    countLabel:"விநாடிகளில் தானாக திறக்கும்",
+    cloudSaving:"Google Sheet-ல் சேமிக்கப்படுகிறது...",
+    loginFail:"உள்நுழைவு தோல்வி: உங்கள் விவரங்கள் கண்டறியப்படவில்லை! தயவுசெய்து 'புதிய பதிவு' பக்கத்தில் பதிவு செய்யவும்.",
+    saving:"சேமிக்கப்படுகிறது...",
+    cityOf:" நகரின் ",
+    regSuccess:"பதிவு வெற்றிகரமாக!"
+  },
+  en:{
+    brand:"PachaPooj(AI)", sub:"An AI-powered portal for ease of devotees",
+    title:"Sri Periyanachiamman Sametha Sri Veeriaperumal Temple",
+    addr:"Sri Periya Nachiamman Sametha Sri Veeriya Perumal Trust, Tennur, Tiruchirappalli - 17",
+    fest:"Thirupachai, Muppoojai & Parivettai Padugalam Festival (Aadi 2026)",
+    guideTitle:"Welcome Guide",
+    guideDesc:"Welcome to the grand 100-year festival portal of our ancestral deity Sri Veeriaperumal Temple, built exclusively for our 5 Gothram families.",
+    gi1:"<strong>Digital Festival Invitation:</strong> Download complete festival schedules, dates, and fasting guidelines.",
+    gi2:"<strong>Devotee Photo Hub:</strong> Upload your festival photographs and share them with the entire community.",
+    gi3:"<strong>AI Travel Planner:</strong> Tell us when you're arriving and let AI schedule your ideal ritual attendance.",
+    gi4:"<strong>Destination Maps:</strong> Navigation to Cauvery Ayeeammal ghat, procession trails, and transport hubs.",
+    tabLogin:"Login", tabReg:"Register",
+    logName:"Full Name *", logPhone:"Mobile Number *", btnLogin:"Enter Divine Portal",
+    rPhonePlaceholder:"Enter 10 digit number",
+    logPhonePlaceholder:"Enter 10 digit number",
+    rName:"Full Name *", rFather:"Father's Name *",
+    rGoth:"Gothram (Clan) *", rCity:"City / Town *", rAge:"Age *", rPhone:"Mobile Number *",
+    rAgePlaceholder:"Enter your age",
+    btnReg:"Save & Enter Portal",
+    optSel:"Select Gothram --", vanakkam:"Vanakkam",
+    blessing:"Divine Blessings of Lord Veeriaperumal...",
+    successTag:"✓ Login Successful",
+    btnContinue:"🛕 Continue to Home Page →",
+    countLabel:"seconds — redirecting automatically",
+    cloudSaving:"Saving to Google Sheet...",
+    loginFail:"Login failed: Your details were not found. Please use the Register tab first.",
+    saving:"Saving...",
+    cityOf:" of ",
+    regSuccess:"Registration Successful!"
+  }
+};
+
+let lang = 'ta';
+let countdownInterval = null;
+let secondsLeft = TOTAL_SECS;
+
+/* =========================================================
+   LANGUAGE TOGGLE
+   ========================================================= */
+function toggleLang(){
+  lang = document.getElementById('langToggle').checked ? 'en' : 'ta';
+  document.getElementById('lbl-ta').classList.toggle('active-lang', lang==='ta');
+  document.getElementById('lbl-en').classList.toggle('active-lang', lang==='en');
+  applyLang();
+}
+
+function applyLang(){
+  const d = L[lang];
+  document.getElementById('lbl-brand').textContent      = d.brand;
+  document.getElementById('lbl-sub').textContent        = d.sub;
+  document.getElementById('lbl-title').textContent      = d.title;
+  document.getElementById('lbl-addr').textContent       = d.addr;
+  document.getElementById('lbl-fest').textContent       = d.fest;
+  document.getElementById('lbl-guide-title').textContent= d.guideTitle;
+  document.getElementById('lbl-guide-desc').textContent = d.guideDesc;
+  document.getElementById('gi1').innerHTML              = d.gi1;
+  document.getElementById('gi2').innerHTML              = d.gi2;
+  document.getElementById('gi3').innerHTML              = d.gi3;
+  document.getElementById('gi4').innerHTML              = d.gi4;
+  document.getElementById('tab-login').textContent      = d.tabLogin;
+  document.getElementById('tab-reg').textContent        = d.tabReg;
+  document.getElementById('lbl-log-name').textContent   = d.logName;
+  document.getElementById('lbl-log-phone').textContent  = d.logPhone;
+  document.getElementById('btn-login-label').textContent= d.btnLogin;
+  document.getElementById('lbl-reg-name').textContent   = d.rName;
+  document.getElementById('lbl-reg-father').textContent = d.rFather;
+  document.getElementById('lbl-reg-goth').textContent   = d.rGoth;
+  document.getElementById('lbl-reg-city').textContent   = d.rCity;
+  document.getElementById('lbl-reg-age').textContent    = d.rAge;
+  document.getElementById('reg-age').placeholder        = d.rAgePlaceholder;
+  document.getElementById('reg-phone').placeholder      = d.rPhonePlaceholder;
+  document.getElementById('login-phone').placeholder    = d.logPhonePlaceholder;
+  document.getElementById('lbl-reg-phone').textContent  = d.rPhone;
+  document.getElementById('btn-reg-label').textContent  = d.btnReg;
+  document.getElementById('opt-sel').textContent        = d.optSel;
+  document.getElementById('cloud-msg').textContent      = d.cloudSaving;
+}
+
+/* =========================================================
+   TAB SWITCH
+   ========================================================= */
+function switchTab(t){
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.form-section').forEach(f=>f.classList.remove('active'));
+  if(t==='login'){
+    document.getElementById('tab-login').classList.add('active');
+    document.getElementById('login-form').classList.add('active');
+  } else {
+    document.getElementById('tab-reg').classList.add('active');
+    document.getElementById('reg-form').classList.add('active');
+  }
+}
+
+/* =========================================================
+   LOAD USERS FROM GOOGLE SHEET (Debug Version)
+   ========================================================= */
+async function loadUsersFromSheet() {
+  try {
+    console.log('📥 Loading users from Google Sheet...');
+    console.log('📌 URL:', GOOGLE_SHEET_WEBAPP_URL + '?action=getUsers');
+    
+    const response = await fetch(GOOGLE_SHEET_WEBAPP_URL + '?action=getUsers', {
+      method: "GET"
+    });
+    
+    console.log('📡 Response status:', response.status);
+    
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    
+    const data = await response.json();
+    console.log('📊 Response data:', data);
+    
+    if (data.success && data.users) {
+      // Filter out empty rows
+      const validUsers = data.users.filter(u => u.name && u.name.trim() !== '');
+      console.log('📊 Valid users (non-empty):', validUsers);
+      
+      templeDevoteeDatabase = validUsers.map(user => ({
+        name: user.name || '',
+        phone: user.phone ? user.phone.toString() : '',
+        father: user.father || '',
+        gothram: user.gothram || '',
+        gothramEn: user.gothram || '',
+        city: user.city || '',
+        cityEn: user.city || '',
+        age: user.age || ''
+      }));
+      
+      console.log(`✅ Loaded ${templeDevoteeDatabase.length} users from Google Sheet`);
+      console.log('📋 Database contents:', templeDevoteeDatabase);
+    } else {
+      console.warn('⚠️ No users found in sheet, using default database');
+    }
+    
+  } catch(error) {
+    console.error('❌ Failed to load users from sheet:', error);
+    console.log('⚠️ Using default/local database instead');
+  }
+}
+
+/* =========================================================
+   AUTH HANDLER — With Debug Logging
+   ========================================================= */
+async function handleAuth(e, mode) {
+  e.preventDefault();
+  const d = L[lang];
+
+  if (mode === 'login') {
+    const name = document.getElementById('login-name').value.trim();
+    const phone = document.getElementById('login-phone').value.trim();
+
+    console.log('🔑 Login attempt with:', name, phone);
+    console.log('📋 Current database BEFORE refresh:', templeDevoteeDatabase);
+
+    // Load latest users from sheet
+    await loadUsersFromSheet();
+
+    console.log('📋 Database AFTER refresh:', templeDevoteeDatabase);
+
+    const match = templeDevoteeDatabase.find(u =>
+      u.name.toLowerCase() === name.toLowerCase() && 
+      u.phone.toString() === phone.toString()
+    );
+
+    console.log('✅ Match found?', match);
+
+    if (!match) {
+      alert(d.loginFail);
+      return;
+    }
+
+    const gothram = lang === 'ta' ? match.gothram : match.gothramEn;
+    const city = lang === 'ta' ? match.city : match.cityEn;
+    launchDivineOverlay(name, gothram, city);
+
+  } else {
+    // REGISTRATION — With Age field
+    const name = document.getElementById('reg-name').value.trim();
+    const father = document.getElementById('reg-father').value.trim();
+    const gothram = document.getElementById('reg-gothram').value;
+    const city = document.getElementById('reg-city').value.trim();
+    const age = document.getElementById('reg-age').value.trim();
+    const phone = document.getElementById('reg-phone').value.trim();
+
+    console.log('📝 Name:', name);
+    console.log('🎂 Age:', age);
+    console.log('📱 Phone:', phone);
+
+    if (!gothram) {
+      alert(d.optSel);
+      return;
+    }
+
+    // Validate Age
+    if (!age || isNaN(age) || parseInt(age) < 1 || parseInt(age) > 120) {
+      alert(lang === 'ta' ? 'தயவுசெய்து சரியான வயதை உள்ளிடவும் (1-120).' : 'Please enter a valid age (1-120).');
+      document.getElementById('reg-age').focus();
+      return;
+    }
+
+    // Validate phone
+    if (!phone || phone.length !== 10) {
+      alert(lang === 'ta' ? 'தயவுசெய்து 10 இலக்க கைபேசி எண்ணை உள்ளிடவும்.' : 'Please enter a 10-digit mobile number.');
+      document.getElementById('reg-phone').focus();
+      return;
+    }
+
+    const regBtn = document.getElementById('btn-reg-submit');
+    const regLabel = document.getElementById('btn-reg-label');
+    const toast = document.getElementById('cloud-toast');
+
+    regBtn.disabled = true;
+    regBtn.classList.add('loading');
+    regLabel.textContent = d.saving;
+    toast.classList.add('show');
+
+    try {
+      // 🔍 Check if mobile already exists
+      console.log('🔍 Checking if mobile already exists:', phone);
+      
+      const checkUrl = GOOGLE_SHEET_WEBAPP_URL + '?action=checkMobile&mobile=' + encodeURIComponent(phone);
+      const checkResponse = await fetch(checkUrl, { method: "GET" });
+      
+      if (!checkResponse.ok) {
+        throw new Error(`HTTP error! status: ${checkResponse.status}`);
+      }
+      
+      const checkData = await checkResponse.json();
+      console.log('📊 Mobile check response:', checkData);
+      
+      if (checkData.success && checkData.exists === true) {
+        const errorMsg = lang === 'ta' 
+          ? '❌ இந்த கைபேசி எண் ஏற்கனவே பதிவு செய்யப்பட்டுள்ளது! தயவுசெய்து வேறு எண்ணைப் பயன்படுத்தவும்.' 
+          : '❌ This mobile number is already registered! Please use a different number.';
+        
+        alert(errorMsg);
+        document.getElementById('reg-phone').focus();
+        document.getElementById('reg-phone').select();
+        
+        toast.classList.remove('show');
+        regBtn.disabled = false;
+        regBtn.classList.remove('loading');
+        regLabel.textContent = L[lang].btnReg;
+        return;
+      }
+      
+      // ✅ Mobile is unique - Proceed with registration
+      console.log('✅ Mobile is available, proceeding with registration');
+      
+      const timestamp = new Date().toISOString();
+      const url = GOOGLE_SHEET_WEBAPP_URL + '?' +
+        'timestamp=' + encodeURIComponent(timestamp) +
+        '&fullName=' + encodeURIComponent(name) +
+        '&fatherName=' + encodeURIComponent(father) +
+        '&gothram=' + encodeURIComponent(gothram) +
+        '&city=' + encodeURIComponent(city) +
+        '&age=' + encodeURIComponent(age) +
+        '&mobile=' + encodeURIComponent(phone);
+
+      console.log('📤 Sending registration URL:', url);
+
+      const response = await fetch(url, { method: "GET" });
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      
+      const data = await response.text();
+      console.log('✅ Google Sheet response:', data);
+
+      // Add to local database
+      templeDevoteeDatabase.push({
+        name, phone,
+        father: father,
+        gothram: gothram,
+        gothramEn: gothram,
+        city: city,
+        cityEn: city,
+        age: age
+      });
+
+      // Reload from sheet to sync
+      await loadUsersFromSheet();
+
+      toast.classList.remove('show');
+      regBtn.disabled = false;
+      regBtn.classList.remove('loading');
+      regLabel.textContent = L[lang].btnReg;
+
+      // Show success
+      launchDivineOverlay(name, gothram, city);
+
+      
+
+    } catch (err) {
+      console.error('❌ Registration failed:', err);
+
+      // Still save locally so user can login
+      templeDevoteeDatabase.push({
+        name, phone,
+        father: father,
+        gothram: gothram,
+        gothramEn: gothram,
+        city: city,
+        cityEn: city,
+        age: age
+      });
+
+      toast.classList.remove('show');
+      regBtn.disabled = false;
+      regBtn.classList.remove('loading');
+      regLabel.textContent = L[lang].btnReg;
+
+      alert((lang === 'ta' ? '⚠️ பதிவு செயல்படுத்துவதில் சிக்கல்! ஆனால் உள்ளூரில் சேமிக்கப்பட்டது.' : '⚠️ Registration issue! But saved locally.'));
+      launchDivineOverlay(name, gothram, city);
+    }
+  }
+}
+
+/* =========================================================
+   DIVINE OVERLAY LAUNCH
+   ========================================================= */
+function launchDivineOverlay(name, gothram, city){
+  const d = L[lang];
+  saveUserSession(name, gothram, city);
+  localStorage.setItem('templeUser',    name);
+  localStorage.setItem('templeGothram', gothram);
+  localStorage.setItem('templeCity',    city);
+
+  document.getElementById('success-tag').textContent     = d.successTag;
+  document.getElementById('success-name').textContent    = d.vanakkam + ', ' + name + '!';
+  document.getElementById('success-gothram').textContent =
+    lang==='ta'
+      ? city + d.cityOf + gothram
+      : gothram + d.cityOf + city;
+  document.getElementById('success-blessing').textContent= d.blessing;
+  document.getElementById('btn-continue').textContent    = d.btnContinue;
+  document.getElementById('countdown-label').textContent = d.countLabel;
+  document.getElementById('success-overlay').classList.add('show');
+  spawnParticles();
+  startCountdown();
+}
+
+/* =========================================================
+   COUNTDOWN RING
+   ========================================================= */
+function startCountdown(){
+  if(countdownInterval) clearInterval(countdownInterval);
+  secondsLeft = TOTAL_SECS;
+
+  const numEl  = document.getElementById('countdown-num');
+  const ringEl = document.getElementById('ring-fill');
+  ringEl.style.transition = 'none';
+  ringEl.style.strokeDashoffset = '0';
+  numEl.textContent = secondsLeft;
+
+  setTimeout(()=>{ ringEl.style.transition = 'stroke-dashoffset 1s linear'; }, 50);
+
+  countdownInterval = setInterval(function(){
+    secondsLeft--;
+    numEl.textContent = secondsLeft;
+    const progress = (TOTAL_SECS - secondsLeft) / TOTAL_SECS;
+    ringEl.style.strokeDashoffset = (progress * CIRCUMFERENCE).toFixed(2);
+    if(secondsLeft <= 0){
+      clearInterval(countdownInterval);
+      goDashboard();
+    }
+  }, 1000);
+}
+
+function goDashboard(){
+  if(countdownInterval) clearInterval(countdownInterval);
+  window.location.href = 'home.html';
+  document.getElementById('success-overlay').classList.remove('show');
+}
+
+/* =========================================================
+   PARTICLES
+   ========================================================= */
+function spawnParticles(){
+  const wrap = document.getElementById('particles');
+  wrap.innerHTML = '';
+  const colors = ['#C9963A','#F0C96A','#DAA520','#FFF0A0','#E8B84B'];
+  for(let i=0;i<24;i++){
+    const p = document.createElement('div');
+    p.className = 'particle';
+    const size = 2 + Math.random()*5;
+    p.style.cssText = `left:${5+Math.random()*90}%;top:${20+Math.random()*65}%;background:${colors[Math.floor(Math.random()*colors.length)]};--dur:${3+Math.random()*4}s;--delay:${Math.random()*3}s;width:${size}px;height:${size}px;`;
+    wrap.appendChild(p);
+  }
+}
+
+/* =========================================================
+   LOGOUT
+   ========================================================= */
+function doLogout(){
+  localStorage.removeItem('templeUser');
+  localStorage.removeItem('templeGothram');
+  localStorage.removeItem('templeCity');
+  localStorage.removeItem('templeSession');
+  alert(lang==='ta' ? 'அமர்வு நீக்கப்பட்டது.' : 'Session cleared.');
+}
+
+/* =========================================================
+   LIVE CLOCK
+   ========================================================= */
+function tickClock(){
+  const now = new Date();
+  const opts = {weekday:'short',year:'numeric',month:'short',day:'numeric',hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:true};
+  document.getElementById('clock').textContent = now.toLocaleString(lang==='ta'?'ta-IN':'en-US', opts);
+}
+setInterval(tickClock, 1000);
+tickClock();
+
+/* =========================================================
+   INIT — Load users when page loads (Debug Version)
+   ========================================================= */
+window.onload = async function() {
+  console.log('🚀 Page loaded! Initializing...');
+  
+  tickClock();
+  applyLang();
+  
+  // 🔄 Load users from Google Sheet for validation
+  console.log('📥 Attempting to load users from sheet...');
+  await loadUsersFromSheet();
+  
+  // Log the database after loading
+  console.log('📋 Database after load:', templeDevoteeDatabase);
+  console.log('✅ PachaPooj (AI) — Ready!');
+};
+// ============================================================
+// LOGIN PAGE - Bell & Music Flag
+// ============================================================
+
+const BELL_SOUND_URL = "https://files.catbox.moe/pe3gw7.mp3"; // Replace with your bell URL
+const BG_MUSIC_URL = "https://files.catbox.moe/1wyob8.mp3";
+
+function playWelcomeBell() {
+    console.log("🔔 Playing welcome bell...");
+    const bellAudio = new Audio(BELL_SOUND_URL);
+    bellAudio.volume = 0.5;
+    bellAudio.currentTime =6.5;
+    bellAudio.play()
+        .then(() => console.log("✅ Bell played"))
+        .catch(err => console.log("⚠️ Bell blocked:", err.message));
+}
+
+// ===== UPDATED: Set flag + play bell =====
+function launchDivineOverlay(name, gothram, city) {
+    const d = L[lang];
+    
+    // Save user session
+    saveUserSession(name, gothram, city);
+    localStorage.setItem('templeUser', name);
+    localStorage.setItem('templeGothram', gothram);
+    localStorage.setItem('templeCity', city);
+    
+    // ===== 1. PLAY BELL SOUND (immediately) =====
+    playWelcomeBell();
+    
+    // ===== 2. SET FLAG for Home Page Music =====
+    localStorage.setItem('userInteracted', 'true');  // ✅ This tells Home page to play music
+    localStorage.setItem('bgMusicPreference', 'on');
+    
+    // ===== 3. SHOW SUCCESS OVERLAY =====
+    document.getElementById('success-tag').textContent = d.successTag;
+    document.getElementById('success-name').textContent = d.vanakkam + ', ' + name + '!';
+    document.getElementById('success-gothram').textContent =
+        lang === 'ta'
+            ? city + d.cityOf + gothram
+            : gothram + d.cityOf + city;
+    document.getElementById('success-blessing').textContent = d.blessing;
+    document.getElementById('btn-continue').textContent = d.btnContinue;
+    document.getElementById('countdown-label').textContent = d.countLabel;
+    document.getElementById('success-overlay').classList.add('show');
+    
+    spawnParticles();
+    startCountdown();
+}
+</script>
+</body>
+</html>
