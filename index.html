@@ -546,8 +546,7 @@ function saveUserSession(name, gothram, city) {
         user: name,
         gothram: gothram,
         city: city,
-        loginTime: Date.now(),
-        expiresIn: 24 * 60 * 60 * 1000 // 24 hours
+        loginTime: Date.now()
     };
     localStorage.setItem('templeSession', JSON.stringify(session));
     
