@@ -215,6 +215,160 @@ input:checked + .slider:before {
 
 
 footer{text-align:center;padding:20px;background:#800020;color:#F0C96A;font-size:0.8rem;font-weight:400;margin-top:50px;border-top:2px}
+
+/* ============================================================
+   INVITATION CARD - Login Page
+   ============================================================ */
+.invitation-card-container {
+    max-width: 450px;
+    width: 100%;
+    margin: 20px auto;
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    border: 2px solid #c9963a;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.invitation-card-container:hover {
+    box-shadow: 0 8px 30px rgba(201, 150, 58, 0.15);
+    transform: translateY(-2px);
+}
+
+/* ---- Header ---- */
+.invitation-card-header {
+    background: #800020;
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-bottom: 3px solid #c9963a;
+}
+
+.invitation-card-header i {
+    color: #f0c96a;
+    font-size: 1.3rem;
+}
+
+.invitation-card-header h3 {
+    color: #f0c96a;
+    font-size: 1rem;
+    font-weight: 700;
+    margin: 0;
+    flex: 1;
+}
+
+.invite-badge {
+    background: #c9963a;
+    color: #800020;
+    font-size: 0.65rem;
+    font-weight: 700;
+    padding: 3px 12px;
+    border-radius: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* ---- Body ---- */
+.invitation-card-body {
+    padding: 20px 24px 24px;
+    text-align: center;
+}
+
+.invitation-card-body p {
+    color: #7a5c3c;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin-bottom: 18px;
+}
+
+/* ---- Action Buttons ---- */
+.invitation-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.btn-invite-view,
+.btn-invite-download {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 24px;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: "Mukta Malar", sans-serif;
+    text-decoration: none;
+}
+
+.btn-invite-view {
+    background: #800020;
+    color: #ffffff;
+}
+
+.btn-invite-view:hover {
+    background: #5a0015;
+    transform: scale(1.02);
+}
+
+.btn-invite-download {
+    background: #c9963a;
+    color: #ffffff;
+}
+
+.btn-invite-download:hover {
+    background: #b8860b;
+    transform: scale(1.02);
+}
+
+.btn-invite-view i,
+.btn-invite-download i {
+    font-size: 0.9rem;
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 480px) {
+    .invitation-card-container {
+        margin: 12px auto;
+        border-radius: 12px;
+    }
+    
+    .invitation-card-header {
+        padding: 10px 14px;
+    }
+    
+    .invitation-card-header h3 {
+        font-size: 0.85rem;
+    }
+    
+    .invitation-card-body {
+        padding: 16px 14px 18px;
+    }
+    
+    .invitation-card-body p {
+        font-size: 0.8rem;
+    }
+    
+    .invitation-actions {
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    .btn-invite-view,
+    .btn-invite-download {
+        width: 100%;
+        justify-content: center;
+        padding: 10px 16px;
+        font-size: 0.8rem;
+    }
+  }
+  
 </style>
 </head>
 <body>
@@ -249,6 +403,35 @@ footer{text-align:center;padding:20px;background:#800020;color:#F0C96A;font-size
   <p class="banner-addr" id="lbl-addr">ஸ்ரீ பெரிய நாச்சியம்மன் சமேத ஸ்ரீ வீரிய பெருமாள் அறக்கட்டளை, தென்னூர், திருச்சிராப்பள்ளி - 17</p>
   <span class="fest-badge" id="lbl-fest">திருபச்சை, முப்பூசை மற்றும் பாரிவேட்டை படுகள திருவிழா (ஆடி 2026)</span>
 </header>
+
+
+<!-- ============================================================
+     INVITATION CARD - Login Page
+     ============================================================ -->
+<div class="invitation-card-container" id="loginInvitationCard">
+    <div class="invitation-card-header">
+        <i class="fa-solid fa-envelope"></i>
+        <h3 id="inviteLoginTitle">📜 திருவிழா அழைப்பிதழ்</h3>
+        <span class="invite-badge">PDF</span>
+    </div>
+    
+    <div class="invitation-card-body">
+        <p id="inviteLoginDesc">
+            திருபச்சை, முப்பூசை மற்றும் பாரிவேட்டை படுகள திருவிழாவின் அழைப்பிதழை காணவும் பதிவிறக்கவும்.
+        </p>
+        
+        <div class="invitation-actions">
+            <button class="btn-invite-view" onclick="viewInvitation()">
+                <i class="fa-solid fa-eye"></i>
+                <span id="btnInviteView">👁️ பார்க்க</span>
+            </button>
+            <button class="btn-invite-download" onclick="downloadInvitation()">
+                <i class="fa-solid fa-download"></i>
+                <span id="btnInviteDownload">⬇️ பதிவிறக்க</span>
+            </button>
+        </div>
+    </div>
+</div>
 
 <div class="container">
   <main class="info-card">
@@ -407,10 +590,10 @@ const L = {
     gi3:"<strong>AI பயணத் திட்டம்:</strong> நீங்கள் வரும் நேரத்தைக் குறிப்பிட்டால், உங்களுக்கான சிறப்புத் திட்டத்தை AI வடிவமைக்கும்.",
     gi4:"<strong>முக்கிய வரைபடங்கள்:</strong> காவேரி அய்யாளம்மன் படித்துறை மற்றும் விழா மேடைகளின் வழிகாட்டிகள்.",
     tabLogin:"உள்நுழைவு", tabReg:"புதிய பதிவு",
-    logName:"முழு பெயர் (Full Name) *", logPhone:"கைபேசி எண் (Mobile Number) *", btnLogin:"இணையதளத்திற்குள் செல்க",
+    logName:"பெயர்(Name) *", logPhone:"கைபேசி எண் (Mobile Number) *", btnLogin:"இணையதளத்திற்குள் செல்க",
     logPhonePlaceholder:"10 இலக்க எண்ணை உள்ளிடுக",
     rPhonePlaceholder:"10 இலக்க எண்ணை உள்ளிடுக",
-    rName:"முழு பெயர் (Full Name) *", rFather:"தந்தையின் பெயர் (Father's Name) *",
+    rName:"பெயர் (Name) *", rFather:"தந்தையின் பெயர் (Father's Name) *",
     rGoth:"கோத்திரம் (Gothram) *", rCity:"வசிக்கும் ஊர் (City) *", rAge:"வயது (Age) *", rPhone:"கைபேசி எண் (Mobile Number) *",
     rAgePlaceholder:"உங்கள் வயதை உள்ளிடவும்",
     btnReg:"விவரங்களைச் சேமித்து உள்நுழைக",
@@ -423,7 +606,11 @@ const L = {
     loginFail:"உள்நுழைவு தோல்வி: உங்கள் விவரங்கள் கண்டறியப்படவில்லை! தயவுசெய்து 'புதிய பதிவு' பக்கத்தில் பதிவு செய்யவும்.",
     saving:"சேமிக்கப்படுகிறது...",
     cityOf:" நகரின் ",
-    regSuccess:"பதிவு வெற்றிகரமாக!"
+    regSuccess:"பதிவு வெற்றிகரமாக!",
+    inviteLoginTitle: '📜 திருவிழா அழைப்பிதழ்',
+    inviteLoginDesc: 'திருபச்சை, முப்பூசை மற்றும் பாரிவேட்டை படுகள திருவிழாவின் அழைப்பிதழை காணவும் பதிவிறக்கவும்.',
+    btnInviteView: '👁️ பார்க்க',
+    btnInviteDownload: '⬇️ பதிவிறக்க',
   },
   en:{
     brand:"PachaPooj(AI)", sub:"An AI-powered portal for ease of devotees",
@@ -437,10 +624,10 @@ const L = {
     gi3:"<strong>AI Travel Planner:</strong> Tell us when you're arriving and let AI schedule your ideal ritual attendance.",
     gi4:"<strong>Destination Maps:</strong> Navigation to Cauvery Ayeeammal ghat, procession trails, and transport hubs.",
     tabLogin:"Login", tabReg:"Register",
-    logName:"Full Name *", logPhone:"Mobile Number *", btnLogin:"Enter Divine Portal",
+    logName:"Name *", logPhone:"Mobile Number *", btnLogin:"Enter Divine Portal",
     rPhonePlaceholder:"Enter 10 digit number",
     logPhonePlaceholder:"Enter 10 digit number",
-    rName:"Full Name *", rFather:"Father's Name *",
+    rName:"Name *", rFather:"Father's Name *",
     rGoth:"Gothram (Clan) *", rCity:"City / Town *", rAge:"Age *", rPhone:"Mobile Number *",
     rAgePlaceholder:"Enter your age",
     btnReg:"Save & Enter Portal",
@@ -453,7 +640,11 @@ const L = {
     loginFail:"Login failed: Your details were not found. Please use the Register tab first.",
     saving:"Saving...",
     cityOf:" of ",
-    regSuccess:"Registration Successful!"
+    regSuccess:"Registration Successful!",
+    inviteLoginTitle: '📜 Festival Invitation',
+    inviteLoginDesc: 'View and download the invitation for Thirupachai, Muppoojai and Parivettai Padugalam Festival.',
+    btnInviteView: '👁️ View',
+    btnInviteDownload: '⬇️ Download',
   }
 };
 
@@ -501,6 +692,17 @@ function applyLang(){
   document.getElementById('btn-reg-label').textContent  = d.btnReg;
   document.getElementById('opt-sel').textContent        = d.optSel;
   document.getElementById('cloud-msg').textContent      = d.cloudSaving;
+  const inviteTitle = document.getElementById('inviteLoginTitle');
+  const inviteDesc = document.getElementById('inviteLoginDesc');
+  const btnView = document.getElementById('btnInviteView');
+  const btnDownload = document.getElementById('btnInviteDownload');
+  const badge = document.querySelector('.invite-badge');
+  
+  if (inviteTitle) inviteTitle.textContent = d.inviteLoginTitle;
+  if (inviteDesc) inviteDesc.textContent = d.inviteLoginDesc;
+  if (btnView) btnView.innerHTML = d.btnInviteView;
+  if (btnDownload) btnDownload.innerHTML = d.btnInviteDownload;
+  if (badge) badge.textContent = d.inviteBadge || 'PDF';
 }
 
 /* =========================================================
