@@ -6500,12 +6500,6 @@ faConductText: 'the Temple Administration',
         try {
           const session = JSON.parse(sessionData);
           const elapsed = Date.now() - session.loginTime;
-          const SESSION_DURATION = 30 * 60 * 1000;
-          if (elapsed > SESSION_DURATION) {
-            localStorage.clear();
-            window.location.href = "index.html";
-            return;
-          }
           document.getElementById("user-name").textContent = session.user;
         } catch {
           window.location.href = "index.html";
