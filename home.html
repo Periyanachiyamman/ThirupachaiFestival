@@ -2,7 +2,7 @@
 <html lang="ta">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>PachaPooj(AI) - Temple Home</title>
     <link
       href="https://fonts.googleapis.com/css2?family=Noto+Serif+Tamil:wght@400;600;700&family=Mukta+Malar:wght@400;600;700&display=swap"
@@ -3875,9 +3875,144 @@
     }
 }
 
+/* ============================================================
+   SIMPLE WELCOME POPUP
+   ============================================================ */
+.welcome-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(6px);
+    z-index: 9999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+.welcome-overlay.show {
+    display: flex;
+}
+
+.welcome-popup {
+    max-width: 360px;
+    width: 100%;
+    background: linear-gradient(145deg, #fff, #fdf8f0);
+    border-radius: 24px;
+    padding: 40px 32px 32px;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    border-top: 5px solid var(--gold);
+    animation: popIn 0.4s ease;
+}
+
+@keyframes popIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+.welcome-popup .icon {
+    font-size: 3.5rem;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.welcome-popup h2 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--crimson);
+    margin-bottom: 4px;
+    font-family: 'Noto Serif Tamil', serif;
+}
+
+.welcome-popup .sub {
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin-bottom: 20px;
+}
+
+.welcome-popup .btn-enter {
+    background: var(--crimson);
+    color: #fff;
+    border: none;
+    padding: 14px 50px;
+    border-radius: 40px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-family: 'Mukta Malar', sans-serif;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 4px 16px rgba(128, 0, 32, 0.25);
+}
+.welcome-popup .btn-enter:hover {
+    background: var(--crimson-dark);
+    transform: scale(1.02);
+}
+.welcome-popup .btn-enter i {
+    font-size: 1rem;
+}
+
+/* Language toggle */
+.welcome-popup .lang-toggle-popup {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+.welcome-popup .lang-toggle-popup button {
+    background: transparent;
+    border: 1px solid var(--parchment);
+    border-radius: 16px;
+    padding: 4px 14px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--muted);
+    cursor: pointer;
+    font-family: 'Mukta Malar', sans-serif;
+    transition: all 0.2s;
+}
+.welcome-popup .lang-toggle-popup button.active {
+    background: var(--crimson);
+    color: #fff;
+    border-color: var(--crimson);
+}
+.welcome-popup .lang-toggle-popup button:not(.active):hover {
+    background: var(--parchment);
+}
+
     </style>
   </head>
   <body>
+
+
+   <!-- ============================================================
+     SIMPLE WELCOME POPUP
+     ============================================================ -->
+<div class="welcome-overlay" id="welcomeOverlay">
+    <div class="welcome-popup">
+        <span class="icon">🛕</span>
+        <h2 id="welcome-title">வணக்கம்</h2>
+        <p class="sub" id="welcome-sub">பச்சை பூஜை (AI)</p>
+
+        <!-- Language Toggle -->
+        <div class="lang-toggle-popup">
+            <button class="active" data-lang="ta" onclick="setWelcomeLang('ta', this)">தமிழ்</button>
+            <button data-lang="en" onclick="setWelcomeLang('en', this)">English</button>
+        </div>
+
+        <!-- Enter Button -->
+        <button class="btn-enter" onclick="enterPortal()">
+            <i class="fa-solid fa-arrow-right"></i>
+            <span id="enter-btn-text">உள்நுழை</span>
+        </button>
+    </div>
+</div>
+
     <!-- ============================================================
          SECTION 1: HEADER NAVIGATION
          ============================================================ -->
@@ -5863,6 +5998,111 @@
     </footer>
 
     <script>
+
+      // ============================================================
+// SIMPLE WELCOME POPUP (No Audio Logic)
+// ============================================================
+
+let welcomeLang = 'ta';
+
+// ============================================================
+// LOCALIZATION
+// ============================================================
+const welcomeText = {
+    ta: {
+        title: "வணக்கம்",
+        sub: "பச்சை பூஜை (AI)",
+        enter: "உள்நுழை"
+    },
+    en: {
+        title: "Welcome",
+        sub: "PachaPooj (AI)",
+        enter: "Enter"
+    }
+};
+
+// ============================================================
+// LANGUAGE FUNCTIONS
+// ============================================================
+function setWelcomeLang(lang, btn) {
+    welcomeLang = lang;
+    document.querySelectorAll('.lang-toggle-popup button').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    applyWelcomeLang();
+}
+
+function applyWelcomeLang() {
+    const d = welcomeText[welcomeLang];
+    document.getElementById('welcome-title').textContent = d.title;
+    document.getElementById('welcome-sub').textContent = d.sub;
+    document.getElementById('enter-btn-text').textContent = d.enter;
+}
+
+// ============================================================
+// ENTER PORTAL
+// ============================================================
+function enterPortal() {
+    // Close popup
+    document.getElementById('welcomeOverlay').classList.remove('show');
+    
+    // Save to localStorage so it doesn't show again
+    localStorage.setItem('welcomeSeen', 'true');
+    
+    console.log('🚪 Entered portal');
+}
+
+// ============================================================
+// CHECK IF WELCOME POPUP SHOULD SHOW
+// ============================================================
+function checkWelcomePopup() {
+    // Don't show if user already seen it
+    if (localStorage.getItem('welcomeSeen') === 'true') {
+        return;
+    }
+    
+    // Don't show if user just logged in (within 5 minutes)
+    const sessionData = localStorage.getItem('templeSession');
+    if (sessionData) {
+        try {
+            const session = JSON.parse(sessionData);
+            if (Date.now() - session.loginTime < 5 * 60 * 1000) {
+                return;
+            }
+        } catch (e) {}
+    }
+    
+    // Show popup
+    setTimeout(() => {
+        document.getElementById('welcomeOverlay').classList.add('show');
+    }, 500);
+}
+
+// ============================================================
+// SYNC WITH MAIN LANGUAGE TOGGLE
+// ============================================================
+function syncWelcomeLang(mainLang) {
+    welcomeLang = mainLang;
+    applyWelcomeLang();
+    document.querySelectorAll('.lang-toggle-popup button').forEach(b => {
+        b.classList.toggle('active', b.dataset.lang === mainLang);
+    });
+}
+
+// ============================================================
+// INIT
+// ============================================================
+document.addEventListener('DOMContentLoaded', function() {
+    setTimeout(checkWelcomePopup, 600);
+});
+
+// ============================================================
+// EXPOSE GLOBALLY
+// ============================================================
+window.enterPortal = enterPortal;
+window.setWelcomeLang = setWelcomeLang;
+window.syncWelcomeLang = syncWelcomeLang;
+
+      
       /* ============================================================
            COMPLETE JAVASCRIPT - All Sections
            ============================================================ */
@@ -5871,7 +6111,7 @@
       // CONFIG
       // ============================================================
       const SCRIPT_URL =
-        "https://script.google.com/macros/s/AKfycbxOKHQJgPPpLNBeIyoFXJoxk2F7gQlu9afzYIGY_gGUfA3imjEf7exkNoYHRlgBh2gWMw/exec";
+        "https://script.google.com/macros/s/AKfycbze19ELFkwa8MI6tZavEd-1R3Ke6ZXHRIpqEQqZ8aZmp_dI8vfVvBvfjnaH1vFSYrE6jQ/exec";
       const FOLDER_ID = "1pEgZIY6H8PlGbjP6fDykSrwPRDkxwrmo";
       const PLACEHOLDER =
         'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="150" viewBox="0 0 200 150"%3E%3Crect width="200" height="150" fill="%23e8e0d8"/%3E%3Ctext x="100" y="80" font-family="Arial" font-size="16" fill="%23999" text-anchor="middle"%3E🖼️%3C/text%3E%3C/svg%3E';
@@ -6781,6 +7021,7 @@ historyTitle: '📜 Temple History',
         updateUPILabel()
         updateFestivalArrangement();
         updateContactsLanguage(lang);
+        syncWelcomeLang(lang);
 
         if (
           document.getElementById("galleryModal").classList.contains("show")
@@ -8135,499 +8376,563 @@ function downloadInvitation() {
     window.open(pdfUrl, "_blank");
 }
 
-      // ============================================================
-      // SECTION 5: PHOTO GALLERY
-      // ============================================================
-      let selectedFile = null;
-      let allPhotos = [];
-
-      // Upload Modal
-      const dropZone = document.getElementById("dropZone");
-      const fileInput = document.getElementById("fileInput");
-
-      dropZone.addEventListener("dragover", function (e) {
-        e.preventDefault();
-        this.classList.add("dragover");
-      });
-      dropZone.addEventListener("dragleave", function (e) {
-        e.preventDefault();
-        this.classList.remove("dragover");
-      });
-      dropZone.addEventListener("drop", function (e) {
-        e.preventDefault();
-        this.classList.remove("dragover");
-        if (e.dataTransfer.files && e.dataTransfer.files[0])
-          handleFile(e.dataTransfer.files[0]);
-      });
-
-      fileInput.addEventListener("change", function () {
-        if (this.files && this.files[0]) handleFile(this.files[0]);
-      });
-
-      function handleFile(file) {
-        const validTypes = ["image/jpeg", "image/jpg", "image/png"];
-        if (!validTypes.includes(file.type)) {
-          showUploadMsg(
-            "⚠️ JPEG, JPG, PNG மட்டும் / Only JPEG, JPG, PNG",
-            "error",
-          );
-          return;
-        }
-        selectedFile = file;
-        document.getElementById("fileNameDisplay").textContent = file.name;
-        document.getElementById("fileSizeDisplay").textContent =
-          (file.size / 1024 / 1024).toFixed(2) + " MB";
-        const reader = new FileReader();
-        reader.onload = function (e) {
-          const img = document.getElementById("previewImg");
-          img.src = e.target.result;
-          img.style.display = "block";
-          document.getElementById("filePreview").style.display = "block";
-        };
-        reader.readAsDataURL(file);
-        document.getElementById("uploadSubmitBtn").disabled = false;
-        clearUploadMsg();
+// ============================================================
+// HELPER: Get current user name from localStorage
+// ============================================================
+function getCurrentUserName() {
+  console.log('🔍 Getting user name from localStorage...');
+  
+  // Try session data first (most reliable)
+  const sessionData = localStorage.getItem('templeSession');
+  if (sessionData) {
+    try {
+      const session = JSON.parse(sessionData);
+      console.log('📋 Session data:', session);
+      if (session && session.user) {
+        console.log('✅ User name from session:', session.user);
+        return session.user;
       }
-
-      function showUploadMsg(text, type) {
-        const msg = document.getElementById("uploadMsg");
-        msg.textContent = text;
-        msg.className = "msg show " + type;
+    } catch (e) {
+      console.error('❌ Error parsing session:', e);
+    }
+  }
+  
+  // Try legacy templeUser
+  const legacyUser = localStorage.getItem('templeUser');
+  if (legacyUser) {
+    console.log('✅ User name from templeUser:', legacyUser);
+    return legacyUser;
+  }
+  
+  // Try userData
+  const userData = localStorage.getItem('templeUserData');
+  if (userData) {
+    try {
+      const data = JSON.parse(userData);
+      if (data && data.name) {
+        console.log('✅ User name from userData:', data.name);
+        return data.name;
       }
+    } catch (e) {
+      console.error('❌ Error parsing userData:', e);
+    }
+  }
+  
+  console.log('❌ No user found in localStorage');
+  return 'User';
+}
 
-      function clearUploadMsg() {
-        const msg = document.getElementById("uploadMsg");
-        msg.classList.remove("show", "success", "error");
-        msg.textContent = "";
-      }
+// ============================================================
+// SECTION 5: PHOTO GALLERY
+// ============================================================
+let selectedFile = null;
+let allPhotos = [];
 
-      function compressImage(file, maxMB) {
-        return new Promise((resolve, reject) => {
-          const reader = new FileReader();
-          reader.onload = function (e) {
-            const img = new Image();
-            img.onload = function () {
-              const canvas = document.createElement("canvas");
-              let w = img.width,
-                h = img.height;
-              const maxDim = 1600;
-              if (w > maxDim || h > maxDim) {
-                if (w > h) {
-                  h = (h * maxDim) / w;
-                  w = maxDim;
-                } else {
-                  w = (w * maxDim) / h;
-                  h = maxDim;
-                }
-              }
-              canvas.width = w;
-              canvas.height = h;
-              const ctx = canvas.getContext("2d");
-              ctx.drawImage(img, 0, 0, w, h);
-              let quality = 0.92;
-              const tryCompress = (q) => {
-                canvas.toBlob(
-                  function (b) {
-                    if (b.size / (1024 * 1024) <= maxMB || q <= 0.1) resolve(b);
-                    else tryCompress(q - 0.1);
-                  },
-                  "image/jpeg",
-                  q,
-                );
-              };
-              tryCompress(quality);
-            };
-            img.onerror = () => reject(new Error("Failed to load image"));
-            img.src = e.target.result;
-          };
-          reader.onerror = () => reject(new Error("Failed to read file"));
-          reader.readAsDataURL(file);
-        });
-      }
+// Upload Modal
+const dropZone = document.getElementById("dropZone");
+const fileInput = document.getElementById("fileInput");
 
-      function uploadPhotoSubmit() {
-        if (!selectedFile) {
-          showUploadMsg(
-            "⚠️ படத்தை தேர்ந்தெடுக்கவும் / Select an image",
-            "error",
-          );
-          return;
-        }
-        const place = document.getElementById("placeSelect").value;
-        const userName =
-          document.getElementById("userNameInput")?.value?.trim() || "User";
-        const description = document.getElementById("descInput").value.trim();
-        const btn = document.getElementById("uploadSubmitBtn");
-        btn.disabled = true;
-        btn.innerHTML =
-          "⏳ " + (lang === "ta" ? "பதிவேற்றுகிறது..." : "Uploading...");
+dropZone.addEventListener("dragover", function (e) {
+  e.preventDefault();
+  this.classList.add("dragover");
+});
+dropZone.addEventListener("dragleave", function (e) {
+  e.preventDefault();
+  this.classList.remove("dragover");
+});
+dropZone.addEventListener("drop", function (e) {
+  e.preventDefault();
+  this.classList.remove("dragover");
+  if (e.dataTransfer.files && e.dataTransfer.files[0])
+    handleFile(e.dataTransfer.files[0]);
+});
 
-        compressImage(selectedFile, 4)
-          .then((blob) => {
-            const fileSize = (blob.size / 1024 / 1024).toFixed(2) + " MB";
-            const reader = new FileReader();
-            reader.onload = function (e) {
-              const base64 = e.target.result.split(",")[1];
-              const formData = new FormData();
-              formData.append("action", "uploadPhoto");
-              formData.append("userName", userName);
-              formData.append("fileName", selectedFile.name);
-              formData.append("fileData", base64);
-              formData.append("description", description);
-              formData.append("place", place);
-              formData.append(
-                "photoDate",
-                new Date().toISOString().split("T")[0],
-              );
-              formData.append("fileSize", fileSize);
-              formData.append("folderId", FOLDER_ID);
+fileInput.addEventListener("change", function () {
+  if (this.files && this.files[0]) handleFile(this.files[0]);
+});
 
-              fetch(SCRIPT_URL, { method: "POST", body: formData })
-                .then((res) => res.json())
-                .then((data) => {
-                  btn.disabled = false;
-                  btn.innerHTML =
-                    '<i class="fa-solid fa-upload"></i> ' + t("uploadBtnText");
-                  if (data.success) {
-                    showUploadMsg("✅ " + t("uploadSuccess"), "success");
-                    resetUpload();
-                    loadGalleryContent();
-                    loadMyPhotos();
-                    loadContributions();
-                  } else if (data.error === "DUPLICATE") {
-                    showUploadMsg("⚠️ " + t("uploadDuplicate"), "error");
-                  } else {
-                    showUploadMsg(
-                      "❌ " + t("uploadFail") + ": " + (data.error || ""),
-                      "error",
-                    );
-                  }
-                })
-                .catch((err) => {
-                  btn.disabled = false;
-                  btn.innerHTML =
-                    '<i class="fa-solid fa-upload"></i> ' + t("uploadBtnText");
-                  showUploadMsg(
-                    "❌ " + t("uploadFail") + ": " + err.message,
-                    "error",
-                  );
-                });
-            };
-            reader.readAsDataURL(blob);
-          })
-          .catch((err) => {
-            btn.disabled = false;
-            btn.innerHTML =
-              '<i class="fa-solid fa-upload"></i> ' + t("uploadBtnText");
-            showUploadMsg(
-              "❌ " + t("uploadFail") + ": " + err.message,
-              "error",
-            );
-          });
-      }
+function handleFile(file) {
+  const validTypes = ["image/jpeg", "image/jpg", "image/png"];
+  if (!validTypes.includes(file.type)) {
+    showUploadMsg(
+      "⚠️ JPEG, JPG, PNG மட்டும் / Only JPEG, JPG, PNG",
+      "error",
+    );
+    return;
+  }
+  selectedFile = file;
+  document.getElementById("fileNameDisplay").textContent = file.name;
+  document.getElementById("fileSizeDisplay").textContent =
+    (file.size / 1024 / 1024).toFixed(2) + " MB";
+  const reader = new FileReader();
+  reader.onload = function (e) {
+    const img = document.getElementById("previewImg");
+    img.src = e.target.result;
+    img.style.display = "block";
+    document.getElementById("filePreview").style.display = "block";
+  };
+  reader.readAsDataURL(file);
+  document.getElementById("uploadSubmitBtn").disabled = false;
+  clearUploadMsg();
+}
 
-      function resetUpload() {
-        selectedFile = null;
-        fileInput.value = "";
-        document.getElementById("fileNameDisplay").textContent = "";
-        document.getElementById("fileSizeDisplay").textContent = "";
-        document.getElementById("previewImg").style.display = "none";
-        document.getElementById("filePreview").style.display = "none";
-        document.getElementById("descInput").value = "";
-        document.getElementById("uploadSubmitBtn").disabled = true;
-      }
+function showUploadMsg(text, type) {
+  const msg = document.getElementById("uploadMsg");
+  msg.textContent = text;
+  msg.className = "msg show " + type;
+}
 
-      // Upload button click
-      document
-        .getElementById("uploadBtn")
-        .addEventListener("click", function () {
-          document.getElementById("uploadModal").classList.add("show");
-          document.body.style.overflow = "hidden";
-        });
+function clearUploadMsg() {
+  const msg = document.getElementById("uploadMsg");
+  msg.classList.remove("show", "success", "error");
+  msg.textContent = "";
+}
 
-      // Gallery button click
-      document
-        .getElementById("galleryBtn")
-        .addEventListener("click", function () {
-          document.getElementById("galleryModal").classList.add("show");
-          document.body.style.overflow = "hidden";
-          loadGalleryContent();
-        });
-
-      // Upload submit
-      document
-        .getElementById("uploadSubmitBtn")
-        .addEventListener("click", uploadPhotoSubmit);
-
-      function closeModal(id) {
-        document.getElementById(id).classList.remove("show");
-        document.body.style.overflow = "auto";
-        clearUploadMsg();
-      }
-
-      document.querySelectorAll(".modal-overlay").forEach((overlay) => {
-        overlay.addEventListener("click", function (e) {
-          if (e.target === this) {
-            this.classList.remove("show");
-            document.body.style.overflow = "auto";
-            clearUploadMsg();
+function compressImage(file, maxMB) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = function (e) {
+      const img = new Image();
+      img.onload = function () {
+        const canvas = document.createElement("canvas");
+        let w = img.width,
+          h = img.height;
+        const maxDim = 1600;
+        if (w > maxDim || h > maxDim) {
+          if (w > h) {
+            h = (h * maxDim) / w;
+            w = maxDim;
+          } else {
+            w = (w * maxDim) / h;
+            h = maxDim;
           }
-        });
-      });
-
-      // Load Gallery Content
-      function loadGalleryContent() {
-        const container = document.getElementById("galleryContent");
-        container.innerHTML =
-          '<div class="loading">⏳ ' +
-          (lang === "ta" ? "பதிவிறக்குகிறது..." : "Loading...") +
-          "</div>";
-
-        fetch(SCRIPT_URL + "?action=getPhotos")
-          .then((res) => res.json())
-          .then((data) => {
-            if (data.success && data.photos) {
-              allPhotos = data.photos;
-              renderGalleryContent(allPhotos);
-              loadContributions();
-            } else {
-              container.innerHTML =
-                '<div class="no-photos">📭 ' + t("noPhotos") + "</div>";
-            }
-          })
-          .catch((err) => {
-            container.innerHTML =
-              '<div class="no-photos">❌ ' + t("uploadFail") + "</div>";
-          });
-      }
-
-      function renderGalleryContent(photos) {
-        const container = document.getElementById("galleryContent");
-        if (!photos || photos.length === 0) {
-          container.innerHTML =
-            '<div class="no-photos">📭 ' + t("noPhotos") + "</div>";
-          return;
         }
+        canvas.width = w;
+        canvas.height = h;
+        const ctx = canvas.getContext("2d");
+        ctx.drawImage(img, 0, 0, w, h);
+        let quality = 0.92;
+        const tryCompress = (q) => {
+          canvas.toBlob(
+            function (b) {
+              if (b.size / (1024 * 1024) <= maxMB || q <= 0.1) resolve(b);
+              else tryCompress(q - 0.1);
+            },
+            "image/jpeg",
+            q,
+          );
+        };
+        tryCompress(quality);
+      };
+      img.onerror = () => reject(new Error("Failed to load image"));
+      img.src = e.target.result;
+    };
+    reader.onerror = () => reject(new Error("Failed to read file"));
+    reader.readAsDataURL(file);
+  });
+}
 
-        const groups = {};
-        photos.forEach((p) => {
-          const place = p.place || "Other";
-          if (!groups[place]) groups[place] = [];
-          groups[place].push(p);
-        });
+function uploadPhotoSubmit() {
+  if (!selectedFile) {
+    showUploadMsg(
+      "⚠️ படத்தை தேர்ந்தெடுக்கவும் / Select an image",
+      "error",
+    );
+    return;
+  }
 
-        let html = "";
-        let groupIndex = 0;
-        for (const [place, items] of Object.entries(groups)) {
-          const isOpen = groupIndex === 0 ? "open" : "";
-          const arrowClass = groupIndex === 0 ? "open" : "";
-          const firstItem = items[0];
-          const thumbUrl = firstItem
-            ? `https://drive.google.com/thumbnail?authuser=0&sz=w100&id=${firstItem.fileId}`
-            : PLACEHOLDER;
+  // ✅ Get user name from localStorage
+  const userName = getCurrentUserName();
+  console.log('👤 Uploading as user:', userName);
+  
+  if (userName === 'User' || !userName) {
+    showUploadMsg('⚠️ பயனர் பெயர் கிடைக்கவில்லை / User name not found', 'error');
+    return;
+  }
 
-          html += `
-                    <div class="group-card">
-                        <div class="group-header" onclick="toggleGroup(this)">
-                            <img src="${thumbUrl}" alt="${place}" class="thumb" loading="lazy" onerror="this.src='${PLACEHOLDER}'">
-                            <div class="info">
-                                <h4>${place}</h4>
-                                <span>${items.length} ${lang === "ta" ? "புகைப்படங்கள்" : "photos"}</span>
-                            </div>
-                            <span class="arrow ${arrowClass}"><i class="fa-solid fa-chevron-down"></i></span>
-                        </div>
-                        <div class="group-images ${isOpen}" id="group-${groupIndex}">
-                            ${items
-                              .map((p) => {
-                                const imgUrl = `https://drive.google.com/thumbnail?authuser=0&sz=w400&id=${p.fileId}`;
-                                return `
-                                <div class="gallery-item">
-                                    <div class="img-wrap">
-                                        <img src="${imgUrl}" alt="${p.fileName}" loading="lazy" onerror="this.style.display='none';this.parentElement.querySelector('.fallback-icon').style.display='block'">
-                                        <div class="fallback-icon" style="display:none;">🖼️</div>
-                                    </div>
-                                    <div class="meta">
-                                        <div class="uploader">👤 ${p.userName}</div>
-                                        ${p.description ? `<div class="desc">📝 ${p.description}</div>` : ""}
-                                        <div class="date">📅 ${p.photoDate ? p.photoDate.split("T")[0] : ""}</div>
-                                    </div>
-                                    <button class="btn-download" onclick="downloadPhoto('${p.fileId}', '${p.fileName}')">
-                                        <i class="fa-solid fa-download"></i> ${t("download")}
-                                    </button>
-                                </div>
-                            `;
-                              })
-                              .join("")}
-                        </div>
-                    </div>
-                `;
-          groupIndex++;
-        }
-        container.innerHTML = html;
-      }
+  const place = document.getElementById("placeSelect").value;
+  const description = document.getElementById("descInput").value.trim();
+  const btn = document.getElementById("uploadSubmitBtn");
+  btn.disabled = true;
+  btn.innerHTML = "⏳ " + (lang === "ta" ? "பதிவேற்றுகிறது..." : "Uploading...");
 
-      function toggleGroup(el) {
-        const group = el.parentElement.querySelector(".group-images");
-        const arrow = el.querySelector(".arrow");
-        if (group) {
-          group.classList.toggle("open");
-          if (arrow) arrow.classList.toggle("open");
-        }
-      }
-
-      function downloadPhoto(fileId, fileName) {
-        const url = `https://drive.google.com/uc?export=download&id=${fileId}`;
-        const link = document.createElement("a");
-        link.href = url;
-        link.download = fileName || "photo.jpg";
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-      }
-
-      // Load My Photos
-      function loadMyPhotos() {
-        const container = document.getElementById("myPhotosContainer");
-        const userName =
-          document.getElementById("userNameInput")?.value?.trim() || "User";
-        if (!container) return;
-
-        container.innerHTML =
-          '<div class="loading">⏳ ' +
-          (lang === "ta"
-            ? "உங்கள் புகைப்படங்களை பதிவிறக்குகிறது..."
-            : "Loading your photos...") +
-          "</div>";
-
-        fetch(
-          SCRIPT_URL +
-            "?action=getUserPhotos&userName=" +
-            encodeURIComponent(userName),
-        )
-          .then((res) => res.json())
-          .then((data) => {
-            if (data.success && data.photos && data.photos.length > 0) {
-              renderMyPhotos(data.photos);
-            } else {
-              container.innerHTML = `<div class="no-photos">📭 ${t("noMyPhotos")}</div>`;
-            }
-          })
-          .catch((err) => {
-            container.innerHTML = `<div class="no-photos">❌ ${t("deleteFail")}</div>`;
-          });
-      }
-
-      function renderMyPhotos(photos) {
-        const container = document.getElementById("myPhotosContainer");
-        let html = `<div style="font-size:0.8rem;color:#888;margin-bottom:6px;">${t("myPhotos")} (${photos.length})</div>`;
-        html += `<div class="my-photos-grid">`;
-        photos.forEach((p) => {
-          const imgUrl = `https://drive.google.com/thumbnail?authuser=0&sz=w200&id=${p.fileId}`;
-          html += `
-                    <div class="my-photo-item">
-                        <div class="img-wrap">
-                            <img src="${imgUrl}" alt="${p.fileName}" loading="lazy" onerror="this.style.display='none';this.parentElement.querySelector('.fallback-icon').style.display='block'">
-                            <div class="fallback-icon" style="display:none;">🖼️</div>
-                        </div>
-                        <div class="info">
-                            <div class="place">📍 ${p.place || "Other"}</div>
-                            ${p.description ? `<div>${p.description}</div>` : ""}
-                        </div>
-                        <button class="btn-delete" onclick="deleteMyPhoto('${p.fileId}', '${p.fileName}')">
-                            <i class="fa-solid fa-trash"></i> ${t("delete")}
-                        </button>
-                    </div>
-                `;
-        });
-        html += `</div>`;
-        container.innerHTML = html;
-      }
-
-      function deleteMyPhoto(fileId, fileName) {
-        if (!confirm(t("deleteConfirm"))) return;
-        const userName =
-          document.getElementById("userNameInput")?.value?.trim() || "User";
+  compressImage(selectedFile, 4)
+    .then((blob) => {
+      const fileSize = (blob.size / 1024 / 1024).toFixed(2) + " MB";
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        const base64 = e.target.result.split(",")[1];
         const formData = new FormData();
-        formData.append("action", "deletePhoto");
-        formData.append("fileId", fileId);
+        formData.append("action", "uploadPhoto");
         formData.append("userName", userName);
+        formData.append("fileName", selectedFile.name);
+        formData.append("fileData", base64);
+        formData.append("description", description);
+        formData.append("place", place);
+        formData.append("photoDate", new Date().toISOString().split("T")[0]);
+        formData.append("fileSize", fileSize);
+        formData.append("folderId", FOLDER_ID);
 
         fetch(SCRIPT_URL, { method: "POST", body: formData })
           .then((res) => res.json())
           .then((data) => {
+            btn.disabled = false;
+            btn.innerHTML = '<i class="fa-solid fa-upload"></i> ' + t("uploadBtnText");
             if (data.success) {
-              showUploadMsg("✅ " + t("deleteSuccess"), "success");
-              loadMyPhotos();
+              showUploadMsg("✅ " + t("uploadSuccess"), "success");
+              resetUpload();
               loadGalleryContent();
+              loadMyPhotos();
               loadContributions();
+            } else if (data.error === "DUPLICATE") {
+              showUploadMsg("⚠️ " + t("uploadDuplicate"), "error");
             } else {
-              showUploadMsg(
-                "❌ " + t("deleteFail") + ": " + (data.error || ""),
-                "error",
-              );
+              showUploadMsg("❌ " + t("uploadFail") + ": " + (data.error || ""), "error");
             }
           })
           .catch((err) => {
-            showUploadMsg(
-              "❌ " + t("deleteFail") + ": " + err.message,
-              "error",
-            );
+            btn.disabled = false;
+            btn.innerHTML = '<i class="fa-solid fa-upload"></i> ' + t("uploadBtnText");
+            showUploadMsg("❌ " + t("uploadFail") + ": " + err.message, "error");
           });
-      }
+      };
+      reader.readAsDataURL(blob);
+    })
+    .catch((err) => {
+      btn.disabled = false;
+      btn.innerHTML = '<i class="fa-solid fa-upload"></i> ' + t("uploadBtnText");
+      showUploadMsg("❌ " + t("uploadFail") + ": " + err.message, "error");
+    });
+}
 
-      // Load Contributions
-      function loadContributions() {
-        const userName =
-          document.getElementById("userNameInput")?.value?.trim() || "User";
-        fetch(
-          SCRIPT_URL +
-            "?action=getUserPhotos&userName=" +
-            encodeURIComponent(userName),
-        )
-          .then((res) => res.json())
-          .then((data) => {
-            if (data.success && data.photos) {
-              const total = data.photos.length;
-              document.getElementById("stat-total").textContent = total;
-              // Update individual stats
-              const stats = {
-                "Main Temple": 0,
-                "Cauvery River": 0,
-                "Procession Area": 0,
-                "Alongside Pond": 0,
-                "Other Temple Areas": 0,
-              };
-              data.photos.forEach((p) => {
-                if (stats[p.place] !== undefined) stats[p.place]++;
-              });
-              document.getElementById("stat-temple").textContent =
-                stats["Main Temple"];
-              document.getElementById("stat-cauvery").textContent =
-                stats["Cauvery River"];
-              document.getElementById("stat-procession").textContent =
-                stats["Procession Area"];
-              document.getElementById("stat-pond").textContent =
-                stats["Alongside Pond"];
-              document.getElementById("stat-other").textContent =
-                stats["Other Temple Areas"];
-            } else {
-              document.getElementById("stat-total").textContent = "0";
-              document.getElementById("stat-temple").textContent = "0";
-              document.getElementById("stat-cauvery").textContent = "0";
-              document.getElementById("stat-procession").textContent = "0";
-              document.getElementById("stat-pond").textContent = "0";
-              document.getElementById("stat-other").textContent = "0";
-            }
-          })
-          .catch(() => {
-            document.getElementById("stat-total").textContent = "0";
-            document.getElementById("stat-temple").textContent = "0";
-            document.getElementById("stat-cauvery").textContent = "0";
-            document.getElementById("stat-procession").textContent = "0";
-            document.getElementById("stat-pond").textContent = "0";
-            document.getElementById("stat-other").textContent = "0";
-          });
+function resetUpload() {
+  selectedFile = null;
+  fileInput.value = "";
+  document.getElementById("fileNameDisplay").textContent = "";
+  document.getElementById("fileSizeDisplay").textContent = "";
+  document.getElementById("previewImg").style.display = "none";
+  document.getElementById("filePreview").style.display = "none";
+  document.getElementById("descInput").value = "";
+  document.getElementById("uploadSubmitBtn").disabled = true;
+}
+
+// Upload button click
+document
+  .getElementById("uploadBtn")
+  .addEventListener("click", function () {
+    document.getElementById("uploadModal").classList.add("show");
+    document.body.style.overflow = "hidden";
+  });
+
+// Gallery button click
+document
+  .getElementById("galleryBtn")
+  .addEventListener("click", function () {
+    document.getElementById("galleryModal").classList.add("show");
+    document.body.style.overflow = "hidden";
+    loadGalleryContent();
+  });
+
+// Upload submit
+document
+  .getElementById("uploadSubmitBtn")
+  .addEventListener("click", uploadPhotoSubmit);
+
+function closeModal(id) {
+  document.getElementById(id).classList.remove("show");
+  document.body.style.overflow = "auto";
+  clearUploadMsg();
+}
+
+document.querySelectorAll(".modal-overlay").forEach((overlay) => {
+  overlay.addEventListener("click", function (e) {
+    if (e.target === this) {
+      this.classList.remove("show");
+      document.body.style.overflow = "auto";
+      clearUploadMsg();
+    }
+  });
+});
+
+// Load Gallery Content
+function loadGalleryContent() {
+  const container = document.getElementById("galleryContent");
+  container.innerHTML =
+    '<div class="loading">⏳ ' +
+    (lang === "ta" ? "பதிவிறக்குகிறது..." : "Loading...") +
+    "</div>";
+
+  fetch(SCRIPT_URL + "?action=getPhotos")
+    .then((res) => res.json())
+    .then((data) => {
+      if (data.success && data.photos) {
+        allPhotos = data.photos;
+        renderGalleryContent(allPhotos);
+        loadContributions();
+      } else {
+        container.innerHTML =
+          '<div class="no-photos">📭 ' + t("noPhotos") + "</div>";
       }
+    })
+    .catch((err) => {
+      container.innerHTML =
+        '<div class="no-photos">❌ ' + t("uploadFail") + "</div>";
+    });
+}
+
+function renderGalleryContent(photos) {
+  const container = document.getElementById("galleryContent");
+  if (!photos || photos.length === 0) {
+    container.innerHTML =
+      '<div class="no-photos">📭 ' + t("noPhotos") + "</div>";
+    return;
+  }
+
+  const groups = {};
+  photos.forEach((p) => {
+    const place = p.place || "Other";
+    if (!groups[place]) groups[place] = [];
+    groups[place].push(p);
+  });
+
+  let html = "";
+  let groupIndex = 0;
+  for (const [place, items] of Object.entries(groups)) {
+    const isOpen = groupIndex === 0 ? "open" : "";
+    const arrowClass = groupIndex === 0 ? "open" : "";
+    const firstItem = items[0];
+    const thumbUrl = firstItem
+      ? `https://drive.google.com/thumbnail?authuser=0&sz=w100&id=${firstItem.fileId}`
+      : PLACEHOLDER;
+
+    html += `
+              <div class="group-card">
+                  <div class="group-header" onclick="toggleGroup(this)">
+                      <img src="${thumbUrl}" alt="${place}" class="thumb" loading="lazy" onerror="this.src='${PLACEHOLDER}'">
+                      <div class="info">
+                          <h4>${place}</h4>
+                          <span>${items.length} ${lang === "ta" ? "புகைப்படங்கள்" : "photos"}</span>
+                      </div>
+                      <span class="arrow ${arrowClass}"><i class="fa-solid fa-chevron-down"></i></span>
+                  </div>
+                  <div class="group-images ${isOpen}" id="group-${groupIndex}">
+                      ${items
+                        .map((p) => {
+                          const imgUrl = `https://drive.google.com/thumbnail?authuser=0&sz=w400&id=${p.fileId}`;
+                          return `
+                          <div class="gallery-item">
+                              <div class="img-wrap">
+                                  <img src="${imgUrl}" alt="${p.fileName}" loading="lazy" onerror="this.style.display='none';this.parentElement.querySelector('.fallback-icon').style.display='block'">
+                                  <div class="fallback-icon" style="display:none;">🖼️</div>
+                              </div>
+                              <div class="meta">
+                                  <div class="uploader">👤 ${p.userName}</div>
+                                  ${p.description ? `<div class="desc">📝 ${p.description}</div>` : ""}
+                                  <div class="date">📅 ${p.photoDate ? p.photoDate.split("T")[0] : ""}</div>
+                              </div>
+                              <button class="btn-download" onclick="downloadPhoto('${p.fileId}', '${p.fileName}')">
+                                  <i class="fa-solid fa-download"></i> ${t("download")}
+                              </button>
+                          </div>
+                      `;
+                        })
+                        .join("")}
+                  </div>
+              </div>
+          `;
+    groupIndex++;
+  }
+  container.innerHTML = html;
+}
+
+function toggleGroup(el) {
+  const group = el.parentElement.querySelector(".group-images");
+  const arrow = el.querySelector(".arrow");
+  if (group) {
+    group.classList.toggle("open");
+    if (arrow) arrow.classList.toggle("open");
+  }
+}
+
+function downloadPhoto(fileId, fileName) {
+  const url = `https://drive.google.com/uc?export=download&id=${fileId}`;
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = fileName || "photo.jpg";
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+}
+
+// Load My Photos
+function loadMyPhotos() {
+  const container = document.getElementById("myPhotosContainer");
+  if (!container) return;
+
+  // ✅ Get user name from localStorage
+  const userName = getCurrentUserName();
+  console.log('📸 Loading my photos for user:', userName);
+
+  if (userName === 'User' || !userName) {
+    container.innerHTML = `<div class="no-photos">📭 ${t('noMyPhotos')}</div>`;
+    return;
+  }
+
+  container.innerHTML =
+    '<div class="loading">⏳ ' +
+    (lang === "ta"
+      ? "உங்கள் புகைப்படங்களை பதிவிறக்குகிறது..."
+      : "Loading your photos...") +
+    "</div>";
+
+  fetch(
+    SCRIPT_URL +
+      "?action=getUserPhotos&userName=" +
+      encodeURIComponent(userName),
+  )
+    .then((res) => res.json())
+    .then((data) => {
+      if (data.success && data.photos && data.photos.length > 0) {
+        renderMyPhotos(data.photos);
+      } else {
+        container.innerHTML = `<div class="no-photos">📭 ${t("noMyPhotos")}</div>`;
+      }
+    })
+    .catch(() => {
+      container.innerHTML = `<div class="no-photos">❌ ${t("deleteFail")}</div>`;
+    });
+}
+
+function renderMyPhotos(photos) {
+  const container = document.getElementById("myPhotosContainer");
+  let html = `<div style="font-size:0.8rem;color:#888;margin-bottom:6px;">${t("myPhotos")} (${photos.length})</div>`;
+  html += `<div class="my-photos-grid">`;
+  photos.forEach((p) => {
+    const imgUrl = `https://drive.google.com/thumbnail?authuser=0&sz=w200&id=${p.fileId}`;
+    html += `
+              <div class="my-photo-item">
+                  <div class="img-wrap">
+                      <img src="${imgUrl}" alt="${p.fileName}" loading="lazy" onerror="this.style.display='none';this.parentElement.querySelector('.fallback-icon').style.display='block'">
+                      <div class="fallback-icon" style="display:none;">🖼️</div>
+                  </div>
+                  <div class="info">
+                      <div class="place">📍 ${p.place || "Other"}</div>
+                      ${p.description ? `<div>${p.description}</div>` : ""}
+                  </div>
+                  <button class="btn-delete" onclick="deleteMyPhoto('${p.fileId}', '${p.fileName}')">
+                      <i class="fa-solid fa-trash"></i> ${t("delete")}
+                  </button>
+              </div>
+          `;
+  });
+  html += `</div>`;
+  container.innerHTML = html;
+}
+
+function deleteMyPhoto(fileId, fileName) {
+  if (!confirm(t("deleteConfirm"))) return;
+  
+  // ✅ Get user name from localStorage
+  const userName = getCurrentUserName();
+  
+  if (userName === 'User' || !userName) {
+    showUploadMsg('⚠️ பயனர் பெயர் கிடைக்கவில்லை / User name not found', 'error');
+    return;
+  }
+  
+  const formData = new FormData();
+  formData.append("action", "deletePhoto");
+  formData.append("fileId", fileId);
+  formData.append("userName", userName);
+
+  fetch(SCRIPT_URL, { method: "POST", body: formData })
+    .then((res) => res.json())
+    .then((data) => {
+      if (data.success) {
+        showUploadMsg("✅ " + t("deleteSuccess"), "success");
+        loadMyPhotos();
+        loadGalleryContent();
+        loadContributions();
+      } else {
+        showUploadMsg(
+          "❌ " + t("deleteFail") + ": " + (data.error || ""),
+          "error",
+        );
+      }
+    })
+    .catch((err) => {
+      showUploadMsg(
+        "❌ " + t("deleteFail") + ": " + err.message,
+        "error",
+      );
+    });
+}
+
+// Load Contributions
+function loadContributions() {
+  // ✅ Get user name from localStorage
+  const userName = getCurrentUserName();
+  console.log('📊 Loading contributions for user:', userName);
+
+  if (userName === 'User' || !userName) {
+    console.warn('⚠️ No user found, showing zeros');
+    document.getElementById('stat-total').textContent = '0';
+    document.getElementById('stat-temple').textContent = '0';
+    document.getElementById('stat-cauvery').textContent = '0';
+    document.getElementById('stat-procession').textContent = '0';
+    document.getElementById('stat-pond').textContent = '0';
+    document.getElementById('stat-other').textContent = '0';
+    return;
+  }
+
+  fetch(
+    SCRIPT_URL +
+      "?action=getUserPhotos&userName=" +
+      encodeURIComponent(userName),
+  )
+    .then((res) => res.json())
+    .then((data) => {
+      if (data.success && data.photos) {
+        const total = data.photos.length;
+        document.getElementById("stat-total").textContent = total;
+        
+        const stats = {
+          "Main Temple": 0,
+          "Cauvery River": 0,
+          "Procession Area": 0,
+          "Alongside Pond": 0,
+          "Other Temple Areas": 0,
+        };
+        
+        data.photos.forEach((p) => {
+          if (stats[p.place] !== undefined) stats[p.place]++;
+        });
+        
+        document.getElementById("stat-temple").textContent = stats["Main Temple"];
+        document.getElementById("stat-cauvery").textContent = stats["Cauvery River"];
+        document.getElementById("stat-procession").textContent = stats["Procession Area"];
+        document.getElementById("stat-pond").textContent = stats["Alongside Pond"];
+        document.getElementById("stat-other").textContent = stats["Other Temple Areas"];
+      } else {
+        document.getElementById("stat-total").textContent = "0";
+        document.getElementById("stat-temple").textContent = "0";
+        document.getElementById("stat-cauvery").textContent = "0";
+        document.getElementById("stat-procession").textContent = "0";
+        document.getElementById("stat-pond").textContent = "0";
+        document.getElementById("stat-other").textContent = "0";
+      }
+    })
+    .catch(() => {
+      document.getElementById("stat-total").textContent = "0";
+      document.getElementById("stat-temple").textContent = "0";
+      document.getElementById("stat-cauvery").textContent = "0";
+      document.getElementById("stat-procession").textContent = "0";
+      document.getElementById("stat-pond").textContent = "0";
+      document.getElementById("stat-other").textContent = "0";
+    });
+}
+     
+      
 
       // ============================================================
       // INITIALIZE
