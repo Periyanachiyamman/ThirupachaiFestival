@@ -29,7 +29,7 @@ body{font-family:'Mukta Malar',sans-serif;background:var(--cream);color:var(--te
 }
 
 .nav-brand {
-  font-size: 1rem;
+  font-size: 1.5rem;
   font-weight: 700;
   color: var(--gold-light);
   letter-spacing: 0.5px;
@@ -212,6 +212,123 @@ input:checked + .slider:before {
 .countdown-label{font-size:0.75rem;color:rgba(255,255,255,0.4);letter-spacing:0.5px}
 @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
 @keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+
+
+/* ============================================================
+   LOGIN PAGE CAROUSEL
+   ============================================================ */
+.login-carousel {
+    position: relative;
+    max-width: 500px;
+    width: 100%;
+    height: 200px;
+    margin: 16px auto 20px auto;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    border: 1px solid #800020;
+    background: #ffffff;
+}
+
+.login-carousel-track {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.login-carousel-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.8s ease-in-out;
+    flex-shrink: 0;
+}
+
+.login-carousel-slide.active {
+    opacity: 1;
+}
+
+.login-carousel-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* ---- Dots ---- */
+.login-carousel-dots {
+    position: absolute;
+    bottom: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+    z-index: 10;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 6px 14px;
+    border-radius: 20px;
+    backdrop-filter: blur(4px);
+}
+
+.login-carousel-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.login-carousel-dot.active {
+    background: #c9963a;
+    transform: scale(1.3);
+    border-color: #c9963a;
+}
+
+.login-carousel-dot:hover {
+    background: #c9963a;
+    transform: scale(1.2);
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 600px) {
+    .login-carousel {
+        height: 160px;
+        margin: 12px auto 16px auto;
+        border-radius: 10px;
+    }
+    .login-carousel-dots {
+        bottom: 8px;
+        padding: 4px 12px;
+        gap: 8px;
+    }
+    .login-carousel-dot {
+        width: 8px;
+        height: 8px;
+    }
+}
+
+@media (max-width: 400px) {
+    .login-carousel {
+        height: 130px;
+        margin: 8px auto 12px auto;
+    }
+    .login-carousel-dots {
+        bottom: 6px;
+        padding: 3px 10px;
+        gap: 6px;
+    }
+    .login-carousel-dot {
+        width: 6px;
+        height: 6px;
+    }
+}
 
 
 footer{text-align:center;padding:20px;background:#800020;color:#F0C96A;font-size:0.8rem;font-weight:400;margin-top:50px;border-top:2px}
@@ -404,6 +521,38 @@ footer{text-align:center;padding:20px;background:#800020;color:#F0C96A;font-size
   <span class="fest-badge" id="lbl-fest">திருபச்சை, முப்பூசை மற்றும் பாரிவேட்டை படுகள திருவிழா (ஆடி 2026)</span>
 </header>
 
+<!-- ============================================================
+     LOGIN PAGE CAROUSEL
+     ============================================================ -->
+<div class="login-carousel">
+    <div class="login-carousel-track" id="loginCarouselTrack">
+        <div class="login-carousel-slide active">
+            <img src="https://drive.google.com/thumbnail?authuser=0&sz=w800&id=1nthJLfeRD75ksrGjIiD-WaePigvqoXOh" alt="Temple 1" loading="lazy">
+        </div>
+        <div class="login-carousel-slide">
+            <img src="https://drive.google.com/thumbnail?authuser=0&sz=w800&id=1dETmxjs5vntNYRAho5M-ZD2F7Pe1m5sz" alt="Temple 2" loading="lazy" style="width:500px; height:500px; transform: translateY(-220px);">
+        </div>
+        <div class="login-carousel-slide">
+            <img src="https://drive.google.com/thumbnail?authuser=0&sz=w800&id=1WAoG4G2jIJnD6wYYpz1OM4CMXEf2ANVg" alt="Temple 3" loading="lazy">
+        </div>
+        <div class="login-carousel-slide">
+            <img src="https://drive.google.com/thumbnail?authuser=0&sz=w800&id=1Tyjfb5Bw5qYIMtMWShAZ8psEn0i4hg3Y" alt="Temple 4" loading="lazy">
+        </div>
+        <div class="login-carousel-slide">
+            <img src="https://drive.google.com/thumbnail?authuser=0&sz=w800&id=1CZcVnWTBX5jcrPNrtk55O4myReNNygip" alt="Temple" loading="lazy">
+        </div>
+    </div>
+    
+    <!-- Dots -->
+    <div class="login-carousel-dots" id="loginCarouselDots">
+        <span class="login-carousel-dot active" data-index="0"></span>
+        <span class="login-carousel-dot" data-index="1"></span>
+        <span class="login-carousel-dot" data-index="2"></span>
+        <span class="login-carousel-dot" data-index="3"></span>
+        <span class="login-carousel-dot" data-index="4"></span>
+    </div>
+</div>
+
 
 <!-- ============================================================
      INVITATION CARD - Login Page
@@ -538,6 +687,70 @@ footer{text-align:center;padding:20px;background:#800020;color:#F0C96A;font-size
 
 <script>
 
+
+// ============================================================
+// LOGIN PAGE CAROUSEL
+// ============================================================
+let loginCarouselIndex = 0;
+let loginCarouselInterval = null;
+const loginCarouselSlides = document.querySelectorAll('.login-carousel-slide');
+const loginCarouselDots = document.querySelectorAll('.login-carousel-dot');
+const loginCarouselTotal = loginCarouselSlides.length;
+
+function showLoginSlide(index) {
+    // Remove active from all slides
+    loginCarouselSlides.forEach(slide => slide.classList.remove('active'));
+    loginCarouselDots.forEach(dot => dot.classList.remove('active'));
+    
+    // Add active to current slide
+    loginCarouselSlides[index].classList.add('active');
+    loginCarouselDots[index].classList.add('active');
+    loginCarouselIndex = index;
+}
+
+function nextLoginSlide() {
+    const next = (loginCarouselIndex + 1) % loginCarouselTotal;
+    showLoginSlide(next);
+}
+
+function startLoginCarousel() {
+    if (loginCarouselInterval) clearInterval(loginCarouselInterval);
+    loginCarouselInterval = setInterval(nextLoginSlide, 4000);
+}
+
+function stopLoginCarousel() {
+    if (loginCarouselInterval) {
+        clearInterval(loginCarouselInterval);
+        loginCarouselInterval = null;
+    }
+}
+
+// Click dots to navigate
+loginCarouselDots.forEach((dot, index) => {
+    dot.addEventListener('click', function() {
+        showLoginSlide(index);
+        resetLoginCarousel();
+    });
+});
+
+// Pause on hover
+document.querySelector('.login-carousel')?.addEventListener('mouseenter', stopLoginCarousel);
+document.querySelector('.login-carousel')?.addEventListener('mouseleave', startLoginCarousel);
+
+function resetLoginCarousel() {
+    stopLoginCarousel();
+    startLoginCarousel();
+}
+
+// Initialize
+document.addEventListener('DOMContentLoaded', function() {
+    if (loginCarouselSlides.length > 0) {
+        showLoginSlide(0);
+        startLoginCarousel();
+    }
+});
+
+
 // =========================================================
 // SESSION MANAGEMENT - Save user session
 // =========================================================
@@ -597,7 +810,7 @@ const L = {
     rAgePlaceholder:"உங்கள் வயதை உள்ளிடவும்",
     btnReg:"விவரங்களைச் சேமித்து உள்நுழைக",
     optSel:"தேர்வு செய்க--", vanakkam:"வணக்கம்",
-    blessing:"அருள்மிகு ஸ்ரீ பெரியநாச்சியம்மன் சமேத ஸ்ரீ வீரிய பெருமாள் ஆசிகள்.!",
+    blessing:"அருள்மிகு வீரியபெருமாள் ஆசிகள்...",
     successTag:"✓ உள்நுழைவு வெற்றிகரமாக",
     btnContinue:"🛕 இல்லப் பக்கத்திற்கு செல்க →",
     countLabel:"விநாடிகளில் தானாக திறக்கும்",
@@ -612,7 +825,7 @@ const L = {
     btnInviteDownload: '⬇️ பதிவிறக்க',
   },
   en:{
-    brand:"PachaPooj(AI)", sub:"An AI-powered portal for ease of devotees",
+    brand:"Pachai Pooj(AI)", sub:"An AI-powered portal for ease of devotees",
     title:"Sri Periyanachiamman Sametha Sri Veeriaperumal Temple",
     addr:"Sri Periya Nachiamman Sametha Sri Veeriya Perumal Trust, Tennur, Tiruchirappalli - 17",
     fest:"Thirupachai, Muppoojai & Parivettai Padugalam Festival (Aadi 2026)",
@@ -631,7 +844,7 @@ const L = {
     rAgePlaceholder:"Enter your age",
     btnReg:"Save & Enter Portal",
     optSel:"Select Gothram --", vanakkam:"Vanakkam",
-    blessing:"Divine Blessings of Sri Periyanachiamman sametha Sri Veeriyaperumal.!",
+    blessing:"Divine Blessings of Lord Veeriaperumal...",
     successTag:"✓ Login Successful",
     btnContinue:"🛕 Continue to Home Page →",
     countLabel:"seconds — redirecting automatically",
