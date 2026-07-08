@@ -3,14 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>PachaPooj(AI) - Temple Home</title> 
+    <title>PachaPooj(AI) - Temple Home</title>
     <link
       href="https://fonts.googleapis.com/css2?family=Noto+Serif+Tamil:wght@400;600;700&family=Mukta+Malar:wght@400;600;700&display=swap"
       rel="stylesheet"  
     />
     <link
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" 
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
     <style>
       /* ===== BASE ===== */ 
@@ -3876,7 +3876,7 @@
 }
 
 /* ============================================================
-   SIMPLE WELCOME POPUP
+   WELCOME POPUP - Dual Language
    ============================================================ */
 .welcome-overlay {
     position: fixed;
@@ -3904,7 +3904,7 @@
     padding: 40px 32px 32px;
     text-align: center;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-    border-top: 5px solid var(--gold);
+    border-top: 5px solid #c9963a;
     animation: popIn 0.4s ease;
 }
 
@@ -3919,22 +3919,49 @@
     margin-bottom: 8px;
 }
 
+/* ---- Dual Language Text ---- */
 .welcome-popup h2 {
     font-size: 1.8rem;
     font-weight: 700;
-    color: var(--crimson);
+    color: #800020;
     margin-bottom: 4px;
+    line-height: 1.3;
+}
+
+.welcome-popup h2 .ta-text {
+    display: block;
     font-family: 'Noto Serif Tamil', serif;
 }
 
-.welcome-popup .sub {
-    font-size: 0.85rem;
-    color: var(--muted);
-    margin-bottom: 20px;
+.welcome-popup h2 .en-text {
+    display: block;
+    font-family: 'Mukta Malar', sans-serif;
+    font-size: 1.4rem;
+    color: #7a5c3c;
 }
 
+.welcome-popup .sub {
+    font-size: 1.0rem;
+    font-weight: 700;
+    color: #7a5c3c;
+    margin-bottom: 24px;
+    line-height: 1.6;
+}
+
+.welcome-popup .sub .ta-text {
+    display: block;
+    font-family: 'Noto Serif Tamil', serif;
+}
+
+.welcome-popup .sub .en-text {
+    display: block;
+    font-size: 0.9rem;
+    color: #999;
+}
+
+/* ---- Enter Button ---- */
 .welcome-popup .btn-enter {
-    background: var(--crimson);
+    background: #800020;
     color: #fff;
     border: none;
     padding: 14px 50px;
@@ -3948,41 +3975,26 @@
     align-items: center;
     gap: 10px;
     box-shadow: 0 4px 16px rgba(128, 0, 32, 0.25);
+    width: 100%;
+    justify-content: center;
 }
+
 .welcome-popup .btn-enter:hover {
-    background: var(--crimson-dark);
+    background: #5a0015;
     transform: scale(1.02);
 }
+
 .welcome-popup .btn-enter i {
     font-size: 1rem;
 }
 
-/* Language toggle */
-.welcome-popup .lang-toggle-popup {
-    display: flex;
-    justify-content: center;
-    gap: 8px;
-    margin-bottom: 16px;
+.welcome-popup .btn-enter .ta-text {
+    font-family: 'Noto Serif Tamil', serif;
 }
-.welcome-popup .lang-toggle-popup button {
-    background: transparent;
-    border: 1px solid var(--parchment);
-    border-radius: 16px;
-    padding: 4px 14px;
-    font-size: 0.75rem;
-    font-weight: 600;
-    color: var(--muted);
-    cursor: pointer;
-    font-family: 'Mukta Malar', sans-serif;
-    transition: all 0.2s;
-}
-.welcome-popup .lang-toggle-popup button.active {
-    background: var(--crimson);
-    color: #fff;
-    border-color: var(--crimson);
-}
-.welcome-popup .lang-toggle-popup button:not(.active):hover {
-    background: var(--parchment);
+
+.welcome-popup .btn-enter .en-text {
+    font-size: 1.3rem;
+    opacity: 0.7;
 }
 
     </style>
@@ -3993,22 +4005,29 @@
    <!-- ============================================================
      SIMPLE WELCOME POPUP
      ============================================================ -->
+<!-- ============================================================
+     WELCOME POPUP - Dual Language
+     ============================================================ -->
 <div class="welcome-overlay" id="welcomeOverlay">
     <div class="welcome-popup">
         <span class="icon">🛕</span>
-        <h2 id="welcome-title">வணக்கம்</h2>
-        <p class="sub" id="welcome-sub">பச்சை பூஜை (AI)</p>
-
-        <!-- Language Toggle -->
-        <div class="lang-toggle-popup">
-            <button class="active" data-lang="ta" onclick="setWelcomeLang('ta', this)">தமிழ்</button>
-            <button data-lang="en" onclick="setWelcomeLang('en', this)">English</button>
-        </div>
-
+        
+        <!-- Dual Language Title -->
+        <h2>
+            <span class="ta-text">வணக்கம்</span>
+            <span class="en-text">Welcome</span>
+        </h2>
+        
+        <p class="sub">
+            <span class="ta-text">பச்சை பூஜை(AI)</span>
+            <span class="en-text">Pacha Pooj(AI)</span>
+        </p>
+        
         <!-- Enter Button -->
         <button class="btn-enter" onclick="enterPortal()">
             <i class="fa-solid fa-arrow-right"></i>
-            <span id="enter-btn-text">உள்நுழை</span>
+            <span class="ta-text">உள்நுழை</span>
+            <span class="en-text">Enter</span>
         </button>
     </div>
 </div>
@@ -5970,12 +5989,12 @@
     </div>
     
     <div class="chatbot-quick-buttons" id="quickButtons">
-        <button onclick="askChatQuestion('திருவிழா எப்போது தொடங்குகிறது?')">📅 திருவிழா தேதி</button>
-        <button onclick="askChatQuestion('திருவிழா நிகழ்வுகள் என்ன?')">🎉 நிகழ்வுகள்</button>
-        <button onclick="askChatQuestion('கோயில் எங்கே உள்ளது?')">📍 முகவரி</button>
-        <button onclick="askChatQuestion('எஜமானின் தொடர்பு எண்?')">📞 தொடர்பு</button>
-        <button onclick="askChatQuestion('அன்னதானம் எப்போது?')">🍛 அன்னதானம்</button>
-    </div>
+    <button onclick="askChatQuestion(this.dataset.question)" data-question="திருவிழா எப்போது தொடங்குகிறது?">📅 திருவிழா தேதி</button>
+    <button onclick="askChatQuestion(this.dataset.question)" data-question="திருவிழா நிகழ்வுகள் என்ன?">🎉 நிகழ்வுகள்</button>
+    <button onclick="askChatQuestion(this.dataset.question)" data-question="கோயில் எங்கே உள்ளது?">📍 முகவரி</button>
+    <button onclick="askChatQuestion(this.dataset.question)" data-question="தொடர்பு எண்?">📞 தொடர்பு</button>
+    <button onclick="askChatQuestion(this.dataset.question)" data-question="அன்னதானம் எப்போது?">🍛 அன்னதானம்</button>
+</div>
 </div>
 
     </div>
@@ -5999,68 +6018,18 @@
 
     <script>
 
-      // ============================================================
-// SIMPLE WELCOME POPUP (No Audio Logic)
+// ============================================================
+// WELCOME POPUP - No Language Toggle
 // ============================================================
 
-let welcomeLang = 'ta';
-
-// ============================================================
-// LOCALIZATION
-// ============================================================
-const welcomeText = {
-    ta: {
-        title: "வணக்கம்",
-        sub: "பச்சை பூஜை (AI)",
-        enter: "உள்நுழை"
-    },
-    en: {
-        title: "Welcome",
-        sub: "PachaPooj (AI)",
-        enter: "Enter"
-    }
-};
-
-// ============================================================
-// LANGUAGE FUNCTIONS
-// ============================================================
-function setWelcomeLang(lang, btn) {
-    welcomeLang = lang;
-    document.querySelectorAll('.lang-toggle-popup button').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    applyWelcomeLang();
-}
-
-function applyWelcomeLang() {
-    const d = welcomeText[welcomeLang];
-    document.getElementById('welcome-title').textContent = d.title;
-    document.getElementById('welcome-sub').textContent = d.sub;
-    document.getElementById('enter-btn-text').textContent = d.enter;
-}
-
-// ============================================================
-// ENTER PORTAL
-// ============================================================
 function enterPortal() {
     // Close popup
     document.getElementById('welcomeOverlay').classList.remove('show');
-    
-    // Save to localStorage so it doesn't show again
-    localStorage.setItem('welcomeSeen', 'true');
-    
     console.log('🚪 Entered portal');
 }
 
-// ============================================================
-// CHECK IF WELCOME POPUP SHOULD SHOW
-// ============================================================
 function checkWelcomePopup() {
-    // Don't show if user already seen it
-    if (localStorage.getItem('welcomeSeen') === 'true') {
-        return;
-    }
-    
-    // Don't show if user just logged in (within 5 minutes)
+    // Check if user is already logged in
     const sessionData = localStorage.getItem('templeSession');
     if (sessionData) {
         try {
@@ -6073,34 +6042,25 @@ function checkWelcomePopup() {
     
     // Show popup
     setTimeout(() => {
-        document.getElementById('welcomeOverlay').classList.add('show');
+        const overlay = document.getElementById('welcomeOverlay');
+        if (overlay) {
+            overlay.classList.add('show');
+            console.log('✅ Welcome popup shown');
+        }
     }, 500);
-}
-
-// ============================================================
-// SYNC WITH MAIN LANGUAGE TOGGLE
-// ============================================================
-function syncWelcomeLang(mainLang) {
-    welcomeLang = mainLang;
-    applyWelcomeLang();
-    document.querySelectorAll('.lang-toggle-popup button').forEach(b => {
-        b.classList.toggle('active', b.dataset.lang === mainLang);
-    });
 }
 
 // ============================================================
 // INIT
 // ============================================================
 document.addEventListener('DOMContentLoaded', function() {
-    setTimeout(checkWelcomePopup, 600);
+    checkWelcomePopup();
 });
 
 // ============================================================
 // EXPOSE GLOBALLY
 // ============================================================
 window.enterPortal = enterPortal;
-window.setWelcomeLang = setWelcomeLang;
-window.syncWelcomeLang = syncWelcomeLang;
 
       
       /* ============================================================
@@ -9857,7 +9817,2557 @@ document.addEventListener('DOMContentLoaded', function() {
             answer: "Home page-ல் '📸 புகைப்பட பகிர்வு' பகுதியில் '📤 பதிவேற்று' பொத்தானை அழுத்தி, உங்கள் புகைப்படத்தை தேர்வு செய்து, இடம் மற்றும் விளக்கத்தை உள்ளிட்டு பதிவேற்றவும். JPEG, JPG, PNG மட்டும் (max 4MB).",
             answerEn: "Go to '📸 Photo Gallery' section on Home page, click '📤 Upload', select your photo, add place and description, then upload. Only JPEG, JPG, PNG (max 4MB).",
             category: "gallery"
-        }];
+        } , 
+    {
+        question: "இக்கோயிலின் முதன்மை தெய்வங்கள் யார்?",
+        questionEn: "Who are the primary deities of this temple?",
+        keywords: ["தெய்வம்", "சுவாமி", "முதன்மை", "deity", "god", "primary", "main"],
+        answer: "ஸ்ரீ பெரியநாச்சியம்மன் சமேத ஸ்ரீ வீரிய பெருமாள் இக்கோயிலின் முதன்மை தெய்வங்கள் ஆவர்.",
+        answerEn: "Sri Periya Nachiamman along with Sri Veeriya Perumal are the primary deities of this temple.",
+        category: "deities"
+    },
+    {
+        question: "திருவிழாவில் அருள்பாலிக்கும் இதர பரிவார தெய்வங்கள் யாவை?",
+        questionEn: "Who are the other subordinate deities blessing the festival?",
+        keywords: ["பரிவார", "தெய்வங்கள்", "subordinate", "deities", "parivara"],
+        answer: "எஜமான் ஸ்ரீ வீரப்பசாமி, பெரிய காண்டியம்மன், ஸ்ரீ சப்த கன்னிமார், ஸ்ரீ வீரமலையாண்டி, ஸ்ரீ மலையாள முத்தையன், மற்றும் ஸ்ரீ மதுரைவீரன் சுவாமி ஆகியோர் பரிவார தெய்வங்கள் ஆவர்.",
+        answerEn: "Ejaman Sri Veerappasamy, Periya Kandiamman, Sri Saptha Kannimar, Sri Veeramalayaandi, Sri Malayala Muthaiyan, and Sri Maduraiveeran Swamy are the subordinate deities.",
+        category: "deities"
+    },
+    {
+        question: "தொடக்கத்தில் பாடப்படும் விநாயகர் துதி எது?",
+        questionEn: "Which Vinayagar prayer is chanted at the beginning?",
+        keywords: ["விநாயகர்", "துதி", "பாடல்", "vinayagar", "prayer", "ganesha"],
+        answer: "'ஐந்து கரத்தனை ஆனை முகத்தனை' என்று தொடங்கும் துதி விநாயகர் வழிபாட்டிற்காக அச்சிடப்பட்டுள்ளது.",
+        answerEn: "The prayer starting with 'Ainthu Karathanal Aanai Mugathanai' is printed for Lord Vinayagar.",
+        category: "deities"
+    },
+    {
+        question: "முருகப் பெருமானுக்குரிய துதிப் பாடல் யாது?",
+        questionEn: "What is the prayer song dedicated to Lord Murugan?",
+        keywords: ["முருகன்", "துதி", "செந்தில்", "murugan", "prayer", "senthil"],
+        answer: "'முருகனே! செந்தில் முதல்வனே மாயோன் மருகனே!' என்று தொடங்கும் பாடல் முருகன் துதியாகும்.",
+        answerEn: "The song beginning with 'Murugane! Senthil Muthalvane Mayon Marugane!' is the prayer for Lord Murugan.",
+        category: "deities"
+    },
+    {
+        question: "பெரிய நாச்சி அம்மன் துதியில் குறிப்பிடப்படும் போற்றி வரிகள் யாவை?",
+        questionEn: "What are the praise lines mentioned in the Periya Nachi Amman prayer?",
+        keywords: ["பெரியநாச்சி", "துதி", "வரிகள்", "periya nachi", "praise", "lines"],
+        answer: "'அம்மையே சுந்தரி வீரப்பனிரு சரணம் ரெக்ஷிக்க வந்தவளும் நீ!' மற்றும் 'தென்னூர் அமர்ந்த வாழ்வே!' என்று போற்றப்படுகிறது.",
+        answerEn: "She is praised as 'Ammaye Sundari Veerappaniru Saranam Retshikka Vanthavalum Nee!' and 'The identity residing in Tennur!'.",
+        category: "deities"
+    },
+    {
+        question: "பெரியநாச்சி அம்மன் எந்த குலத்திற்கு வழிவழியாக வந்தவள்?",
+        questionEn: "For which clan did Periya Nachi Amman descend ancestrally?",
+        keywords: ["ஆயிரவர்", "குலம்", "clan", "thousand", "ayiravar"],
+        answer: "துதிப் பாடலின் படி, அவள் 'ஆயிரவர் தன்குலம் வந்துதிக்கவே வந்த அம்பிகை' என்று குறிப்பிடப்படுகிறாள்.",
+        answerEn: "According to the prayer, she is mentioned as the Goddess who came to descend in the 'Ayiravar clan'.",
+        category: "deities"
+    },
+    {
+        question: "அம்மன் யாருடைய இடப்பாகத்தில் வீற்றிருப்பதாக அழைப்பிதழ் கூறுகிறது?",
+        questionEn: "On whose left side does the Goddess sit as per the invitation?",
+        keywords: ["இடப்பாகம்", "சக்தி", "left side", "shakti"],
+        answer: "நம்மைப் பெருக்கும் வீரியப் பெருமாளின் இடப்பாகத்தில் வீற்றிருக்கும் சக்தியாக ராஜ ராஜேஸ்வரி வடிவில் அம்மன் அருள்கிறாள்.",
+        answerEn: "The Goddess blesses in the form of Raja Rajeswari as the Shakti seated on the left side of Veeriya Perumal.",
+        category: "deities"
+    },
+    {
+        question: "பெரியநாயகி அம்மனை எத்தகைய கிளையாக துதிப் பாடல் வர்ணிக்கிறது?",
+        questionEn: "How does the prayer song describe Periya Nayaki Amman metaphorically?",
+        keywords: ["கிள்ளை", "பசுங்கிள்ளை", "parrot", "metaphor"],
+        answer: "அம்மனை 'தெய்வப் பசுங்கிள்ளையே!' என்று உருவகப்படுத்தித் துதிக்கிறார்கள்.",
+        answerEn: "The Goddess is uniquely praised and addressed metaphorically as 'Deiva Pasungillaiye!' (Divine Green Parrot).",
+        category: "deities"
+    },
+    {
+        question: "அம்மன் எந்த வடிவில் வந்துதித்ததாக பாடல் கூறுகிறது?",
+        questionEn: "In what spiritual manner did the Goddess arrive according to the song?",
+        keywords: ["தையலம்மை", "சித்தாக", "thaiyalammai", "sidhha"],
+        answer: "ஜெகமெலாம் பணிய தையலம்மை போலவே சித்தாக வந்துதித்தாள் என்று வர்ணிக்கப்படுகிறது.",
+        answerEn: "It is described that she descended as a 'Sidhha' just like Thaiyalammai for the entire universe to bow down.",
+        category: "deities"
+    },
+    {
+        question: "யாரின் உத்தரவுப்படி இத்திருவிழா நடத்தப்படுகிறது?",
+        questionEn: "Under whose divine command is this festival being conducted?",
+        keywords: ["உத்தரவு", "வீரப்பசாமி", "command", "order", "veerappasamy"],
+        answer: "ஸ்ரீ பெரியநாச்சியம்மன் சமேத ஸ்ரீ வீரியபெருமாள் அருளாசியுடன், எஜமான் ஸ்ரீ வீரப்பசாமி உத்திரவுப்படி திருவிழா நடைபெறுகிறது.",
+        answerEn: "The festival is organized with the blessings of Sri Periya Nachiamman & Sri Veeriya Perumal, under the divine command of Ejaman Sri Veerappasamy.",
+        category: "deities"
+    },
+    {
+        question: "சப்த கன்னிமார்களுக்கு திருவிழாவில் பூசைகள் உண்டா?",
+        questionEn: "Are there rituals dedicated to Saptha Kannimar during the festival?",
+        keywords: ["கன்னிமார்", "சப்த", "kannimar", "saptha"],
+        answer: "ஆம், ஸ்ரீ சப்த கன்னிமார் சுவாமிகளுக்கு திருபச்சை, முப்பூசை மற்றும் பாரிவேட்டை படுகளத் திருவிழாக்கள் சிறப்பாக நடத்தப்படும்.",
+        answerEn: "Yes, Thirupachai, Mupoojai, and Parivettai Padugalam rituals will be grandly performed for Sri Saptha Kannimar Swamigal.",
+        category: "deities"
+    },
+    {
+        question: "பரிவார தெய்வங்களில் காண்டியம்மனின் முழுப்பெயர் என்ன?",
+        questionEn: "What is the full title of Goddess Kandiamman among the minor deities?",
+        keywords: ["காண்டியம்மன்", "பெரிய", "kandiamman", "periya"],
+        answer: "அழைப்பிதழில் பரிவார தெய்வங்களில் அவள் 'பெரிய காண்டியம்மன்' என்று குறிப்பிடப்படுகிறாள்.",
+        answerEn: "She is formally designated as 'Periya Kandiamman' among the parivara deities in the invitation.",
+        category: "deities"
+    },
+
+    {
+        question: "hi",
+        questionEn: "hi",
+        keywords: ["hi", "hello", "வணக்கம்", "நமஸ்தே", "hey", "ஹலோ"],
+        answer: "வணக்கம்! நான் மாணிக்கம் (AI). தென்னூர் ஸ்ரீ பெரியநாச்சியம்மன் சமேத ஸ்ரீ வீரிய பெருமாள் கோயில் திருவிழா வழிகாட்டி. உங்களுக்கு எப்படி உதவட்டும்?",
+        answerEn: "Hello! I am Manickam (AI), your temple festival guide for Tennur Sri Periya Nachiamman Sametha Sri Veeriya Perumal Temple. How can I help you today?",
+        category: "conversational"
+    },
+    {
+        question: "உதவி தேவை",
+        questionEn: "need help",
+        keywords: ["help", "உதவி", "என்ன செய்ய", "how to use", "வழிகாட்டி", "info"],
+        answer: "கண்டிப்பாக! திருவிழா தேதிகள், நிகழ்ச்சி நிரல், விரத விதிமுறைகள், மற்றும் நிர்வாகிகளின் தொடர்பு எண்களை நான் உங்களுக்கு வழங்க முடியும். உங்களுக்கு என்ன தகவல் வேண்டும்?",
+        answerEn: "Of course! I can help you with festival dates, the event schedule, fasting rules, and coordinator contact details. What information are you looking for?",
+        category: "conversational"
+    },
+    {
+        question: "நீ யார்?",
+        questionEn: "who are you?",
+        keywords: ["who are you", "யார் நீ", "உன் பெயர் என்ன", "your name", "bot name", "நீ யார்"],
+        answer: "என் பெயர் மாணிக்கம் (AI). இத்திருவிழாவுக்காக உருவாக்கப்பட்ட பிரத்யேக டிஜிட்டல் உதவியாளன் நான்.",
+        answerEn: "My name is Manickam (AI). I am a dedicated digital assistant created specifically for this festival.",
+        category: "conversational"
+    },
+    {
+        question: "நன்றி",
+        questionEn: "thank you",
+        keywords: ["thanks", "thank you", "நன்றி", "மிக்க நன்றி", "super", "நன்றிடா"],
+        answer: "மிக்க மகிழ்ச்சி! நம் குலதெய்வங்களின் அருள் உங்களுக்கு என்றும் கிடைக்கட்டும். வேறு ஏதேனும் உதவி தேவையெனில் கேளுங்கள்!",
+        answerEn: "You're very welcome! May the blessings of our family deities be with you always. Let me know if you need anything else!",
+        category: "conversational"
+    },
+    {
+        question: "விரத முறைகள் என்ன?",
+        questionEn: "what are the fasting rules?",
+        keywords: ["விரதம்", "fasting", "vrat", "rules", "விதிமுறைகள்", "கட்டுப்பாடு"],
+        answer: "காப்பு கட்டிய நாள் (ஆடி 4) முதல் திருவிழா முடியும் வரை ஐந்து கோத்திர குடிமக்களும் கடைபிடிக்க வேண்டிய விரத முறைகள்:\n" +
+                "1. வீட்டில் பாயில் படுக்கக்கூடாது.\n" +
+                "2. அடுப்பில் எண்ணெய் சட்டி வைக்கக்கூடாது.\n" +
+                "3. உணவில் தாளிப்பு சேர்க்கக்கூடாது.\n" +
+                "4. அசைவ உணவு முற்றிலும் உண்ணக்கூடாது.\n" +
+                "5. சுபநிகழ்ச்சிகளில் மட்டும் கலந்து கொள்வது சிறப்பு.",
+        answerEn: "From the day of Kaapu Kattuthal (Aadi 4) until the festival ends, the five Gotra citizens must follow these rules:\n" +
+                  "1. Do not sleep on mats at home.\n" +
+                  "2. Do not place oil pans on stoves.\n" +
+                  "3. Avoid tempering (seasoning) food.\n" +
+                  "4. Strictly avoid non-vegetarian food.\n" +
+                  "5. It is best to attend only auspicious functions.",
+        category: "fasting"
+    },
+    {
+        question: "முக்கிய நிகழ்வுகள் எப்போது?",
+        questionEn: "when are the main events?",
+        keywords: ["நிகழ்ச்சி", "schedule", "agenda", "events", "எப்போது", "முக்கிய"],
+        answer: "இதோ முக்கிய திருவிழா நிகழ்வுகள்:\n" +
+                "• ஆடி 4 (20.07.2026): காப்பு கட்டுதல், முகூர்த்த கால் நடுதல் (அதிகாலை 04:31 - 06:01).\n" +
+                "• ஆடி 8 (24.07.2026): பச்சைக்காக சுவாமிகள் அய்யாளம்மன் படித்துறைக்கு புறப்பாடு (மதியம் 03:01).\n" +
+                "• ஆடி 9 (25.07.2026): திருப்பச்சை (அதிகாலை 03:43), பாரிவேட்டை & படுகளம் சாய்தல் (மாலை 03:01), கிடா வெட்டுதல் (இரவு 01:01).\n" +
+                "• ஆடி 10 (26.07.2026): விடையாற்றி பூஜை (மாலை 06:31).",
+        answerEn: "Here are the main festival events:\n" +
+                  "• Aadi 4 (20.07.2026): Kaapu Kattuthal & Muhurtha Kaal installation (04:31 AM - 06:01 AM).\n" +
+                  "• Aadi 8 (24.07.2026): Deities departing to Ayyalamman Padithurai for Pachai (03:01 PM).\n" +
+                  "• Aadi 9 (25.07.2026): Thirupachai ritual (03:43 AM), Parivettai & Padugalam (03:01 PM), Goat sacrifice (01:01 AM).\n" +
+                  "• Aadi 10 (26.07.2026): Vidayatri Pooja (06:31 PM).",
+        category: "agenda"
+    },
+
+    // CATEGORY: FIVE GOTRAS / LINEAGE (13-22)
+    {
+        question: "இத்திருவிழா எந்த ஐந்து கோத்திர குடிமக்களுக்கு உரியது?",
+        questionEn: "To which five Gotra citizens does this festival belong?",
+        keywords: ["கோத்திரம்", "ஐந்து", "குடிமக்கள்", "gotra", "five", "lineage", "citizens"],
+        answer: "பருத்திகுடையான், தென்னவராயன், பயிராளழகர், பாக்குமுடையான் மற்றும் மாத்துடையான் ஆகிய ஐந்து கோத்திர குடிமக்களுக்கு உரியது.",
+        answerEn: "It belongs to the citizens of the five Gotras: Paruthikudayan, Thennavarayan, Payiralazhagar, Paakkumudayan, and Maathudayan.",
+        category: "gotras"
+    },
+    {
+        question: "அழைப்பிதழில் குறிப்பிடப்பட்டுள்ள முதல் கோத்திரம் எது?",
+        questionEn: "Which is the first Gotra mentioned in the invitation document?",
+        keywords: ["பருத்திகுடையான்", "முதல்", "first", "paruthikudayan"],
+        answer: "அழைப்பிதழின் வரிசைப்படி முதலாவதாகக் குறிப்பிடப்படும் கோத்திரம் 'ஸ்ரீ பருத்திகுடையான் மகரிஷி' ஆகும்.",
+        answerEn: "The first Gotra listed in sequential order is 'Sri Paruthikudayan Maharishi'.",
+        category: "gotras"
+    },
+    {
+        question: "அழைப்பிதழில் குறிப்பிடப்பட்டுள்ள இரண்டாவது கோத்திரம் எது?",
+        questionEn: "Which is the second Gotra listed in the invitation?",
+        keywords: ["தென்னவராயன்", "இரண்டாவது", "second", "thennavarayan"],
+        answer: "அழைப்பிதழின் வரிசைப்படி இரண்டாவது கோத்திரம் 'ஸ்ரீ தென்னவராயன் மகரிஷி' ஆகும்.",
+        answerEn: "The second Gotra listed in sequence is 'Sri Thennavarayan Maharishi'.",
+        category: "gotras"
+    },
+    {
+        question: "அழைப்பிதழில் குறிப்பிடப்பட்டுள்ள மூன்றாவது கோத்திரம் எது?",
+        questionEn: "Which is the third Gotra documented in the invite?",
+        keywords: ["பயிராளழகர்", "மூன்றாவது", "third", "payiralazhagar"],
+        answer: "அழைப்பிதழின் வரிசைப்படி மூன்றாவது கோத்திரம் 'ஸ்ரீ பயிராளழகர் மகரிஷி' ஆகும்.",
+        answerEn: "The third Gotra documented in order is 'Sri Payiralazhagar Maharishi'.",
+        category: "gotras"
+    },
+    {
+        question: "அழைப்பிதழில் குறிப்பிடப்பட்டுள்ள நான்காவது கோத்திரம் எது?",
+        questionEn: "Which is the fourth Gotra specified in the list?",
+        keywords: ["பாக்குமுடையான்", "நான்காவது", "fourth", "paakkumudayan"],
+        answer: "அழைப்பிதழின் வரிசைப்படி நான்காவது கோத்திரம் 'ஸ்ரீ பாக்குமுடையான் மகரிஷி' ஆகும்.",
+        answerEn: "The fourth Gotra specified in the list is 'Sri Paakkumudayan Maharishi'.",
+        category: "gotras"
+    },
+    {
+        question: "அழைப்பிதழில் குறிப்பிடப்பட்டுள்ள ஐந்தாவது கோத்திரம் எது?",
+        questionEn: "Which is the fifth Gotra detailed in the text?",
+        keywords: ["மாத்துடையான்", "ஐந்தாவது", "fifth", "maathudayan"],
+        answer: "அழைப்பிதழின் வரிசைப்படி ஐந்தாவது கோத்திரம் 'ஸ்ரீ மாத்துடையான் மகரிஷி' ஆகும்.",
+        answerEn: "The fifth Gotra detailed in the invitation text is 'Sri Maathudayan Maharishi'.",
+        category: "gotras"
+    },
+    {
+        question: "ஐந்து கோத்திரங்களின் முன்னோர்கள் எவ்வாறு அழைக்கப்படுகிறார்கள்?",
+        questionEn: "How are the ancestors of the five Gotras honorifically addressed?",
+        keywords: ["மகரிஷி", "முன்னோர்கள்", "maharishi", "ancestors"],
+        answer: "ஐந்து கோத்திரங்களின் பெயர்களும் 'மகரிஷி' (எ.கா: ஸ்ரீ பருத்திகுடையான் மகரிஷி) என்ற அடைமொழியுடன் அழைக்கப்படுகின்றன.",
+        answerEn: "The names of the five lineages are addressed with the honorific suffix 'Maharishi' (e.g., Sri Paruthikudayan Maharishi).",
+        category: "gotras"
+    },
+    {
+        question: "அழைப்பிதழில் ஐந்து கோத்திர குடிமக்களுக்கு விடுக்கப்பட்டுள்ள பொதுவான அழைப்பு என்ன?",
+        questionEn: "What is the general call extended to the citizens of the five Gotras?",
+        keywords: ["அழைப்பு", "குலதெய்வம்", "call", "invite", "kuladeivam"],
+        answer: "ஐந்து கோத்திர குடிமக்கள் அனைவரும் திருவிழாவில் கலந்து கொண்டு நமது குலதெய்வங்களின் அருளைப் பெறுமாறு அன்புடன் அழைக்கப்படுகிறார்கள்.",
+        answerEn: "All citizens of the five Gotras are affectionately invited to participate and receive the grace of their family deities.",
+        category: "gotras"
+    },
+    {
+        question: "அறக்கட்டளை மற்றும் ஐந்து கோத்திர குடிமக்கள் தவிர வேறு யார் பொதுக்குழுவில் உள்ளனர்?",
+        questionEn: "Who else besides the trust and five Gotra citizens are part of the general council?",
+        keywords: ["பொதுக்குழு", "உறுப்பினர்கள்", "general council", "members"],
+        answer: "அழைப்பிதழின்படி, குறிப்பிட்ட மண்டல பிரதிநிதிகளுடன் 'மற்றும் ஐந்து கோத்திர குடிமக்கள்' பொதுக்குழுவில் இடம் பெற்றுள்ளனர்.",
+        answerEn: "According to the invitation, along with zonal representatives, 'and five Gotra citizens' are included in the general body.",
+        category: "gotras"
+    },
+    {
+        question: "கிடா வெட்டு பதிவு செய்ய யாருக்கு உரிமை உண்டு?",
+        questionEn: "Who holds the right to register for the sacrificial ritual?",
+        keywords: ["கிடா", "உரிமை", "goat sacrifice", "right"],
+        answer: "கோயிலைச் சார்ந்த ஐந்து கோத்திர குடிமக்களுக்கு மட்டுமே கிடா கொடுக்கவும் அதனைப் பதிவு செய்யவும் உரிமை உண்டு.",
+        answerEn: "Only the citizens belonging to the five native Gotras of the temple have the right to offer and register a goat sacrifice.",
+        category: "gotras"
+    },
+
+    // CATEGORY: FASTING RULES & FASTING TIMELINES (23-32)
+    {
+        question: "குடிமக்கள் கடைபிடிக்க வேண்டிய விரத விதிமுறைகள் யாவை?",
+        questionEn: "What are the fasting rules to be strictly observed by the citizens?",
+        keywords: ["விரதம்", "விதிமுறைகள்", "fasting", "rules", "vrat"],
+        answer: "பாயில் படுக்கக்கூடாது, அடுப்பில் எண்ணெய் சட்டி வைக்கக்கூடாது, தாளிப்பு செய்யக்கூடாது, அசைவ உணவு உண்ணக்கூடாது.",
+        answerEn: "They must not sleep on mats, must not place oil pans on stoves, avoid tempering food, and strictly avoid non-vegetarian food.",
+        category: "fasting"
+    },
+    {
+        question: "விரத காலங்களில் சமைக்கும் போது தவிர்க்க வேண்டிய சமையல் முறை என்ன?",
+        questionEn: "What culinary practice must be avoided while cooking during the fast?",
+        keywords: ["தாளிப்பு", "எண்ணெய் சட்டி", "tempering", "oil pan"],
+        answer: "அடுப்பில் எண்ணெய் சட்டி வைக்கக் கூடாது மற்றும் உணவில் தாளிப்பு சேர்க்கக் கூடாது.",
+        answerEn: "Placing an oil frying pan on the stove and tempering (seasoning) the food must be avoided completely.",
+        category: "fasting"
+    },
+    {
+        question: "விரதம் எப்போது தொடங்குகிறது?",
+        questionEn: "When does the mandatory fasting period commence?",
+        keywords: ["விரதம்", "தொடக்கம்", "fasting", "start", "commencement"],
+        answer: "ஆடி 4 (20.07.2026) திங்கட்கிழமை காப்பு கட்டுதல் நிகழ்ச்சி நடைபெற்ற உடனே விரதம் தொடங்குகிறது.",
+        answerEn: "The fasting period starts immediately following the Kaapu Kattuthal ritual on Monday, Aadi 4 (20.07.2026).",
+        category: "fasting"
+    },
+    {
+        question: "விரதம் எப்போது முடிகிறது?",
+        questionEn: "When does the ritual fasting period formally conclude?",
+        keywords: ["விரதம்", "முடிவு", "fasting", "end", "conclusion"],
+        answer: "ஆடி 10 (26.07.2026) அன்று திருவிழா முழுமையாக நிறைவடையும் வரை விரதம் கடைபிடிக்கப்பட வேண்டும்.",
+        answerEn: "The fasting must be continuously maintained until the festival concludes completely on Aadi 10 (26.07.2026).",
+        category: "fasting"
+    },
+    {
+        question: "விரதத்தின் போது படுக்கை சம்பந்தமாக உள்ள கட்டுப்பாடு என்ன?",
+        questionEn: "What is the restriction regarding bedding during the fast?",
+        keywords: ["பாய்", "படுக்கை", "mat", "bedding"],
+        answer: "விரதம் இருக்கும் குடிமக்கள் தங்கள் வீடுகளில் பாயில் படுத்து உறங்கக் கூடாது.",
+        answerEn: "Fasting citizens are strictly forbidden from sleeping on a traditional mat at their homes.",
+        category: "fasting"
+    },
+    {
+        question: "விரத நாட்களில் எந்த வகை உணவுகள் முற்றிலும் தடை செய்யப்பட்டுள்ளன?",
+        questionEn: "Which type of diet is completely banned during the fasting days?",
+        keywords: ["அசைவம்", "உணவு", "non-veg", "diet"],
+        answer: "அசைவ உணவுகளை உண்பது விரத நாட்களில் முற்றிலும் தடை செய்யப்பட்டுள்ளது.",
+        answerEn: "Eating any form of non-vegetarian food is completely banned during the holy fasting days.",
+        category: "fasting"
+    },
+    {
+        question: "விரத காலங்களில் எந்த வகையான வெளிநிகழ்ச்சிகளில் கலந்து கொள்ளலாம்?",
+        questionEn: "What kind of outside functions can be attended during the fasting period?",
+        keywords: ["சுபநிகழ்ச்சி", "வெளிநிகழ்ச்சி", "auspicious", "functions", "events"],
+        answer: "அழைப்பிதழின்படி, விரத காலங்களில் 'சுபநிகழ்ச்சிகளில் மட்டும்' கலந்து கொள்வது சிறப்பானது எனக் கூறப்பட்டுள்ளது.",
+        answerEn: "According to the invitation, it is considered appropriate to participate 'only in auspicious functions' during the fasting timeline.",
+        category: "fasting"
+    },
+    {
+        question: "இந்த விரத விதிகள் யாருக்குப் பொருந்தும்?",
+        questionEn: "To whom do these strict fasting regulations apply?",
+        keywords: ["யாருக்கு", "விதிகள்", "whom", "applicable", "rules"],
+        answer: "இக்கோயிலைச் சார்ந்த ஐந்து கோத்திரங்களைச் சேர்ந்த அனைத்து குடிமக்களுக்கும் இந்த விரத விதிகள் பொருந்தும்.",
+        answerEn: "These rigorous fasting regulations apply to all native citizens belonging to the temple's five Gotras.",
+        category: "fasting"
+    },
+    {
+        question: "விரதக் கட்டுப்பாடுகள் எத்தனை நாட்கள் நீடிக்கின்றன?",
+        questionEn: "How many total calendar days do the fasting restrictions span?",
+        keywords: ["நாட்கள்", "விரதகாலம்", "days", "duration"],
+        answer: "ஆடி 4 முதல் ஆடி 10 வரை, அதாவது திருவிழாவின் மொத்த காலமான 7 நாட்களும் கட்டுப்பாடுகள் நீடிக்கின்றன.",
+        answerEn: "The restrictions span from Aadi 4 to Aadi 10, covering the entire 7-day duration of the festival timeline.",
+        category: "fasting"
+    },
+    {
+        question: "தாளிப்பு இல்லாமல் சமைப்பது ஏன் வலியுறுத்தப்படுகிறது?",
+        questionEn: "Why is cooking without tempering emphasized during the ritual?",
+        keywords: ["தாளிப்பு", "ஏன்", "tempering", "reason"],
+        answer: "இது திருவிழா காலத்தில் தூய்மையையும் ஆன்மீக ஒழுக்கத்தையும் பேண குடிமக்களுக்கு விதிக்கப்பட்ட பாரம்பரிய விரத நியதியாகும்.",
+        answerEn: "This is a traditional ritual austerity imposed on citizens to preserve purity and spiritual discipline during the festival season.",
+        category: "fasting"
+    },
+
+    // CATEGORY: CORE FESTIVAL TIMINGS & AGENDAS (33-55)
+    {
+        question: "திருவிழா நடைபெறும் தமிழ் ஆண்டு மற்றும் மாதம் எது?",
+        questionEn: "What is the Tamil year and month of this festival?",
+        keywords: ["ஆண்டு", "மாதம்", "தமிழ்", "tamil year", "month", "parabhava", "aadi"],
+        answer: "மங்களகரமான பராபவ ஆண்டு ஆடி மாதத்தில் இத்திருவிழா நடைபெறுகிறது.",
+        answerEn: "This grand festival is slated to take place in the auspicious Tamil year 'Parabhava' in the month of 'Aadi'.",
+        category: "agenda"
+    },
+    {
+        question: "முகூர்த்த கால் நடுதல் எப்போது நடைபெறுகிறது?",
+        questionEn: "When does the installation of the auspicious Muhurtha Kaal take place?",
+        keywords: ["முகூர்த்த கால்", "நடுதல்", "muhurtha kaal", "installation"],
+        answer: "ஆடி 4, 20.07.2026 திங்கட்கிழமை அதிகாலை 04:31 மணி முதல் 06:01 மணிக்குள் நடைபெறுகிறது.",
+        answerEn: "It takes place on Monday, Aadi 4, July 20, 2026, early morning between 04:31 AM and 06:01 AM.",
+        category: "agenda"
+    },
+    {
+        question: "புண்யாகவஜனம் மற்றும் காப்பு கட்டுதல் எப்போது நிகழ்கிறது?",
+        questionEn: "When do the Punyahavajanam and Kaapu Kattuthal rituals take place?",
+        keywords: ["காப்பு கட்டுதல்", "புண்யாகவஜனம்", "punyahavajanam", "kaapu kattuthal"],
+        answer: "ஆடி 4 (20.07.2026) திங்கட்கிழமை அதிகாலை 04:31 மணி முதல் 06:01 மணிக்குள் முகூர்த்த கால் நடுதலுடன் இணைந்து நிகழ்கிறது.",
+        answerEn: "It occurs concurrently with the Muhurtha Kaal setup on Monday, Aadi 4 (20.07.2026) from 04:31 AM to 06:01 AM.",
+        category: "agenda"
+    },
+    {
+        question: "ஆடி 8 (24.07.2026) அன்று காலையில் நிகழும் முதல் பூசை என்ன?",
+        questionEn: "What is the first ritual taking place on the morning of Aadi 8 (24.07.2026)?",
+        keywords: ["ஆடி 8", "பூஜை", "காலை", "aadi 8", "pooja", "morning"],
+        answer: "காலை 06:01 மணிக்கு முதன்மையாகக் கோயிலில் உள்ள சுவாமிகளுக்குச் சிறப்புப் பூஜை செய்யப்படுகிறது.",
+        answerEn: "At 06:01 AM, a special morning pooja is primarily conducted for all the deities residing inside the main temple.",
+        category: "agenda"
+    },
+    {
+        question: "கோட்டை முனீஸ்வரன் கோயில் சிறப்பு பூஜை எப்போது?",
+        questionEn: "When is the special pooja conducted at Kottai Muneeswaran Temple?",
+        keywords: ["முனீஸ்வரன்", "கோட்டை", "muneeswaran", "kottai"],
+        answer: "ஆடி 8 (24.07.2026) வெள்ளிக்கிழமை காலை 07:31 மணிக்கு கோட்டை முனீஸ்வரன் கோயிலில் சிறப்பு பூஜை நடைபெறும்.",
+        answerEn: "The special pooja at Kottai Muneeswaran Temple will be conducted on Friday, Aadi 8 (24.07.2026) at 07:31 AM.",
+        category: "agenda"
+    },
+    {
+        question: "உக்கிரகாளியம்மன் கோயில் சிறப்பு பூஜை எப்போது நடத்தப்படுகிறது?",
+        questionEn: "When is the special pooja held at Ukkirakaliamman Temple?",
+        keywords: ["உக்கிரகாளி", "பூஜை", "ukkirakali", "pooja"],
+        answer: "ஆடி 8 (24.07.2026) வெள்ளிக்கிழமை காலை 09:01 மணிக்கு உக்கிரகாளியம்மன் கோயிலில் சிறப்பு பூஜை நடைபெறும்.",
+        answerEn: "The special pooja at Ukkirakaliamman Temple is scheduled for Friday, Aadi 8 (24.07.2026) at 09:01 AM.",
+        category: "agenda"
+    },
+    {
+        question: "பச்சைக்காக சுவாமிகள் படித்துறைக்கு எப்போது புறப்படுகிறார்கள்?",
+        questionEn: "When do the deities depart to the river bank for Pachai?",
+        keywords: ["படித்துறை", "புறப்பாடு", "பச்சை", "departure", "padithurai", "pachai"],
+        answer: "ஆடி 8 (24.07.2026) வெள்ளிக்கிழமை மதியம் 03:01 மணி அளவில் திருக்கோயிலில் இருந்து புறப்படுகிறார்கள்.",
+        answerEn: "The deities depart from the main temple complex towards the river bank on Friday, Aadi 8 (24.07.2026) around 03:01 PM.",
+        category: "agenda"
+    },
+    {
+        question: "சுவாமிகள் எந்த படித்துறைக்கு அழைத்துச் செல்லப்படுகிறார்கள்?",
+        questionEn: "To which specific river bank are the deities taken for rituals?",
+        keywords: ["காவேரி", "அய்யாளம்மன்", "cauvery", "ayyalamman"],
+        answer: "சுவாமிகள் காவேரி அய்யாளம்மன் படித்துறைக்கு அழைத்துச் செல்லப்படுகிறார்கள்.",
+        answerEn: "The deities are brought to the holy Cauvery Ayyalamman Padithurai (river bank bank).",
+        category: "agenda"
+    },
+    {
+        question: "அய்யாளம்மன் படித்துறையில் மாலை 5:01 மணிக்கு என்ன நிகழும்?",
+        questionEn: "What events unfold at Ayyalamman Padithurai at 05:01 PM?",
+        keywords: ["அபிஷேகம்", "கரகம்", "திருவீதி உலா", "abhishekam", "karagam", "procession"],
+        answer: "சுவாமிகளுக்கு அபிஷேகம் செய்து, கரகம் பாலித்து, சுவாமிகளுக்கு அலங்காரம் செய்து திருவீதி உலா புறப்பாடு நடைபெறும்.",
+        answerEn: "The deities receive holy Abhishekam, followed by Karagam Balithal, grand decoration, and the start of the street procession.",
+        category: "agenda"
+    },
+    {
+        question: "ஆடி 8 திருவீதி உலாவுக்குப் பின் கோயிலில் நடக்கும் நிறைவு பூசை என்ன?",
+        questionEn: "What concluding ritual happens at the temple after the Aadi 8 street procession?",
+        keywords: ["பால் பூசை", "கோவில்", "milk pooja", "temple"],
+        answer: "திருவீதி உலா வந்து கோவிலை வந்தடைந்ததும் இரவு 'பால் பூசை' நடைபெறும்.",
+        answerEn: "After traversing the streets and returning back to the temple base, the nocturnal 'Milk Pooja' (Paal Poosai) is performed.",
+        category: "agenda"
+    },
+    {
+        question: "தீர்த்தத்தில் விளக்கேற்றும் 'திருப்பச்சை' நிகழ்வு எப்போது நடைபெறும்?",
+        questionEn: "When does the holy water-lamp lighting ritual 'Thirupachai' take place?",
+        keywords: ["திருப்பச்சை", "அக்கினி", "thirupachai", "fire"],
+        answer: "ஆடி 9 (25.07.2026) சனிக்கிழமை அதிகாலை 03:43 மணி முதல் 04:41 மணி வரை நடைபெறும்.",
+        answerEn: "It takes place on Saturday, Aadi 9 (25.07.2026) during the early dawn hours from 03:43 AM to 04:41 AM.",
+        category: "agenda"
+    },
+    {
+        question: "திருப்பச்சை நிகழ்வின் போது செய்யப்படும் முக்கிய சடங்கு என்ன?",
+        questionEn: "What is the crucial religious ritual executed during Thirupachai?",
+        keywords: ["மடியில்", "விளக்கு", "தீர்த்தம்", "lap", "lamp", "water"],
+        answer: "பெரிய நாச்சியம்மன் சன்னதியில் அக்கினி வளர்த்து, மடியில் ஏந்தி, தீர்த்தத்தில் விளக்கு ஏற்றி மகிமை காட்டப்படும்.",
+        answerEn: "Holy fire is raised at the Periya Nachiamman shrine, held in the lap, and lamps are lit on water to show divinity.",
+        category: "agenda"
+    },
+    {
+        question: "கரும்பு முனையில் முடிக்கு தீர்த்தம் போடுதல் மற்றும் காதணி விழா எப்போது?",
+        questionEn: "When is the ear-piercing ceremony along with water splashing from sugar cane tip?",
+        keywords: ["கரும்பு", "காதணி விழா", "sugarcane", "ear piercing"],
+        answer: "ஆடி 9 (25.07.2026) சனிக்கிழமை காலை 06:01 மணி அளவில் நடைபெறும்.",
+        answerEn: "It is scheduled to take place on Saturday, Aadi 9 (25.07.2026) around 06:01 AM in the morning.",
+        category: "agenda"
+    },
+    {
+        question: "கரும்பு முனையில் தீர்த்தம் போடும் சடங்கை செய்யும் தெய்வம் எது?",
+        questionEn: "Which deity performs the ritual of splashing holy water from the sugarcane tip?",
+        keywords: ["வீரப்பசுவாமி", "சடங்கு", "veerappasamy", "ritual"],
+        answer: "எஜமான் ஸ்ரீ வீரப்பசுவாமி கரும்பு முனையில் முடிக்கு தீர்த்தம் போடும் சடங்கை நிகழ்த்துவார்.",
+        answerEn: "The chief deity Ejaman Sri Veerappasamy performs the ritual of casting holy water from the tip of sugarcane.",
+        category: "agenda"
+    },
+    {
+        question: "ஐந்து கோத்திர பெண்கள் சீர்வரிசை கொண்டு வரும் நிகழ்ச்சி எப்போது?",
+        questionEn: "When do the women of the five Gotras bring the ceremonial gifts?",
+        keywords: ["சீர்வரிசை", "பெண்கள்", "gifts", "women", "seer varisai"],
+        answer: "ஆடி 9 (25.07.2026) சனிக்கிழமை காலை 10:01 மணி அளவில் கொண்டு வரப்படும்.",
+        answerEn: "The traditional ceremonial gifts are brought by the clan women on Saturday, Aadi 9 (25.07.2026) around 10:01 AM.",
+        category: "agenda"
+    },
+    {
+        question: "ஐந்து கோத்திர பெண்கள் எங்கிருந்து சீர்வரிசை எடுத்து வருகிறார்கள்?",
+        questionEn: "From where do the women of the five Gotras carry the ceremonial gift collection?",
+        keywords: ["உக்கிர காளியம்மன்", "எங்கிருந்து", "ukkira kaliamman", "source"],
+        answer: "பெண்கள் ஸ்ரீ உக்கிர காளியம்மன் கோயிலில் இருந்து நமது கோயிலுக்குச் சீர்வரிசை கொண்டு வருகிறார்கள்.",
+        answerEn: "The women carry the ceremonial gift materials from Sri Ukkira Kaliamman Temple to our main temple.",
+        category: "agenda"
+    },
+    {
+        question: "பாரிவேட்டைக்கு சுவாமிகள் எப்போது புறப்படுகிறார்கள்?",
+        questionEn: "When do the deities set out for the hunting festival (Parivettai)?",
+        keywords: ["பாரிவேட்டை", "புறப்பாடு", "parivettai", "hunt"],
+        answer: "ஆடி 9 (25.07.2026) சனிக்கிழமை மாலை 03:01 மணி அளவில் சுவாமிகள் பாரிவேட்டைக்கு புறப்படுவர்.",
+        answerEn: "The deities start their sacred progression for the hunting festival (Parivettai) on Saturday, Aadi 9 (25.07.2026) around 03:01 PM.",
+        category: "agenda"
+    },
+    {
+        question: "பன்றி குத்துதல் மற்றும் படுகளம் சாய்தல் எங்கு நடைபெறும்?",
+        questionEn: "Where does the boar spearing and Padugalam felling ritual occur?",
+        keywords: ["பன்றி", "படுகளம்", "தெப்பக்குளம்", "boar", "teppakulam"],
+        answer: "தெப்பக்குளம் ஈசானிய மூலையில் ஸ்ரீ சங்கர் பன்றி குத்துதல் மற்றும் படுகளம் சாய்தல் நிகழ்ச்சி நடைபெறும்.",
+        answerEn: "The strategic spearing of the ritual boar by Sri Shankar and the Padugalam event take place at the northeast corner of the Teppakulam.",
+        category: "agenda"
+    },
+    {
+        question: "தெப்பக்குளத்தின் எந்த மூலையில் பன்றி குத்துதல் சடங்கு நடக்கிறது?",
+        questionEn: "At which direction/corner of the Teppakulam is the boar spearing ceremony held?",
+        keywords: ["ஈசானிய", "மூலை", "northeast", "corner", "eesaniya"],
+        answer: "தெப்பக்குளத்தின் 'ஈசானிய மூலை' (வடகிழக்கு திசை) பகுதியில் இச்சடங்கு நடத்தப்படுகிறது.",
+        answerEn: "The ritual action is strictly executed at the designated 'Eesaniya Moolai' (Northeast Corner) of the Teppakulam.",
+        category: "agenda"
+    },
+    {
+        question: "நல்ல தங்காளை அழைத்து படுகளம் எழுப்பும் சடங்கு எங்கு நடைபெறும்?",
+        questionEn: "Where is the revival ritual of Padugalam by summoning Nalla Thangal performed?",
+        keywords: ["நல்ல தங்களை", "எழுப்புதல்", "nalla thangal", "revival"],
+        answer: "பெரியகாண்டியம்மன் சன்னதியில் நல்ல தங்காளை அழைத்து தீர்த்தம் தெளித்து படுகளம் எழுப்பப்படும்.",
+        answerEn: "The revival of Padugalam is done by summoning Nalla Thangal and sprinkling holy water at the Periya Kandiamman shrine.",
+        category: "agenda"
+    },
+    {
+        question: "ஆடி 9 அன்று பால் பொங்கல் பூஜை எந்த நேரத்தில் நடைபெறும்?",
+        questionEn: "At what time is the traditional Paal Pongal Pooja conducted on Aadi 9?",
+        keywords: ["பால் பொங்கல்", "நேரம்", "paal pongal", "time"],
+        answer: "ஆடி 9 (25.07.2026) சனிக்கிழமை இரவு 08:01 மணி அளவில் பால் பொங்கல் பூஜை நடைபெறும்.",
+        answerEn: "The ritual boiling and offering of milk pongal is set for Saturday, Aadi 9 (25.07.2026) around 08:01 PM.",
+        category: "agenda"
+    },
+    {
+        question: "எஜமான் வீரப்பசுவாமி எரிகாவு கொடுக்க செல்லுதல் எப்போது?",
+        questionEn: "When does Ejaman Veerappasamy proceed to execute the Erigaavu offering?",
+        keywords: ["எரிகாவு", "வீரப்பசுவாமி", "erigaavu", "offering"],
+        answer: "ஆடி 9 சனிக்கிழமை இரவு 12:15 மணி அளவில் எஜமான் வீரப்பசுவாமி எரிகாவு கொடுக்கச் செல்லுவார்.",
+        answerEn: "Ejaman Veerappasamy proceeds to deliver the midnight 'Erigaavu' offering on Saturday night at around 12:15 AM.",
+        category: "agenda"
+    },
+    {
+        question: "திருவிழாவில் கிடா வெட்டுதல் எந்த நேரத்தில் தொடங்குகிறது?",
+        questionEn: "At what specific time does the animal sacrifice ritual (Kida Vettuthal) commence?",
+        keywords: ["கிடா வெட்டுதல்", "நள்ளிரவு", "animal sacrifice", "kida vettuthal"],
+        answer: "ஆடி 9 நள்ளிரவைத் தாண்டி, இரவு 01:01 மணி அளவில் கிடா வெட்டுதல் நடைபெறும்.",
+        answerEn: "The ritual animal sacrifice (Kida Vettuthal) formally commences late night at 01:01 AM.",
+        category: "agenda"
+    },
+    {
+        question: "அடசல் பூஜை எப்போது நடைபெறும் என அறிவிக்கப்பட்டுள்ளது?",
+        questionEn: "When has the unique Adasal Pooja been slated to take place?",
+        keywords: ["அடசல்", "பூஜை", "adasal", "pooja"],
+        answer: "ஆடி 10 (26.07.2026) ஞாயிற்றுக்கிழமை அதிகாலை 04:31 மணி அளவில் அடசல் பூஜை நடைபெறும்.",
+        answerEn: "The specialized 'Adasal Pooja' is dynamically scheduled for Sunday, Aadi 10 (26.07.2026) early morning around 04:31 AM.",
+        category: "agenda"
+    },
+    {
+        question: "பொதுமக்களுக்கான பெரிய விருந்து உபசரிப்பு எப்போது நடக்கும்?",
+        questionEn: "When will the grand community feast distribution happen?",
+        keywords: ["விருந்து", "உபசரிப்பு", "feast", "distribution"],
+        answer: "ஆடி 10 (26.07.2026) ஞாயிற்றுக்கிழமை மதியம் 11:01 மணி அளவில் விருந்து உபசரிப்பு நடைபெறும்.",
+        answerEn: "The traditional community mass feast feeding is organized for Sunday, Aadi 10 (26.07.2026) at 11:01 AM.",
+        category: "agenda"
+    },
+    {
+        question: "சுவாமிகளுக்கு விடையாற்றி பூசை எந்த நேரத்தில் நடைபெறும்?",
+        questionEn: "At what hour is the concluding Vidayatri Pooja executed for the deities?",
+        keywords: ["விடையாற்றி", "நிறைவு", "vidayatri", "concluding"],
+        answer: "ஆடி 10 (26.07.2026) ஞாயிற்றுக்கிழமை மாலை 06:31 மணி அளவில் விடையாற்றி பூசையுடன் திருவிழா நிறையும்.",
+        answerEn: "The festival concludes following the final Vidayatri Pooja on Sunday, Aadi 10 (26.07.2026) at 06:31 PM in the evening.",
+        category: "agenda"
+    },
+
+    // CATEGORY: SYSTEM LOGISTICS & REGISTRATIONS (56-65)
+    {
+        question: "கிடா கொடுக்க விரும்புபவர்கள் பதிவு செய்ய கடைசி நாள் எது?",
+        questionEn: "What is the final cut-off date to register for offering a goat sacrifice?",
+        keywords: ["பதிவு", "கடைசி நாள்", "deadline", "registration", "kida"],
+        answer: "கிடா கொடுக்க விரும்புவோர் 23.07.2026க்குள் கோயில் நிர்வாகத்திடம் தெரிவித்து பதிவு செய்ய வேண்டும்.",
+        answerEn: "Those wishing to offer a goat must inform the temple management and register by 23.07.2026.",
+        category: "logistics"
+    },
+    {
+        question: "யாரிடம் கிடா வெட்டுதலுக்கான பதிவை மேற்கொள்ள வேண்டும்?",
+        questionEn: "With which body should the goat offering registration be documented?",
+        keywords: ["நிர்வாகம்", "அறக்கட்டளை", "management", "trust"],
+        answer: "கோவில் நிர்வாகத்திடம் தெரிவித்து, 'பெரியநாச்சியம்மன் சமேத ஸ்ரீ வீரிய பெருமாள் அறக்கட்டளை'யிடம் பதிவு செய்ய வேண்டும்.",
+        answerEn: "You must inform the temple administration and register directly with the 'Sri Periya Nachiamman Sametha Sri Veeriya Perumal Trust'.",
+        category: "logistics"
+    },
+    {
+        question: "பூசை வழிபாடுகளைத் தலைமை தாங்கி நடத்துபவர் யார்?",
+        questionEn: "Who is the designated head priest conducting the temple rituals?",
+        keywords: ["பூசாரி", "தங்கம்", "priest", "poosari", "thangam"],
+        answer: "ஸ்ரீரங்கம் புயல் பூசாரி E.தங்கம் கருப்புலி அவர்கள் பூசை வழிபாடுகளைத் தலைமை தாங்கி நடத்துகிறார்.",
+        answerEn: "Srirangam Puyal Poosari E. Thangam Karuppuli is the designated priest conducting the sacred rituals.",
+        category: "logistics"
+    },
+    {
+        question: "தலைமைப் பூசாரி எந்த ஊரைச் சேர்ந்தவர்?",
+        questionEn: "Which town does the head priest hail from?",
+        keywords: ["ஸ்ரீரங்கம்", "priest town", "srirangam"],
+        answer: "பூசை வழிபாடுகளை நடத்தும் தலைமைப் பூசாரி 'ஸ்ரீரங்கம்' பகுதியைச் சேர்ந்தவர் ஆவார்.",
+        answerEn: "The head priest conducting the worship series hails from the holy town of 'Srirangam'.",
+        category: "logistics"
+    },
+    {
+        question: "அழைப்பிதழை அச்சிட்ட அச்சகத்தின் பெயர் மற்றும் தொலைபேசி எண் என்ன?",
+        questionEn: "What is the name and phone number of the graphic press that printed the invite?",
+        keywords: ["அச்சகம்", "கிராபிக்ஸ்", "press", "printing", "graphics"],
+        answer: "M.V.Graphics(Noble) Try -2. அலைபேசி எண்: 94439 55757.",
+        answerEn: "It is printed by M.V.Graphics(Noble) Try -2. Cell contact number: 94439 55757.",
+        category: "logistics"
+    },
+    {
+        question: "அன்னதானம் எப்போது நடக்கிறது?",
+        questionEn: "When is the mass community lunch (Annadhanam) served?",
+        keywords: ["மதிய உணவு", "அன்னதானம்", "lunch", "annadhanam"],
+        answer: "அழைப்பிதழ் நிகழ்ச்சி நிரல்படி ஆடி 9 (25.07.2026) சனிக்கிழமை மதியம் 12:01 மணிக்கு மதிய உணவு பரிமாறப்படும்.",
+        answerEn: "As per the schedule, the afternoon mass lunch is served on Saturday, Aadi 9 (25.07.2026) at 12:01 PM.",
+        category: "logistics"
+    },
+    {
+        question: "பாரிவேட்டை நிகழ்வில் பன்றி குத்தும் நபரின் பெயர் என்ன?",
+        questionEn: "What is the name of the person executioner piercing the boar in Parivettai?",
+        keywords: ["சங்கர்", "பன்றி குத்துதல்", "shankar", "boar piercer"],
+        answer: "பாரிவேட்டை சடங்கில் 'ஸ்ரீ சங்கர்' என்பவர் பன்றி குத்துதல் நிகழ்வை மேற்கொள்கிறார்.",
+        answerEn: "A person named 'Sri Shankar' is explicitly designated to execute the boar-piercing task.",
+        category: "logistics"
+    },
+    {
+        question: "முப்பூசை திருவிழா எத்தனையாம் தேதிகளில் நடக்கிறது?",
+        questionEn: "On which calendar dates does the Mupoojai festival happen?",
+        keywords: ["முப்பூசை", "தேதிகள்", "mupoojai", "dates"],
+        answer: "இது முக்கியமாக ஆடி 8 முதல் ஆடி 10 வரையிலான (24.07.2026 - 26.07.2026) தொடர் நாட்களில் நடக்கிறது.",
+        answerEn: "It is primarily celebrated across the consecutive days from Aadi 8 to Aadi 10 (July 24 to July 26, 2026).",
+        category: "logistics"
+    },
+    {
+        question: "அழைப்பிதழின் முகப்பில் உள்ள ஆன்மீகக் குறியீடு என்ன?",
+        questionEn: "What is the traditional spiritual symbol placed at the top of the invitation text?",
+        keywords: ["உ", "குறியீடு", "symbol", "pillaiyar suzhi"],
+        answer: "அழைப்பிதழின் மேல் பகுதியில் தமிழ் பாரம்பரிய 'உ' (பிள்ளையார் சுழி) குறியீடு இடப்பட்டுள்ளது.",
+        answerEn: "The traditional Tamil symbol 'உ' (Pillaiyar Suzhi) is placed at the topmost center of the letterhead.",
+        category: "logistics"
+    },
+    {
+        question: "விருந்து உபசரிப்பு மற்றும் மதிய உணவு ஆகிய இரண்டிற்கும் என்ன வித்தியாசம்?",
+        questionEn: "What is the operational difference between the Lunch and Feast sessions?",
+        keywords: ["விருது", "வித்தியாசம்", "difference", "meals"],
+        answer: "மதிய உணவு ஆடி 9 மதியம் 12:01 மணிக்கும், பெரிய கிடா வெட்டு விருந்து உபசரிப்பு ஆடி 10 மதியம் 11:01 மணிக்கும் நடக்கும்.",
+        answerEn: "The standard lunch is on Aadi 9 at 12:01 PM, while the massive non-vegetarian feast distribution is on Aadi 10 at 11:01 AM.",
+        category: "logistics"
+    },
+
+    // CATEGORY: SPIRITUAL TRANCE INVOCATORS / SAMIYADIGAL (66-74)
+    {
+        question: "ஸ்ரீ வீரியபெருமாள் சுவாமியின் சாமியாடி யார்?",
+        questionEn: "Who is the designated Samiyadi (Trace Medium) for Lord Veeriya Perumal?",
+        keywords: ["சந்தோஷ்குமார்", "சாமியாடி", "santhoshkumar", "samiyadi"],
+        answer: "ஸ்ரீ வீரியபெருமாள் சுவாமியின் சாமியாடி K.சந்தோஷ்குமார் ஆவார்.",
+        answerEn: "The official spiritual medium for Lord Veeriya Perumal is K. Santhoshkumar.",
+        category: "mediums"
+    },
+    {
+        question: "ஸ்ரீ பெரியநாச்சியம்மன் சுவாமியின் சாமியாடியாக அருள்வாக்கு சொல்பவர் யார்?",
+        questionEn: "Who functions as the Samiyadi for Goddess Periya Nachiamman?",
+        keywords: ["சரவணன்", "சாமியாடி", "saravanan", "medium"],
+        answer: "ஸ்ரீ பெரியநாச்சியம்மன் சுவாமியின் சாமியாடி A.சரவணன் ஆவார்.",
+        answerEn: "The spiritual trance medium representing Goddess Periya Nachiamman is A. Saravanan.",
+        category: "mediums"
+    },
+    {
+        question: "ஸ்ரீ வீரப்ப சுவாமியின் சாமியாடி யார்?",
+        questionEn: "Who is the designated trance medium for Lord Veerappa Swamy?",
+        keywords: ["வீரப்பன்", "சாமியாடி", "veerappan", "samiyadi"],
+        answer: "ஸ்ரீ வீரப்ப சுவாமியின் சாமியாடி A.V.S.வீரப்பன் ஆவார்.",
+        answerEn: "The certified operational medium for Lord Veerappa Swamy is A.V.S. Veerappan.",
+        category: "mediums"
+    },
+    {
+        question: "ஸ்ரீ பெரிய காண்டியம்மன் சுவாமியின் சாமியாடி பெயர் என்ன?",
+        questionEn: "What is the name of the Samiyadi for Sri Periya Kandiamman?",
+        keywords: ["செந்தில்", "சாமியாடி", "senthil", "samiyadi"],
+        answer: "ஸ்ரீ பெரிய காண்டியம்மன் சுவாமியின் சாமியாடி C.செந்தில் ஆவார்.",
+        answerEn: "The designated trance medium for Sri Periya Kandiamman is C. Senthil.",
+        category: "mediums"
+    },
+    {
+        question: "கன்னிமார் சுவாமிகளின் சாமியாடியாக நியமிக்கப்பட்டுள்ளவர் யார்?",
+        questionEn: "Who has been appointed as the Samiyadi for the Kannimar Deities?",
+        keywords: ["ராமநாதன்", "சாமியாடி", "ramanathan", "kannimar"],
+        answer: "கன்னிமார் சுவாமிகள் சன்னதிக்கான சாமியாடி V.ராமநாதன் ஆவார்.",
+        answerEn: "The official trance medium for the Kannimar Swamigal cluster is V. Ramanathan.",
+        category: "mediums"
+    },
+    {
+        question: "ஸ்ரீ வீரமலையாண்டி சுவாமியின் சாமியாடி யார்?",
+        questionEn: "Who acts as the spiritual trance vehicle for Sri Veeramalayaandi?",
+        keywords: ["சண்முகம்", "சாமியாடி", "shanmugam", "medium"],
+        answer: "ஸ்ரீ வீரமலையாண்டி சுவாமியின் சாமியாடி G.சண்முகம் ஆவார்.",
+        answerEn: "The designated spiritual trance vehicle for Sri Veeramalayaandi is G. Shanmugam.",
+        category: "mediums"
+    },
+    {
+        question: "ஸ்ரீ மலையாள முத்தைய்யன் சுவாமியின் சாமியாடி யார்?",
+        questionEn: "Who is the official Samiyadi for Sri Malayalam Muthaiyan?",
+        keywords: ["நாகராஜன்", "சாமியாடி", "nagarajan", "samiyadi"],
+        answer: "ஸ்ரீ மலையாள முத்தைய்யன் சுவாமியின் சாமியாடி S.நாகராஜன் ஆவார்.",
+        answerEn: "The state-recognized spiritual medium for Sri Malayalam Muthaiyan is S. Nagarajan.",
+        category: "mediums"
+    },
+    {
+        question: "ஸ்ரீ மதுரைவீரன் சுவாமியின் சாமியாடி யார்?",
+        keywords: ["சக்திவேல்", "சாமியாடி", "shaktivel", "samiyadi"],
+        questionEn: "Who is the designated trance medium for Sri Maduraiveeran Swamy?",
+        answer: "ஸ்ரீ மதுரைவீரன் சுவாமியின் சாமியாடி S.சக்திவேல் ஆவார்.",
+        answerEn: "The official designated medium for Sri Maduraiveeran Swamy is S. Shaktivel.",
+        category: "mediums"
+    },
+    {
+        question: "அழைப்பிதழில் மொத்தம் எத்தனை சாமியாடிகளின் பெயர்கள் பட்டியலிடப்பட்டுள்ளன?",
+        questionEn: "How many total Samiyadis have their names listed transparently in the invite?",
+        keywords: ["எத்தனை", "சாமியாடிகள்", "how many", "mediums", "total"],
+        answer: "பரிவார தெய்வங்கள் உட்பட மொத்தம் 8 சாமியாடிகளின் பெயர்கள் தெளிவாகக் குறிப்பிடப்பட்டுள்ளன.",
+        answerEn: "In total, 8 specific Samiyadi names are structurally listed for different shrines.",
+        category: "mediums"
+    },
+
+    // CATEGORY: TRUST ORGANIZERS & EXECUTIVES (77-100)
+    {
+        question: "ராஜா மற்றும் பட்டக்காரர் பதவியில் திருவிழாவை முன்னின்று நடத்துபவர் யார்?",
+        questionEn: "Who leads the festival holding the title of Raja and Pattakarar?",
+        keywords: ["ராஜா", "பட்டக்காரர்", "சண்முகம்", "raja", "pattakarar", "shanmugam"],
+        answer: "A.சண்முகம் செட்டியார் (96776 38335) அவர்கள் ராஜா & பட்டக்காரர் பொறுப்பில் உள்ளார்.",
+        answerEn: "A. Shanmugam Chettiyar (96776 38335) leads in the capacity of Raja & Pattakarar.",
+        category: "management"
+    },
+    {
+        question: "மத்தியஸ்தர் பொறுப்பில் உள்ள முக்கிய நிர்வாகி யார்?",
+        questionEn: "Who is the key official holding the position of Mediator (Madhyasthar)?",
+        keywords: ["மத்தியஸ்தர்", "செல்வராஜ்", "mediator", "madhyasthar", "selvaraj"],
+        answer: "வைகோ @ A.செல்வராஜ் அவர்கள் இத்திருக்கோயில் திருவிழாவின் மத்தியஸ்தர் ஆவார்.",
+        answerEn: "Vaiko @ A. Selvaraj acts as the official Mediator (Madhyasthar) for the event.",
+        category: "management"
+    },
+    {
+        question: "மந்திரி மற்றும் டிரஸ்டி பொறுப்பில் உள்ளவர் யார்?",
+        questionEn: "Who is holding the administrative post of Minister & Trustee?",
+        keywords: ["மந்திரி", "டிரஸ்டி", "ரவிக்குமார்", "mantri", "trustee", "ravikumar"],
+        answer: "MDS.ரவிக்குமார் (94435 32338) அவர்கள் மந்திரி & டிரஸ்டி பொறுப்பில் உள்ளார்.",
+        answerEn: "MDS. Ravikumar (94435 32338) serves in the joint role of Mantri & Trustee.",
+        category: "management"
+    },
+    {
+        question: "அறக்கட்டளையின் தற்போதைய தலைவர் யார்?",
+        questionEn: "Who is the sitting President (Thalaivar) of the temple trust?",
+        keywords: ["தலைவர்", "ராஜகோபால்", "president", "thalaivar", "rajagopal"],
+        answer: "M.ராஜகோபால் (99760 92571) அவர்கள் அறக்கட்டளையின் தலைவராக உள்ளார்.",
+        answerEn: "M. Rajagopal (99760 92571) is the official President of the working temple trust.",
+        category: "management"
+    },
+    {
+        question: "அறக்கட்டளையின் துணைத்தலைவர் யார்?",
+        questionEn: "Who occupies the post of Vice-President (Thunai Thalaivar)?",
+        keywords: ["துணைத்தலைவர்", "கார்த்திகேயன்", "vice president", "karthikeyan"],
+        answer: "T.P.L.கார்த்திகேயன் (99949 45641) அவர்கள் துணைத்தலைவர் ஆவார்.",
+        answerEn: "T.P.L. Karthikeyan (99949 45641) holds the office of the trust's Vice-President.",
+        category: "management"
+    },
+    {
+        question: "அறக்கட்டளையின் செயலாளர் பொறுப்பில் இருப்பவர் யார்?",
+        questionEn: "Who is currently handling the duties of the Trust Secretary?",
+        keywords: ["செயலாளர்", "ஸ்ரீராம்", "secretary", "secrelap", "sriram"],
+        answer: "V.R.ஸ்ரீராம் (94431 15689) அவர்கள் செயலாளர் பொறுப்பை வகிக்கிறார்.",
+        answerEn: "V.R. Sriram (94431 15689) efficiently handles the duties as the Secretary.",
+        category: "management"
+    },
+    {
+        question: "அறக்கட்டளையின் துணைச்செயலாளர் யார்?",
+        questionEn: "Who is the designated Joint Secretary (Thunai Seyalalar)?",
+        keywords: ["துணைச்செயலாளர்", "மாரியப்பன்", "joint secretary", "mariyappan"],
+        answer: "N.மாரியப்பன் (95858 28141) அவர்கள் துணைச்செயலாளர் ஆவார்.",
+        answerEn: "N. Mariyappan (95858 28141) serves as the Joint Secretary of the organization.",
+        category: "management"
+    },
+    {
+        question: "அறக்கட்டளையின் பொருளாளராக கணக்குகளை கவனிப்பவர் யார்?",
+        questionEn: "Who manages the funds as the official Treasurer (Porulalar)?",
+        keywords: ["பொருளாளர்", "காசிராமன்", "treasurer", "porulalar", "kasiraman"],
+        answer: "ரமேஷ் (ஏ) M.D.D.காசிராமன் (90877 54096) அவர்கள் பொருளாளர் ஆவார்.",
+        answerEn: "Ramesh (a) M.D.D. Kasiraman (90877 54096) functions as the official Treasurer.",
+        category: "management"
+    },
+    {
+        question: "அழைப்பிதழில் உள்ள கமிட்டி உறுப்பினர்கள் நால்வர் யார்?",
+        questionEn: "Who are the four primary committee members named explicitly?",
+        keywords: ["கமிட்டி", "உறுப்பினர்கள்", "committee", "members", "four"],
+        answer: "A.முருகேசன், S.சதாசிவம், M.D.S.முத்துகுமார், மற்றும் A.A.V.ரமேஷ் பழனியப்பன்.",
+        answerEn: "A. Murugesan, S. Sadhasivam, M.D.S. Muthukumar, and A.A.V. Ramesh Palaniappan.",
+        category: "management"
+    },
+    {
+        question: "துவக்கத்தில் பெயரிடப்பட்டுள்ள மூன்று முக்கிய ஒருங்கிணைப்பாளர்கள் யார்?",
+        questionEn: "Who are the three key coordinators mentioned in the lower panel?",
+        keywords: ["ஒருங்கிணைப்பாளர்கள்", "தீனதயாளன்", "coordinators", "deenadhayalan"],
+        answer: "A.சண்முகம், M.D.S.ரவிக்குமார், மற்றும் V.R.தீனதயாளன் ஆகியோர் முக்கிய ஒருங்கிணைப்பாளர்கள்.",
+        answerEn: "A. Shanmugam, M.D.S. Ravikumar, and V.R. Deenadhayalan are key coordinators.",
+        category: "management"
+    },
+    {
+        question: "அறக்கட்டளையின் கௌரவத்தலைவர்கள் யார்?",
+        questionEn: "Who are listed as the Honorary Presidents (Gaurava Thalaivargal)?",
+        keywords: ["கௌரவத்தலைவர்கள்", "honorary", "presidents", "gaurava"],
+        answer: "M.D.தனக்கோடி, A.A.V.பழனியப்பன், M.D.S.முத்துக்குமார், M.M.P.R.பொன்னுச்சாமி, A.முருகேசன்.",
+        answerEn: "M.D. Dhanakodi, A.A.V. Palaniappan, M.D.S. Muthukumar, M.M.P.R. Ponnusamy, A. Murugesan.",
+        category: "management"
+    },
+    {
+        question: "திருச்சி பகுதியைச் சேர்ந்த பொதுக்குழு பிரதிநிதிகள் யார்?",
+        questionEn: "Who are the general body representatives from the Trichy zone?",
+        keywords: ["திருச்சி", "பிரதிநிதிகள்", "trichy", "representatives", "zone"],
+        answer: "M.பாலகிருஷ்ணன், Prof.M.சுப்ரமணியன், M.D.R.தியாகராஜன், M.M.P.V.சந்திரசேகரன், M.M.P.V.சண்முகசுந்தரம்.",
+        answerEn: "M. Balakrishnan, Prof. M. Subramanian, M.D.R. Thiyagarajan, M.M.P.V. Chandrasekaran, M.M.P.V. Shanmugasundaram.",
+        category: "management"
+    },
+    {
+        question: "அரியமங்கலம் பகுதியைச் சேர்ந்த முக்கிய பொறுப்பாளர்கள் யார்?",
+        questionEn: "Who are the key executive coordinators from Ariyamangalam area?",
+        keywords: ["அரியமங்கலம்", "ரவி", "aniyamangalam", "ravi"],
+        answer: "M.ரவி, A.P.கணேசன், V.G.ராமச்சந்திரன், P.A.சுப்ரமணியன் (வெள்ளக்காரர்), S.B.T.குமார் ஆகியோர்.",
+        answerEn: "M. Ravi, A.P. Ganesan, V.G. Ramachandran, P.A. Subramanian (Vellakarar), and S.B.T. Kumar.",
+        category: "management"
+    },
+    {
+        question: "சாளக்கிராமம் பகுதியைச் சேர்ந்த பிரதிநிதிகள் யார்?",
+        questionEn: "Who are the documented representatives from the Salagramam cluster?",
+        keywords: ["சாளக்கிராமம்", "சண்முகம்", "salagramam", "shanmugam"],
+        answer: "R.சண்முகம், P.குணசேகரன் ஆகிய இருவரும் சாளக்கிராமப் பகுதிக்குக் குறிப்பிடப்பட்டுள்ளனர்.",
+        answerEn: "R. Shanmugam and P. Gunasekaran are the two officials noted for Salagramam.",
+        category: "management"
+    },
+    {
+        question: "மண்ணச்சநல்லூர் பகுதியில் இருந்து யாரெல்லாம் கமிட்டியில் உள்ளனர்?",
+        questionEn: "Which citizens represent the Mannachanallur zone?",
+        keywords: ["மண்ணச்சநல்லூர்", "ராஜாராம்", "mannachanallur", "rajaram"],
+        answer: "P.பாலகணேசன், V.ராஜாராம், P.K.குமார், H.நல்லபெருமாள், V.விஸ்வநாதன், L.சரவணன்.",
+        answerEn: "P. Balaganesan, V. Rajaram, P.K. Kumar, H. Nallaperumal, V. Viswanathan, L. Saravanan.",
+        category: "management"
+    },
+    {
+        question: "லால்குடி மற்றும் நத்தம் பகுதியின் பிரதிநிதிகள் யார்?",
+        questionEn: "Who are the representatives from Lalgudi and Natham?",
+        keywords: ["லால்குடி", "நத்தம்", "lalgudi", "natham"],
+        answer: "லால்குடிக்கு சுரேஷ்; நத்தம் பகுதிக்கு S.A.தியாகராஜன், S.A.சரவணன், N.பாண்டியராஜன், A.பாலகிருஷ்ணன்.",
+        answerEn: "Suresh for Lalgudi; S.A. Thiyagarajan, S.A. Saravanan, N. Pandiyarajan, A. Balakrishnan for Natham.",
+        category: "management"
+    },
+    {
+        question: "மதுரை மற்றும் இனாம்புலியூர் பகுதிகளில் இருந்து பங்கேற்பவர்கள் யார்?",
+        questionEn: "Who are the participants listed from Madurai and Inampuliyur?",
+        keywords: ["மதுரை", "இனாம்புலியூர்", "madurai", "inampuliyur"],
+        answer: "மதுரை: M.முருகேசன், S.நடராஜன், K.சுந்தர்ராஜன். இனாம்புலியூர்: D.தங்கராஜ், A.சுப்ரமணியன், திருமதி. சரோஜா நாகராஜன்.",
+        answerEn: "Madurai: M. Murugesan, S. Natarajan, K. Sundararajan. Inampuliyur: D. Thangaraj, A. Subramanian, Mrs. Saroja Nagarajan.",
+        category: "management"
+    },
+    {
+        question: "இனுங்கூர் மற்றும் எருமைபட்டி பகுதியில் இருந்து இடம்பெற்றுள்ள முக்கியஸ்தர்கள் யார்?",
+        questionEn: "Who are the notable figures included from Inungoor and Erumaipatti?",
+        keywords: ["இனுங்கூர்", "எருமைபட்டி", "inungoor", "erumaipatti"],
+        answer: "இனுங்கூர்: D.ராஜேந்திரன், T.பரமசிவம், P.ஆறுமுகம், P.குணசேகரன். எருமைபட்டி: ராஜா (ஏ) B.சதாசிவம், ராஜா (ஏ) A.V.கதிர்வேல், ராஜகுமாரன், சாத்தையா.",
+        answerEn: "Inungoor: D. Rajendran, T. Paramasivam. Erumaipatti: Raja (a) B. Sadhasivam, Raja (a) A.V. Kathirvel.",
+        category: "management"
+    },
+    {
+        question: "ராசிபுரம், தா.பேட்டை மற்றும் நொச்சியம் பிரதிநிதிகள் யார்?",
+        questionEn: "Who are the regional leads for Rasipuram, Thathaipettai, and Nochiyam?",
+        keywords: ["ராசிபுரம்", "தா.பேட்டை", "நொச்சியம்", "rasipuram", "thathampettai", "nochiyam"],
+        answer: "ராசிபுரம்: M.ராஜேந்திரன், J.கார்த்திக். தா.பேட்டை: A.வீரப்பன் செட்டியார். நொச்சியம்: P.சந்திரசேகரன்.",
+        answerEn: "Rasipuram: M. Rajendran, J. Karthik. Th.Pettai: A. Veerappan Chettiyar. Nochiyam: P. Chandrasekaran.",
+        category: "management"
+    },
+    {
+        question: "அலகரை, தாராபுரம், மற்றும் விருத்தாச்சலம் ஊர்களின் பிரதிநிதிகள் யார்?",
+        questionEn: "Who represent the towns of Alagarai, Dharapuram, and Virudhachalam?",
+        keywords: ["அலகரை", "தாராபுரம்", "விருத்தாச்சலம்", "alagarai", "dharapuram", "virudhachalam"],
+        answer: "அலகரை: S.தனகோபால். தாராபுரம்: M.நடராஜன், M.கோதண்டபாணி. விருத்தாச்சலம்: தங்க. லோகநாதன்.",
+        answerEn: "Alagarai: S. Dhanagopal. Dharapuram: M. Natarajan, M. Kodhandapani. Virudhachalam: Thanga. Loganathan.",
+        category: "management"
+    },
+    {
+        question: "தலைநகர் சென்னை சார்பில் பொதுக்குழுவில் இடம் பெற்றுள்ளவர்கள் யார்?",
+        questionEn: "Who are representing the capital city Chennai in the general council?",
+        keywords: ["சென்னை", "இன்பராஜன்", "chennai", "inbarajan"],
+        answer: "MDK.இன்பராஜன் மற்றும் T.சண்முகம் ஆகிய இருவரும் சென்னையின் சார்பில் உள்ளனர்.",
+        answerEn: "MDK. Inbarajan and T. Shanmugam are the two representing the Chennai cluster.",
+        category: "management"
+    },
+    {
+        question: "இளைஞர் அணியைச் சேர்ந்த முக்கிய பிரதிநிதிகள் சிலரின் பெயர்களைக் கூறுக?",
+        questionEn: "Can you name a few key young generational members listed in the panels?",
+        keywords: ["அருண்குமார்", "அஸ்வின்", "arunkumar", "aswin"],
+        answer: "M.D.S.M.அருண்குமார், M.D.S.M.சரண் குமார், M.D.S.அஸ்வின் ரவிக்குமார், V.மோகன், மணி (ஏ) விஸ்வநாதன்.",
+        answerEn: "M.D.S.M. Arunkumar, M.D.S.M. Sarankumar, M.D.S. Ashwin Ravikumar, V. Mohan, Mani (a) Viswanathan.",
+        category: "management"
+    },
+    {
+        question: "K.M.கணேசன், V.M.செல்வம் ஆகியோர் எந்தக் குழுவில் இடம் பெற்றுள்ளனர்?",
+        questionEn: "In which committee panel are K.M. Ganesan and V.M. Selvam accommodated?",
+        keywords: ["கணேசன்", "செல்வம்", "ganesan", "selvam"],
+        answer: "அவர்கள் அழைப்பிதழின் இறுதிப் பகுதியில் பொதுக்குழு உறுப்பினர்கள் வரிசையில் பட்டியலிடப்பட்டுள்ளனர்.",
+        answerEn: "They are categorized directly under the general council body members row at the base layout.",
+        category: "management"
+    },
+    {
+        question: "அழைப்பிதழில் குறிப்பிடப்பட்டுள்ள 'வெள்ளக்காரர்' என்ற புனைப்பெயர் யாருக்குரியது?",
+        questionEn: "To whom does the unique alias 'Vellakarar' mentioned in the card belong?",
+        keywords: ["வெள்ளக்காரர்", "புனைப்பெயர்", "vellakarar", "alias"],
+        answer: "அரியமங்கலம் பகுதியைச் சேர்ந்த P.A.சுப்ரமணியன் என்பவருக்கு 'வெள்ளக்காரர்' என்ற அடைமொழி உள்ளது.",
+        answerEn: "It belongs to P.A. Subramanian from the Ariyamangalam sector, noted with the alias 'Vellakarar'.",
+        category: "management"
+    },
+
+     {
+
+        question: "இக்கோயிலின் முதன்மை தெய்வங்கள் யார்?",
+
+        questionEn: "Who are the primary deities of this temple?",
+
+        keywords: ["தெய்வம்", "சுவாமி", "முதன்மை", "deity", "god", "primary", "main"],
+
+        answer: "ஸ்ரீ பெரியநாச்சியம்மன் சமேத ஸ்ரீ வீரிய பெருமாள் இக்கோயிலின் முதன்மை தெய்வங்கள் ஆவர்.",
+
+        answerEn: "Sri Periya Nachiamman along with Sri Veeriya Perumal are the primary deities of this temple.",
+
+        category: "deities"
+
+    },
+
+    {
+
+        question: "திருவிழாவில் அருள்பாலிக்கும் இதர பரிவார தெய்வங்கள் யாவை?",
+
+        questionEn: "Who are the other subordinate deities blessing the festival?",
+
+        keywords: ["பரிவார", "தெய்வங்கள்", "subordinate", "deities", "parivara"],
+
+        answer: "எஜமான் ஸ்ரீ வீரப்பசாமி, பெரிய காண்டியம்மன், ஸ்ரீ சப்த கன்னிமார், ஸ்ரீ வீரமலையாண்டி, ஸ்ரீ மலையாள முத்தையன், மற்றும் ஸ்ரீ மதுரைவீரன் சுவாமி ஆகியோர் பரிவார தெய்வங்கள் ஆவர்.",
+
+        answerEn: "Ejaman Sri Veerappasamy, Periya Kandiamman, Sri Saptha Kannimar, Sri Veeramalayaandi, Sri Malayala Muthaiyan, and Sri Maduraiveeran Swamy are the subordinate deities.",
+
+        category: "deities"
+
+    },
+
+    {
+
+        question: "தொடக்கத்தில் பாடப்படும் விநாயகர் துதி எது?",
+
+        questionEn: "Which Vinayagar prayer is chanted at the beginning?",
+
+        keywords: ["விநாயகர்", "துதி", "பாடல்", "vinayagar", "prayer", "ganesha"],
+
+        answer: "'ஐந்து கரத்தனை ஆனை முகத்தனை' என்று தொடங்கும் துதி விநாயகர் வழிபாட்டிற்காக அச்சிடப்பட்டுள்ளது.",
+
+        answerEn: "The prayer starting with 'Ainthu Karathanal Aanai Mugathanai' is printed for Lord Vinayagar.",
+
+        category: "deities"
+
+    },
+
+    {
+
+        question: "முருகப் பெருமானுக்குரிய துதிப் பாடல் யாது?",
+
+        questionEn: "What is the prayer song dedicated to Lord Murugan?",
+
+        keywords: ["முருகன்", "துதி", "செந்தில்", "murugan", "prayer", "senthil"],
+
+        answer: "'முருகனே! செந்தில் முதல்வனே மாயோன் மருகனே!' என்று தொடங்கும் பாடல் முருகன் துதியாகும்.",
+
+        answerEn: "The song beginning with 'Murugane! Senthil Muthalvane Mayon Marugane!' is the prayer for Lord Murugan.",
+
+        category: "deities"
+
+    },
+
+    {
+
+        question: "பெரிய நாச்சி அம்மன் துதியில் குறிப்பிடப்படும் போற்றி வரிகள் யாவை?",
+
+        questionEn: "What are the praise lines mentioned in the Periya Nachi Amman prayer?",
+
+        keywords: ["பெரியநாச்சி", "துதி", "வரிகள்", "periya nachi", "praise", "lines"],
+
+        answer: "'அம்மையே சுந்தரி வீரப்பனிரு சரணம் ரெக்ஷிக்க வந்தவளும் நீ!' மற்றும் 'தென்னூர் அமர்ந்த வாழ்வே!' என்று போற்றப்படுகிறது.",
+
+        answerEn: "She is praised as 'Ammaye Sundari Veerappaniru Saranam Retshikka Vanthavalum Nee!' and 'The identity residing in Tennur!'.",
+
+        category: "deities"
+
+    },
+
+    {
+
+        question: "பெரியநாச்சி அம்மன் எந்த குலத்திற்கு வழிவழியாக வந்தவள்?",
+
+        questionEn: "For which clan did Periya Nachi Amman descend ancestrally?",
+
+        keywords: ["ஆயிரவர்", "குலம்", "clan", "thousand", "ayiravar"],
+
+        answer: "துதிப் பாடலின் படி, அவள் 'ஆயிரவர் தன்குலம் வந்துதிக்கவே வந்த அம்பிகை' என்று குறிப்பிடப்படுகிறாள்.",
+
+        answerEn: "According to the prayer, she is mentioned as the Goddess who came to descend in the 'Ayiravar clan'.",
+
+        category: "deities"
+
+    },
+
+    {
+
+        question: "அம்மன் யாருடைய இடப்பாகத்தில் வீற்றிருப்பதாக அழைப்பிதழ் கூறுகிறது?",
+
+        questionEn: "On whose left side does the Goddess sit as per the invitation?",
+
+        keywords: ["இடப்பாகம்", "சக்தி", "left side", "shakti"],
+
+        answer: "நம்மைப் பெருக்கும் வீரியப் பெருமாளின் இடப்பாகத்தில் வீற்றிருக்கும் சக்தியாக ராஜ ராஜேஸ்வரி வடிவில் அம்மன் அருள்கிறாள்.",
+
+        answerEn: "The Goddess blesses in the form of Raja Rajeswari as the Shakti seated on the left side of Veeriya Perumal.",
+
+        category: "deities"
+
+    },
+
+    {
+
+        question: "பெரியநாயகி அம்மனை எத்தகைய கிளையாக துதிப் பாடல் வர்ணிக்கிறது?",
+
+        questionEn: "How does the prayer song describe Periya Nayaki Amman metaphorically?",
+
+        keywords: ["கிள்ளை", "பசுங்கிள்ளை", "parrot", "metaphor"],
+
+        answer: "அம்மனை 'தெய்வப் பசுங்கிள்ளையே!' என்று உருவகப்படுத்தித் துதிக்கிறார்கள்.",
+
+        answerEn: "The Goddess is uniquely praised and addressed metaphorically as 'Deiva Pasungillaiye!' (Divine Green Parrot).",
+
+        category: "deities"
+
+    },
+
+    {
+
+        question: "அம்மன் எந்த வடிவில் வந்துதித்ததாக பாடல் கூறுகிறது?",
+
+        questionEn: "In what spiritual manner did the Goddess arrive according to the song?",
+
+        keywords: ["தையலம்மை", "சித்தாக", "thaiyalammai", "sidhha"],
+
+        answer: "ஜெகமெலாம் பணிய தையலம்மை போலவே சித்தாக வந்துதித்தாள் என்று வர்ணிக்கப்படுகிறது.",
+
+        answerEn: "It is described that she descended as a 'Sidhha' just like Thaiyalammai for the entire universe to bow down.",
+
+        category: "deities"
+
+    },
+
+    {
+
+        question: "யாரின் உத்தரவுப்படி இத்திருவிழா நடத்தப்படுகிறது?",
+
+        questionEn: "Under whose divine command is this festival being conducted?",
+
+        keywords: ["உத்தரவு", "வீரப்பசாமி", "command", "order", "veerappasamy"],
+
+        answer: "ஸ்ரீ பெரியநாச்சியம்மன் சமேத ஸ்ரீ வீரியபெருமாள் அருளாசியுடன், எஜமான் ஸ்ரீ வீரப்பசாமி உத்திரவுப்படி திருவிழா நடைபெறுகிறது.",
+
+        answerEn: "The festival is organized with the blessings of Sri Periya Nachiamman & Sri Veeriya Perumal, under the divine command of Ejaman Sri Veerappasamy.",
+
+        category: "deities"
+
+    },
+
+    {
+
+        question: "சப்த கன்னிமார்களுக்கு திருவிழாவில் பூசைகள் உண்டா?",
+
+        questionEn: "Are there rituals dedicated to Saptha Kannimar during the festival?",
+
+        keywords: ["கன்னிமார்", "சப்த", "kannimar", "saptha"],
+
+        answer: "ஆம், ஸ்ரீ சப்த கன்னிமார் சுவாமிகளுக்கு திருபச்சை, முப்பூசை மற்றும் பாரிவேட்டை படுகளத் திருவிழாக்கள் சிறப்பாக நடத்தப்படும்.",
+
+        answerEn: "Yes, Thirupachai, Mupoojai, and Parivettai Padugalam rituals will be grandly performed for Sri Saptha Kannimar Swamigal.",
+
+        category: "deities"
+
+    },
+
+    {
+
+        question: "பரிவார தெய்வங்களில் காண்டியம்மனின் முழுப்பெயர் என்ன?",
+
+        questionEn: "What is the full title of Goddess Kandiamman among the minor deities?",
+
+        keywords: ["காண்டியம்மன்", "பெரிய", "kandiamman", "periya"],
+
+        answer: "அழைப்பிதழில் பரிவார தெய்வங்களில் அவள் 'பெரிய காண்டியம்மன்' என்று குறிப்பிடப்படுகிறாள்.",
+
+        answerEn: "She is formally designated as 'Periya Kandiamman' among the parivara deities in the invitation.",
+
+        category: "deities"
+
+    },
+
+
+
+    // CATEGORY: FIVE GOTRAS / LINEAGE (13-22)
+
+    {
+
+        question: "இத்திருவிழா எந்த ஐந்து கோத்திர குடிமக்களுக்கு உரியது?",
+
+        questionEn: "To which five Gotra citizens does this festival belong?",
+
+        keywords: ["கோத்திரம்", "ஐந்து", "குடிமக்கள்", "gotra", "five", "lineage", "citizens"],
+
+        answer: "பருத்திகுடையான், தென்னவராயன், பயிராளழகர், பாக்குமுடையான் மற்றும் மாத்துடையான் ஆகிய ஐந்து கோத்திர குடிமக்களுக்கு உரியது.",
+
+        answerEn: "It belongs to the citizens of the five Gotras: Paruthikudayan, Thennavarayan, Payiralazhagar, Paakkumudayan, and Maathudayan.",
+
+        category: "gotras"
+
+    },
+
+    {
+
+        question: "அழைப்பிதழில் குறிப்பிடப்பட்டுள்ள முதல் கோத்திரம் எது?",
+
+        questionEn: "Which is the first Gotra mentioned in the invitation document?",
+
+        keywords: ["பருத்திகுடையான்", "முதல்", "first", "paruthikudayan"],
+
+        answer: "அழைப்பிதழின் வரிசைப்படி முதலாவதாகக் குறிப்பிடப்படும் கோத்திரம் 'ஸ்ரீ பருத்திகுடையான் மகரிஷி' ஆகும்.",
+
+        answerEn: "The first Gotra listed in sequential order is 'Sri Paruthikudayan Maharishi'.",
+
+        category: "gotras"
+
+    },
+
+    {
+
+        question: "அழைப்பிதழில் குறிப்பிடப்பட்டுள்ள இரண்டாவது கோத்திரம் எது?",
+
+        questionEn: "Which is the second Gotra listed in the invitation?",
+
+        keywords: ["தென்னவராயன்", "இரண்டாவது", "second", "thennavarayan"],
+
+        answer: "அழைப்பிதழின் வரிசைப்படி இரண்டாவது கோத்திரம் 'ஸ்ரீ தென்னவராயன் மகரிஷி' ஆகும்.",
+
+        answerEn: "The second Gotra listed in sequence is 'Sri Thennavarayan Maharishi'.",
+
+        category: "gotras"
+
+    },
+
+    {
+
+        question: "அழைப்பிதழில் குறிப்பிடப்பட்டுள்ள மூன்றாவது கோத்திரம் எது?",
+
+        questionEn: "Which is the third Gotra documented in the invite?",
+
+        keywords: ["பயிராளழகர்", "மூன்றாவது", "third", "payiralazhagar"],
+
+        answer: "அழைப்பிதழின் வரிசைப்படி மூன்றாவது கோத்திரம் 'ஸ்ரீ பயிராளழகர் மகரிஷி' ஆகும்.",
+
+        answerEn: "The third Gotra documented in order is 'Sri Payiralazhagar Maharishi'.",
+
+        category: "gotras"
+
+    },
+
+    {
+
+        question: "அழைப்பிதழில் குறிப்பிடப்பட்டுள்ள நான்காவது கோத்திரம் எது?",
+
+        questionEn: "Which is the fourth Gotra specified in the list?",
+
+        keywords: ["பாக்குமுடையான்", "நான்காவது", "fourth", "paakkumudayan"],
+
+        answer: "அழைப்பிதழின் வரிசைப்படி நான்காவது கோத்திரம் 'ஸ்ரீ பாக்குமுடையான் மகரிஷி' ஆகும்.",
+
+        answerEn: "The fourth Gotra specified in the list is 'Sri Paakkumudayan Maharishi'.",
+
+        category: "gotras"
+
+    },
+
+    {
+
+        question: "அழைப்பிதழில் குறிப்பிடப்பட்டுள்ள ஐந்தாவது கோத்திரம் எது?",
+
+        questionEn: "Which is the fifth Gotra detailed in the text?",
+
+        keywords: ["மாத்துடையான்", "ஐந்தாவது", "fifth", "maathudayan"],
+
+        answer: "அழைப்பிதழின் வரிசைப்படி ஐந்தாவது கோத்திரம் 'ஸ்ரீ மாத்துடையான் மகரிஷி' ஆகும்.",
+
+        answerEn: "The fifth Gotra detailed in the invitation text is 'Sri Maathudayan Maharishi'.",
+
+        category: "gotras"
+
+    },
+
+    {
+
+        question: "ஐந்து கோத்திரங்களின் முன்னோர்கள் எவ்வாறு அழைக்கப்படுகிறார்கள்?",
+
+        questionEn: "How are the ancestors of the five Gotras honorifically addressed?",
+
+        keywords: ["மகரிஷி", "முன்னோர்கள்", "maharishi", "ancestors"],
+
+        answer: "ஐந்து கோத்திரங்களின் பெயர்களும் 'மகரிஷி' (எ.கா: ஸ்ரீ பருத்திகுடையான் மகரிஷி) என்ற அடைமொழியுடன் அழைக்கப்படுகின்றன.",
+
+        answerEn: "The names of the five lineages are addressed with the honorific suffix 'Maharishi' (e.g., Sri Paruthikudayan Maharishi).",
+
+        category: "gotras"
+
+    },
+
+    {
+
+        question: "அழைப்பிதழில் ஐந்து கோத்திர குடிமக்களுக்கு விடுக்கப்பட்டுள்ள பொதுவான அழைப்பு என்ன?",
+
+        questionEn: "What is the general call extended to the citizens of the five Gotras?",
+
+        keywords: ["அழைப்பு", "குலதெய்வம்", "call", "invite", "kuladeivam"],
+
+        answer: "ஐந்து கோத்திர குடிமக்கள் அனைவரும் திருவிழாவில் கலந்து கொண்டு நமது குலதெய்வங்களின் அருளைப் பெறுமாறு அன்புடன் அழைக்கப்படுகிறார்கள்.",
+
+        answerEn: "All citizens of the five Gotras are affectionately invited to participate and receive the grace of their family deities.",
+
+        category: "gotras"
+
+    },
+
+    {
+
+        question: "அறக்கட்டளை மற்றும் ஐந்து கோத்திர குடிமக்கள் தவிர வேறு யார் பொதுக்குழுவில் உள்ளனர்?",
+
+        questionEn: "Who else besides the trust and five Gotra citizens are part of the general council?",
+
+        keywords: ["பொதுக்குழு", "உறுப்பினர்கள்", "general council", "members"],
+
+        answer: "அழைப்பிதழின்படி, குறிப்பிட்ட மண்டல பிரதிநிதிகளுடன் 'மற்றும் ஐந்து கோத்திர குடிமக்கள்' பொதுக்குழுவில் இடம் பெற்றுள்ளனர்.",
+
+        answerEn: "According to the invitation, along with zonal representatives, 'and five Gotra citizens' are included in the general body.",
+
+        category: "gotras"
+
+    },
+
+    {
+
+        question: "கிடா வெட்டு பதிவு செய்ய யாருக்கு உரிமை உண்டு?",
+
+        questionEn: "Who holds the right to register for the sacrificial ritual?",
+
+        keywords: ["கிடா", "உரிமை", "goat sacrifice", "right"],
+
+        answer: "கோயிலைச் சார்ந்த ஐந்து கோத்திர குடிமக்களுக்கு மட்டுமே கிடா கொடுக்கவும் அதனைப் பதிவு செய்யவும் உரிமை உண்டு.",
+
+        answerEn: "Only the citizens belonging to the five native Gotras of the temple have the right to offer and register a goat sacrifice.",
+
+        category: "gotras"
+
+    },
+
+
+
+    // CATEGORY: FASTING RULES & FASTING TIMELINES (23-32)
+
+    {
+
+        question: "குடிமக்கள் கடைபிடிக்க வேண்டிய விரத விதிமுறைகள் யாவை?",
+
+        questionEn: "What are the fasting rules to be strictly observed by the citizens?",
+
+        keywords: ["விரதம்", "விதிமுறைகள்", "fasting", "rules", "vrat"],
+
+        answer: "பாயில் படுக்கக்கூடாது, அடுப்பில் எண்ணெய் சட்டி வைக்கக்கூடாது, தாளிப்பு செய்யக்கூடாது, அசைவ உணவு உண்ணக்கூடாது.",
+
+        answerEn: "They must not sleep on mats, must not place oil pans on stoves, avoid tempering food, and strictly avoid non-vegetarian food.",
+
+        category: "fasting"
+
+    },
+
+    {
+
+        question: "விரத காலங்களில் சமைக்கும் போது தவிர்க்க வேண்டிய சமையல் முறை என்ன?",
+
+        questionEn: "What culinary practice must be avoided while cooking during the fast?",
+
+        keywords: ["தாளிப்பு", "எண்ணெய் சட்டி", "tempering", "oil pan"],
+
+        answer: "அடுப்பில் எண்ணெய் சட்டி வைக்கக் கூடாது மற்றும் உணவில் தாளிப்பு சேர்க்கக் கூடாது.",
+
+        answerEn: "Placing an oil frying pan on the stove and tempering (seasoning) the food must be avoided completely.",
+
+        category: "fasting"
+
+    },
+
+    {
+
+        question: "விரதம் எப்போது தொடங்குகிறது?",
+
+        questionEn: "When does the mandatory fasting period commence?",
+
+        keywords: ["விரதம்", "தொடக்கம்", "fasting", "start", "commencement"],
+
+        answer: "ஆடி 4 (20.07.2026) திங்கட்கிழமை காப்பு கட்டுதல் நிகழ்ச்சி நடைபெற்ற உடனே விரதம் தொடங்குகிறது.",
+
+        answerEn: "The fasting period starts immediately following the Kaapu Kattuthal ritual on Monday, Aadi 4 (20.07.2026).",
+
+        category: "fasting"
+
+    },
+
+    {
+
+        question: "விரதம் எப்போது முடிகிறது?",
+
+        questionEn: "When does the ritual fasting period formally conclude?",
+
+        keywords: ["விரதம்", "முடிவு", "fasting", "end", "conclusion"],
+
+        answer: "ஆடி 10 (26.07.2026) அன்று திருவிழா முழுமையாக நிறைவடையும் வரை விரதம் கடைபிடிக்கப்பட வேண்டும்.",
+
+        answerEn: "The fasting must be continuously maintained until the festival concludes completely on Aadi 10 (26.07.2026).",
+
+        category: "fasting"
+
+    },
+
+    {
+
+        question: "விரதத்தின் போது படுக்கை சம்பந்தமாக உள்ள கட்டுப்பாடு என்ன?",
+
+        questionEn: "What is the restriction regarding bedding during the fast?",
+
+        keywords: ["பாய்", "படுக்கை", "mat", "bedding"],
+
+        answer: "விரதம் இருக்கும் குடிமக்கள் தங்கள் வீடுகளில் பாயில் படுத்து உறங்கக் கூடாது.",
+
+        answerEn: "Fasting citizens are strictly forbidden from sleeping on a traditional mat at their homes.",
+
+        category: "fasting"
+
+    },
+
+    {
+
+        question: "விரத நாட்களில் எந்த வகை உணவுகள் முற்றிலும் தடை செய்யப்பட்டுள்ளன?",
+
+        questionEn: "Which type of diet is completely banned during the fasting days?",
+
+        keywords: ["அசைவம்", "உணவு", "non-veg", "diet"],
+
+        answer: "அசைவ உணவுகளை உண்பது விரத நாட்களில் முற்றிலும் தடை செய்யப்பட்டுள்ளது.",
+
+        answerEn: "Eating any form of non-vegetarian food is completely banned during the holy fasting days.",
+
+        category: "fasting"
+
+    },
+
+    {
+
+        question: "விரத காலங்களில் எந்த வகையான வெளிநிகழ்ச்சிகளில் கலந்து கொள்ளலாம்?",
+
+        questionEn: "What kind of outside functions can be attended during the fasting period?",
+
+        keywords: ["சுபநிகழ்ச்சி", "வெளிநிகழ்ச்சி", "auspicious", "functions", "events"],
+
+        answer: "அழைப்பிதழின்படி, விரத காலங்களில் 'சுபநிகழ்ச்சிகளில் மட்டும்' கலந்து கொள்வது சிறப்பானது எனக் கூறப்பட்டுள்ளது.",
+
+        answerEn: "According to the invitation, it is considered appropriate to participate 'only in auspicious functions' during the fasting timeline.",
+
+        category: "fasting"
+
+    },
+
+    {
+
+        question: "இந்த விரத விதிகள் யாருக்குப் பொருந்தும்?",
+
+        questionEn: "To whom do these strict fasting regulations apply?",
+
+        keywords: ["யாருக்கு", "விதிகள்", "whom", "applicable", "rules"],
+
+        answer: "இக்கோயிலைச் சார்ந்த ஐந்து கோத்திரங்களைச் சேர்ந்த அனைத்து குடிமக்களுக்கும் இந்த விரத விதிகள் பொருந்தும்.",
+
+        answerEn: "These rigorous fasting regulations apply to all native citizens belonging to the temple's five Gotras.",
+
+        category: "fasting"
+
+    },
+
+    {
+
+        question: "விரதக் கட்டுப்பாடுகள் எத்தனை நாட்கள் நீடிக்கின்றன?",
+
+        questionEn: "How many total calendar days do the fasting restrictions span?",
+
+        keywords: ["நாட்கள்", "விரதகாலம்", "days", "duration"],
+
+        answer: "ஆடி 4 முதல் ஆடி 10 வரை, அதாவது திருவிழாவின் மொத்த காலமான 7 நாட்களும் கட்டுப்பாடுகள் நீடிக்கின்றன.",
+
+        answerEn: "The restrictions span from Aadi 4 to Aadi 10, covering the entire 7-day duration of the festival timeline.",
+
+        category: "fasting"
+
+    },
+
+    {
+
+        question: "தாளிப்பு இல்லாமல் சமைப்பது ஏன் வலியுறுத்தப்படுகிறது?",
+
+        questionEn: "Why is cooking without tempering emphasized during the ritual?",
+
+        keywords: ["தாளிப்பு", "ஏன்", "tempering", "reason"],
+
+        answer: "இது திருவிழா காலத்தில் தூய்மையையும் ஆன்மீக ஒழுக்கத்தையும் பேண குடிமக்களுக்கு விதிக்கப்பட்ட பாரம்பரிய விரத நியதியாகும்.",
+
+        answerEn: "This is a traditional ritual austerity imposed on citizens to preserve purity and spiritual discipline during the festival season.",
+
+        category: "fasting"
+
+    },
+
+
+
+    // CATEGORY: CORE FESTIVAL TIMINGS & AGENDAS (33-55)
+
+    {
+
+        question: "திருவிழா நடைபெறும் தமிழ் ஆண்டு மற்றும் மாதம் எது?",
+
+        questionEn: "What is the Tamil year and month of this festival?",
+
+        keywords: ["ஆண்டு", "மாதம்", "தமிழ்", "tamil year", "month", "parabhava", "aadi"],
+
+        answer: "மங்களகரமான பராபவ ஆண்டு ஆடி மாதத்தில் இத்திருவிழா நடைபெறுகிறது.",
+
+        answerEn: "This grand festival is slated to take place in the auspicious Tamil year 'Parabhava' in the month of 'Aadi'.",
+
+        category: "agenda"
+
+    },
+
+    {
+
+        question: "முகூர்த்த கால் நடுதல் எப்போது நடைபெறுகிறது?",
+
+        questionEn: "When does the installation of the auspicious Muhurtha Kaal take place?",
+
+        keywords: ["முகூர்த்த கால்", "நடுதல்", "muhurtha kaal", "installation"],
+
+        answer: "ஆடி 4, 20.07.2026 திங்கட்கிழமை அதிகாலை 04:31 மணி முதல் 06:01 மணிக்குள் நடைபெறுகிறது.",
+
+        answerEn: "It takes place on Monday, Aadi 4, July 20, 2026, early morning between 04:31 AM and 06:01 AM.",
+
+        category: "agenda"
+
+    },
+
+    {
+
+        question: "புண்யாகவஜனம் மற்றும் காப்பு கட்டுதல் எப்போது நிகழ்கிறது?",
+
+        questionEn: "When do the Punyahavajanam and Kaapu Kattuthal rituals take place?",
+
+        keywords: ["காப்பு கட்டுதல்", "புண்யாகவஜனம்", "punyahavajanam", "kaapu kattuthal"],
+
+        answer: "ஆடி 4 (20.07.2026) திங்கட்கிழமை அதிகாலை 04:31 மணி முதல் 06:01 மணிக்குள் முகூர்த்த கால் நடுதலுடன் இணைந்து நிகழ்கிறது.",
+
+        answerEn: "It occurs concurrently with the Muhurtha Kaal setup on Monday, Aadi 4 (20.07.2026) from 04:31 AM to 06:01 AM.",
+
+        category: "agenda"
+
+    },
+
+    {
+
+        question: "ஆடி 8 (24.07.2026) அன்று காலையில் நிகழும் முதல் பூசை என்ன?",
+
+        questionEn: "What is the first ritual taking place on the morning of Aadi 8 (24.07.2026)?",
+
+        keywords: ["ஆடி 8", "பூஜை", "காலை", "aadi 8", "pooja", "morning"],
+
+        answer: "காலை 06:01 மணிக்கு முதன்மையாகக் கோயிலில் உள்ள சுவாமிகளுக்குச் சிறப்புப் பூஜை செய்யப்படுகிறது.",
+
+        answerEn: "At 06:01 AM, a special morning pooja is primarily conducted for all the deities residing inside the main temple.",
+
+        category: "agenda"
+
+    },
+
+    {
+
+        question: "கோட்டை முனீஸ்வரன் கோயில் சிறப்பு பூஜை எப்போது?",
+
+        questionEn: "When is the special pooja conducted at Kottai Muneeswaran Temple?",
+
+        keywords: ["முனீஸ்வரன்", "கோட்டை", "muneeswaran", "kottai"],
+
+        answer: "ஆடி 8 (24.07.2026) வெள்ளிக்கிழமை காலை 07:31 மணிக்கு கோட்டை முனீஸ்வரன் கோயிலில் சிறப்பு பூஜை நடைபெறும்.",
+
+        answerEn: "The special pooja at Kottai Muneeswaran Temple will be conducted on Friday, Aadi 8 (24.07.2026) at 07:31 AM.",
+
+        category: "agenda"
+
+    },
+
+    {
+
+        question: "உக்கிரகாளியம்மன் கோயில் சிறப்பு பூஜை எப்போது நடத்தப்படுகிறது?",
+
+        questionEn: "When is the special pooja held at Ukkirakaliamman Temple?",
+
+        keywords: ["உக்கிரகாளி", "பூஜை", "ukkirakali", "pooja"],
+
+        answer: "ஆடி 8 (24.07.2026) வெள்ளிக்கிழமை காலை 09:01 மணிக்கு உக்கிரகாளியம்மன் கோயிலில் சிறப்பு பூஜை நடைபெறும்.",
+
+        answerEn: "The special pooja at Ukkirakaliamman Temple is scheduled for Friday, Aadi 8 (24.07.2026) at 09:01 AM.",
+
+        category: "agenda"
+
+    },
+
+    {
+
+        question: "பச்சைக்காக சுவாமிகள் படித்துறைக்கு எப்போது புறப்படுகிறார்கள்?",
+
+        questionEn: "When do the deities depart to the river bank for Pachai?",
+
+        keywords: ["படித்துறை", "புறப்பாடு", "பச்சை", "departure", "padithurai", "pachai"],
+
+        answer: "ஆடி 8 (24.07.2026) வெள்ளிக்கிழமை மதியம் 03:01 மணி அளவில் திருக்கோயிலில் இருந்து புறப்படுகிறார்கள்.",
+
+        answerEn: "The deities depart from the main temple complex towards the river bank on Friday, Aadi 8 (24.07.2026) around 03:01 PM.",
+
+        category: "agenda"
+
+    },
+
+    {
+
+        question: "சுவாமிகள் எந்த படித்துறைக்கு அழைத்துச் செல்லப்படுகிறார்கள்?",
+
+        questionEn: "To which specific river bank are the deities taken for rituals?",
+
+        keywords: ["காவேரி", "அய்யாளம்மன்", "cauvery", "ayyalamman"],
+
+        answer: "சுவாமிகள் காவேரி அய்யாளம்மன் படித்துறைக்கு அழைத்துச் செல்லப்படுகிறார்கள்.",
+
+        answerEn: "The deities are brought to the holy Cauvery Ayyalamman Padithurai (river bank bank).",
+
+        category: "agenda"
+
+    },
+
+    {
+
+        question: "அய்யாளம்மன் படித்துறையில் மாலை 5:01 மணிக்கு என்ன நிகழும்?",
+
+        questionEn: "What events unfold at Ayyalamman Padithurai at 05:01 PM?",
+
+        keywords: ["அபிஷேகம்", "கரகம்", "திருவீதி உலா", "abhishekam", "karagam", "procession"],
+
+        answer: "சுவாமிகளுக்கு அபிஷேகம் செய்து, கரகம் பாலித்து, சுவாமிகளுக்கு அலங்காரம் செய்து திருவீதி உலா புறப்பாடு நடைபெறும்.",
+
+        answerEn: "The deities receive holy Abhishekam, followed by Karagam Balithal, grand decoration, and the start of the street procession.",
+
+        category: "agenda"
+
+    },
+
+    {
+
+        question: "ஆடி 8 திருவீதி உலாவுக்குப் பின் கோயிலில் நடக்கும் நிறைவு பூசை என்ன?",
+
+        questionEn: "What concluding ritual happens at the temple after the Aadi 8 street procession?",
+
+        keywords: ["பால் பூசை", "கோவில்", "milk pooja", "temple"],
+
+        answer: "திருவீதி உலா வந்து கோவிலை வந்தடைந்ததும் இரவு 'பால் பூசை' நடைபெறும்.",
+
+        answerEn: "After traversing the streets and returning back to the temple base, the nocturnal 'Milk Pooja' (Paal Poosai) is performed.",
+
+        category: "agenda"
+
+    },
+
+    {
+
+        question: "தீர்த்தத்தில் விளக்கேற்றும் 'திருப்பச்சை' நிகழ்வு எப்போது நடைபெறும்?",
+
+        questionEn: "When does the holy water-lamp lighting ritual 'Thirupachai' take place?",
+
+        keywords: ["திருப்பச்சை", "அக்கினி", "thirupachai", "fire"],
+
+        answer: "ஆடி 9 (25.07.2026) சனிக்கிழமை அதிகாலை 03:43 மணி முதல் 04:41 மணி வரை நடைபெறும்.",
+
+        answerEn: "It takes place on Saturday, Aadi 9 (25.07.2026) during the early dawn hours from 03:43 AM to 04:41 AM.",
+
+        category: "agenda"
+
+    },
+
+    {
+
+        question: "திருப்பச்சை நிகழ்வின் போது செய்யப்படும் முக்கிய சடங்கு என்ன?",
+
+        questionEn: "What is the crucial religious ritual executed during Thirupachai?",
+
+        keywords: ["மடியில்", "விளக்கு", "தீர்த்தம்", "lap", "lamp", "water"],
+
+        answer: "பெரிய நாச்சியம்மன் சன்னதியில் அக்கினி வளர்த்து, மடியில் ஏந்தி, தீர்த்தத்தில் விளக்கு ஏற்றி மகிமை காட்டப்படும்.",
+
+        answerEn: "Holy fire is raised at the Periya Nachiamman shrine, held in the lap, and lamps are lit on water to show divinity.",
+
+        category: "agenda"
+
+    },
+
+    {
+
+        question: "கரும்பு முனையில் முடிக்கு தீர்த்தம் போடுதல் மற்றும் காதணி விழா எப்போது?",
+
+        questionEn: "When is the ear-piercing ceremony along with water splashing from sugar cane tip?",
+
+        keywords: ["கரும்பு", "காதணி விழா", "sugarcane", "ear piercing"],
+
+        answer: "ஆடி 9 (25.07.2026) சனிக்கிழமை காலை 06:01 மணி அளவில் நடைபெறும்.",
+
+        answerEn: "It is scheduled to take place on Saturday, Aadi 9 (25.07.2026) around 06:01 AM in the morning.",
+
+        category: "agenda"
+
+    },
+
+    {
+
+        question: "கரும்பு முனையில் தீர்த்தம் போடும் சடங்கை செய்யும் தெய்வம் எது?",
+
+        questionEn: "Which deity performs the ritual of splashing holy water from the sugarcane tip?",
+
+        keywords: ["வீரப்பசுவாமி", "சடங்கு", "veerappasamy", "ritual"],
+
+        answer: "எஜமான் ஸ்ரீ வீரப்பசுவாமி கரும்பு முனையில் முடிக்கு தீர்த்தம் போடும் சடங்கை நிகழ்த்துவார்.",
+
+        answerEn: "The chief deity Ejaman Sri Veerappasamy performs the ritual of casting holy water from the tip of sugarcane.",
+
+        category: "agenda"
+
+    },
+
+    {
+
+        question: "ஐந்து கோத்திர பெண்கள் சீர்வரிசை கொண்டு வரும் நிகழ்ச்சி எப்போது?",
+
+        questionEn: "When do the women of the five Gotras bring the ceremonial gifts?",
+
+        keywords: ["சீர்வரிசை", "பெண்கள்", "gifts", "women", "seer varisai"],
+
+        answer: "ஆடி 9 (25.07.2026) சனிக்கிழமை காலை 10:01 மணி அளவில் கொண்டு வரப்படும்.",
+
+        answerEn: "The traditional ceremonial gifts are brought by the clan women on Saturday, Aadi 9 (25.07.2026) around 10:01 AM.",
+
+        category: "agenda"
+
+    },
+
+    {
+
+        question: "ஐந்து கோத்திர பெண்கள் எங்கிருந்து சீர்வரிசை எடுத்து வருகிறார்கள்?",
+
+        questionEn: "From where do the women of the five Gotras carry the ceremonial gift collection?",
+
+        keywords: ["உக்கிர காளியம்மன்", "எங்கிருந்து", "ukkira kaliamman", "source"],
+
+        answer: "பெண்கள் ஸ்ரீ உக்கிர காளியம்மன் கோயிலில் இருந்து நமது கோயிலுக்குச் சீர்வரிசை கொண்டு வருகிறார்கள்.",
+
+        answerEn: "The women carry the ceremonial gift materials from Sri Ukkira Kaliamman Temple to our main temple.",
+
+        category: "agenda"
+
+    },
+
+    {
+
+        question: "பாரிவேட்டைக்கு சுவாமிகள் எப்போது புறப்படுகிறார்கள்?",
+
+        questionEn: "When do the deities set out for the hunting festival (Parivettai)?",
+
+        keywords: ["பாரிவேட்டை", "புறப்பாடு", "parivettai", "hunt"],
+
+        answer: "ஆடி 9 (25.07.2026) சனிக்கிழமை மாலை 03:01 மணி அளவில் சுவாமிகள் பாரிவேட்டைக்கு புறப்படுவர்.",
+
+        answerEn: "The deities start their sacred progression for the hunting festival (Parivettai) on Saturday, Aadi 9 (25.07.2026) around 03:01 PM.",
+
+        category: "agenda"
+
+    },
+
+    {
+
+        question: "பன்றி குத்துதல் மற்றும் படுகளம் சாய்தல் எங்கு நடைபெறும்?",
+
+        questionEn: "Where does the boar spearing and Padugalam felling ritual occur?",
+
+        keywords: ["பன்றி", "படுகளம்", "தெப்பக்குளம்", "boar", "teppakulam"],
+
+        answer: "தெப்பக்குளம் ஈசானிய மூலையில் ஸ்ரீ சங்கர் பன்றி குத்துதல் மற்றும் படுகளம் சாய்தல் நிகழ்ச்சி நடைபெறும்.",
+
+        answerEn: "The strategic spearing of the ritual boar by Sri Shankar and the Padugalam event take place at the northeast corner of the Teppakulam.",
+
+        category: "agenda"
+
+    },
+
+    {
+
+        question: "தெப்பக்குளத்தின் எந்த மூலையில் பன்றி குத்துதல் சடங்கு நடக்கிறது?",
+
+        questionEn: "At which direction/corner of the Teppakulam is the boar spearing ceremony held?",
+
+        keywords: ["ஈசானிய", "மூலை", "northeast", "corner", "eesaniya"],
+
+        answer: "தெப்பக்குளத்தின் 'ஈசானிய மூலை' (வடகிழக்கு திசை) பகுதியில் இச்சடங்கு நடத்தப்படுகிறது.",
+
+        answerEn: "The ritual action is strictly executed at the designated 'Eesaniya Moolai' (Northeast Corner) of the Teppakulam.",
+
+        category: "agenda"
+
+    },
+
+    {
+
+        question: "நல்ல தங்காளை அழைத்து படுகளம் எழுப்பும் சடங்கு எங்கு நடைபெறும்?",
+
+        questionEn: "Where is the revival ritual of Padugalam by summoning Nalla Thangal performed?",
+
+        keywords: ["நல்ல தங்களை", "எழுப்புதல்", "nalla thangal", "revival"],
+
+        answer: "பெரியகாண்டியம்மன் சன்னதியில் நல்ல தங்காளை அழைத்து தீர்த்தம் தெளித்து படுகளம் எழுப்பப்படும்.",
+
+        answerEn: "The revival of Padugalam is done by summoning Nalla Thangal and sprinkling holy water at the Periya Kandiamman shrine.",
+
+        category: "agenda"
+
+    },
+
+    {
+
+        question: "ஆடி 9 அன்று பால் பொங்கல் பூஜை எந்த நேரத்தில் நடைபெறும்?",
+
+        questionEn: "At what time is the traditional Paal Pongal Pooja conducted on Aadi 9?",
+
+        keywords: ["பால் பொங்கல்", "நேரம்", "paal pongal", "time"],
+
+        answer: "ஆடி 9 (25.07.2026) சனிக்கிழமை இரவு 08:01 மணி அளவில் பால் பொங்கல் பூஜை நடைபெறும்.",
+
+        answerEn: "The ritual boiling and offering of milk pongal is set for Saturday, Aadi 9 (25.07.2026) around 08:01 PM.",
+
+        category: "agenda"
+
+    },
+
+    {
+
+        question: "எஜமான் வீரப்பசுவாமி எரிகாவு கொடுக்க செல்லுதல் எப்போது?",
+
+        questionEn: "When does Ejaman Veerappasamy proceed to execute the Erigaavu offering?",
+
+        keywords: ["எரிகாவு", "வீரப்பசுவாமி", "erigaavu", "offering"],
+
+        answer: "ஆடி 9 சனிக்கிழமை இரவு 12:15 மணி அளவில் எஜமான் வீரப்பசுவாமி எரிகாவு கொடுக்கச் செல்லுவார்.",
+
+        answerEn: "Ejaman Veerappasamy proceeds to deliver the midnight 'Erigaavu' offering on Saturday night at around 12:15 AM.",
+
+        category: "agenda"
+
+    },
+
+    {
+
+        question: "திருவிழாவில் கிடா வெட்டுதல் எந்த நேரத்தில் தொடங்குகிறது?",
+
+        questionEn: "At what specific time does the animal sacrifice ritual (Kida Vettuthal) commence?",
+
+        keywords: ["கிடா வெட்டுதல்", "நள்ளிரவு", "animal sacrifice", "kida vettuthal"],
+
+        answer: "ஆடி 9 நள்ளிரவைத் தாண்டி, இரவு 01:01 மணி அளவில் கிடா வெட்டுதல் நடைபெறும்.",
+
+        answerEn: "The ritual animal sacrifice (Kida Vettuthal) formally commences late night at 01:01 AM.",
+
+        category: "agenda"
+
+    },
+
+    {
+
+        question: "அடசல் பூஜை எப்போது நடைபெறும் என அறிவிக்கப்பட்டுள்ளது?",
+
+        questionEn: "When has the unique Adasal Pooja been slated to take place?",
+
+        keywords: ["அடசல்", "பூஜை", "adasal", "pooja"],
+
+        answer: "ஆடி 10 (26.07.2026) ஞாயிற்றுக்கிழமை அதிகாலை 04:31 மணி அளவில் அடசல் பூஜை நடைபெறும்.",
+
+        answerEn: "The specialized 'Adasal Pooja' is dynamically scheduled for Sunday, Aadi 10 (26.07.2026) early morning around 04:31 AM.",
+
+        category: "agenda"
+
+    },
+
+    {
+
+        question: "பொதுமக்களுக்கான பெரிய விருந்து உபசரிப்பு எப்போது நடக்கும்?",
+
+        questionEn: "When will the grand community feast distribution happen?",
+
+        keywords: ["விருந்து", "உபசரிப்பு", "feast", "distribution"],
+
+        answer: "ஆடி 10 (26.07.2026) ஞாயிற்றுக்கிழமை மதியம் 11:01 மணி அளவில் விருந்து உபசரிப்பு நடைபெறும்.",
+
+        answerEn: "The traditional community mass feast feeding is organized for Sunday, Aadi 10 (26.07.2026) at 11:01 AM.",
+
+        category: "agenda"
+
+    },
+
+    {
+
+        question: "சுவாமிகளுக்கு விடையாற்றி பூசை எந்த நேரத்தில் நடைபெறும்?",
+
+        questionEn: "At what hour is the concluding Vidayatri Pooja executed for the deities?",
+
+        keywords: ["விடையாற்றி", "நிறைவு", "vidayatri", "concluding"],
+
+        answer: "ஆடி 10 (26.07.2026) ஞாயிற்றுக்கிழமை மாலை 06:31 மணி அளவில் விடையாற்றி பூசையுடன் திருவிழா நிறையும்.",
+
+        answerEn: "The festival concludes following the final Vidayatri Pooja on Sunday, Aadi 10 (26.07.2026) at 06:31 PM in the evening.",
+
+        category: "agenda"
+
+    },
+
+
+
+    // CATEGORY: SYSTEM LOGISTICS & REGISTRATIONS (56-65)
+
+    {
+
+        question: "கிடா கொடுக்க விரும்புபவர்கள் பதிவு செய்ய கடைசி நாள் எது?",
+
+        questionEn: "What is the final cut-off date to register for offering a goat sacrifice?",
+
+        keywords: ["பதிவு", "கடைசி நாள்", "deadline", "registration", "kida"],
+
+        answer: "கிடா கொடுக்க விரும்புவோர் 23.07.2026க்குள் கோயில் நிர்வாகத்திடம் தெரிவித்து பதிவு செய்ய வேண்டும்.",
+
+        answerEn: "Those wishing to offer a goat must inform the temple management and register by 23.07.2026.",
+
+        category: "logistics"
+
+    },
+
+    {
+
+        question: "யாரிடம் கிடா வெட்டுதலுக்கான பதிவை மேற்கொள்ள வேண்டும்?",
+
+        questionEn: "With which body should the goat offering registration be documented?",
+
+        keywords: ["நிர்வாகம்", "அறக்கட்டளை", "management", "trust"],
+
+        answer: "கோவில் நிர்வாகத்திடம் தெரிவித்து, 'பெரியநாச்சியம்மன் சமேத ஸ்ரீ வீரிய பெருமாள் அறக்கட்டளை'யிடம் பதிவு செய்ய வேண்டும்.",
+
+        answerEn: "You must inform the temple administration and register directly with the 'Sri Periya Nachiamman Sametha Sri Veeriya Perumal Trust'.",
+
+        category: "logistics"
+
+    },
+
+    {
+
+        question: "பூசை வழிபாடுகளைத் தலைமை தாங்கி நடத்துபவர் யார்?",
+
+        questionEn: "Who is the designated head priest conducting the temple rituals?",
+
+        keywords: ["பூசாரி", "தங்கம்", "priest", "poosari", "thangam"],
+
+        answer: "ஸ்ரீரங்கம் புயல் பூசாரி E.தங்கம் கருப்புலி அவர்கள் பூசை வழிபாடுகளைத் தலைமை தாங்கி நடத்துகிறார்.",
+
+        answerEn: "Srirangam Puyal Poosari E. Thangam Karuppuli is the designated priest conducting the sacred rituals.",
+
+        category: "logistics"
+
+    },
+
+    {
+
+        question: "தலைமைப் பூசாரி எந்த ஊரைச் சேர்ந்தவர்?",
+
+        questionEn: "Which town does the head priest hail from?",
+
+        keywords: ["ஸ்ரீரங்கம்", "priest town", "srirangam"],
+
+        answer: "பூசை வழிபாடுகளை நடத்தும் தலைமைப் பூசாரி 'ஸ்ரீரங்கம்' பகுதியைச் சேர்ந்தவர் ஆவார்.",
+
+        answerEn: "The head priest conducting the worship series hails from the holy town of 'Srirangam'.",
+
+        category: "logistics"
+
+    },
+
+    {
+
+        question: "அழைப்பிதழை அச்சிட்ட அச்சகத்தின் பெயர் மற்றும் தொலைபேசி எண் என்ன?",
+
+        questionEn: "What is the name and phone number of the graphic press that printed the invite?",
+
+        keywords: ["அச்சகம்", "கிராபிக்ஸ்", "press", "printing", "graphics"],
+
+        answer: "M.V.Graphics(Noble) Try -2. அலைபேசி எண்: 94439 55757.",
+
+        answerEn: "It is printed by M.V.Graphics(Noble) Try -2. Cell contact number: 94439 55757.",
+
+        category: "logistics"
+
+    },
+
+    {
+
+        question: "அன்னதானம் எப்போது நடக்கிறது?",
+
+        questionEn: "When is the mass community lunch (Annadhanam) served?",
+
+        keywords: ["மதிய உணவு", "அன்னதானம்", "lunch", "annadhanam"],
+
+        answer: "அழைப்பிதழ் நிகழ்ச்சி நிரல்படி ஆடி 9 (25.07.2026) சனிக்கிழமை மதியம் 12:01 மணிக்கு மதிய உணவு பரிமாறப்படும்.",
+
+        answerEn: "As per the schedule, the afternoon mass lunch is served on Saturday, Aadi 9 (25.07.2026) at 12:01 PM.",
+
+        category: "logistics"
+
+    },
+
+    {
+
+        question: "பாரிவேட்டை நிகழ்வில் பன்றி குத்தும் நபரின் பெயர் என்ன?",
+
+        questionEn: "What is the name of the person executioner piercing the boar in Parivettai?",
+
+        keywords: ["சங்கர்", "பன்றி குத்துதல்", "shankar", "boar piercer"],
+
+        answer: "பாரிவேட்டை சடங்கில் 'ஸ்ரீ சங்கர்' என்பவர் பன்றி குத்துதல் நிகழ்வை மேற்கொள்கிறார்.",
+
+        answerEn: "A person named 'Sri Shankar' is explicitly designated to execute the boar-piercing task.",
+
+        category: "logistics"
+
+    },
+
+    {
+
+        question: "முப்பூசை திருவிழா எத்தனையாம் தேதிகளில் நடக்கிறது?",
+
+        questionEn: "On which calendar dates does the Mupoojai festival happen?",
+
+        keywords: ["முப்பூசை", "தேதிகள்", "mupoojai", "dates"],
+
+        answer: "இது முக்கியமாக ஆடி 8 முதல் ஆடி 10 வரையிலான (24.07.2026 - 26.07.2026) தொடர் நாட்களில் நடக்கிறது.",
+
+        answerEn: "It is primarily celebrated across the consecutive days from Aadi 8 to Aadi 10 (July 24 to July 26, 2026).",
+
+        category: "logistics"
+
+    },
+
+    {
+
+        question: "அழைப்பிதழின் முகப்பில் உள்ள ஆன்மீகக் குறியீடு என்ன?",
+
+        questionEn: "What is the traditional spiritual symbol placed at the top of the invitation text?",
+
+        keywords: ["உ", "குறியீடு", "symbol", "pillaiyar suzhi"],
+
+        answer: "அழைப்பிதழின் மேல் பகுதியில் தமிழ் பாரம்பரிய 'உ' (பிள்ளையார் சுழி) குறியீடு இடப்பட்டுள்ளது.",
+
+        answerEn: "The traditional Tamil symbol 'உ' (Pillaiyar Suzhi) is placed at the topmost center of the letterhead.",
+
+        category: "logistics"
+
+    },
+
+    {
+
+        question: "விருந்து உபசரிப்பு மற்றும் மதிய உணவு ஆகிய இரண்டிற்கும் என்ன வித்தியாசம்?",
+
+        questionEn: "What is the operational difference between the Lunch and Feast sessions?",
+
+        keywords: ["விருது", "வித்தியாசம்", "difference", "meals"],
+
+        answer: "மதிய உணவு ஆடி 9 மதியம் 12:01 மணிக்கும், பெரிய கிடா வெட்டு விருந்து உபசரிப்பு ஆடி 10 மதியம் 11:01 மணிக்கும் நடக்கும்.",
+
+        answerEn: "The standard lunch is on Aadi 9 at 12:01 PM, while the massive non-vegetarian feast distribution is on Aadi 10 at 11:01 AM.",
+
+        category: "logistics"
+
+    },
+
+
+
+    // CATEGORY: SPIRITUAL TRANCE INVOCATORS / SAMIYADIGAL (66-74)
+
+    {
+
+        question: "ஸ்ரீ வீரியபெருமாள் சுவாமியின் சாமியாடி யார்?",
+
+        questionEn: "Who is the designated Samiyadi (Trace Medium) for Lord Veeriya Perumal?",
+
+        keywords: ["சந்தோஷ்குமார்", "சாமியாடி", "santhoshkumar", "samiyadi"],
+
+        answer: "ஸ்ரீ வீரியபெருமாள் சுவாமியின் சாமியாடி K.சந்தோஷ்குமார் ஆவார்.",
+
+        answerEn: "The official spiritual medium for Lord Veeriya Perumal is K. Santhoshkumar.",
+
+        category: "mediums"
+
+    },
+
+    {
+
+        question: "ஸ்ரீ பெரியநாச்சியம்மன் சுவாமியின் சாமியாடியாக அருள்வாக்கு சொல்பவர் யார்?",
+
+        questionEn: "Who functions as the Samiyadi for Goddess Periya Nachiamman?",
+
+        keywords: ["சரவணன்", "சாமியாடி", "saravanan", "medium"],
+
+        answer: "ஸ்ரீ பெரியநாச்சியம்மன் சுவாமியின் சாமியாடி A.சரவணன் ஆவார்.",
+
+        answerEn: "The spiritual trance medium representing Goddess Periya Nachiamman is A. Saravanan.",
+
+        category: "mediums"
+
+    },
+
+    {
+
+        question: "ஸ்ரீ வீரப்ப சுவாமியின் சாமியாடி யார்?",
+
+        questionEn: "Who is the designated trance medium for Lord Veerappa Swamy?",
+
+        keywords: ["வீரப்பன்", "சாமியாடி", "veerappan", "samiyadi"],
+
+        answer: "ஸ்ரீ வீரப்ப சுவாமியின் சாமியாடி A.V.S.வீரப்பன் ஆவார்.",
+
+        answerEn: "The certified operational medium for Lord Veerappa Swamy is A.V.S. Veerappan.",
+
+        category: "mediums"
+
+    },
+
+    {
+
+        question: "ஸ்ரீ பெரிய காண்டியம்மன் சுவாமியின் சாமியாடி பெயர் என்ன?",
+
+        questionEn: "What is the name of the Samiyadi for Sri Periya Kandiamman?",
+
+        keywords: ["செந்தில்", "சாமியாடி", "senthil", "samiyadi"],
+
+        answer: "ஸ்ரீ பெரிய காண்டியம்மன் சுவாமியின் சாமியாடி C.செந்தில் ஆவார்.",
+
+        answerEn: "The designated trance medium for Sri Periya Kandiamman is C. Senthil.",
+
+        category: "mediums"
+
+    },
+
+    {
+
+        question: "கன்னிமார் சுவாமிகளின் சாமியாடியாக நியமிக்கப்பட்டுள்ளவர் யார்?",
+
+        questionEn: "Who has been appointed as the Samiyadi for the Kannimar Deities?",
+
+        keywords: ["ராமநாதன்", "சாமியாடி", "ramanathan", "kannimar"],
+
+        answer: "கன்னிமார் சுவாமிகள் சன்னதிக்கான சாமியாடி V.ராமநாதன் ஆவார்.",
+
+        answerEn: "The official trance medium for the Kannimar Swamigal cluster is V. Ramanathan.",
+
+        category: "mediums"
+
+    },
+
+    {
+
+        question: "ஸ்ரீ வீரமலையாண்டி சுவாமியின் சாமியாடி யார்?",
+
+        questionEn: "Who acts as the spiritual trance vehicle for Sri Veeramalayaandi?",
+
+        keywords: ["சண்முகம்", "சாமியாடி", "shanmugam", "medium"],
+
+        answer: "ஸ்ரீ வீரமலையாண்டி சுவாமியின் சாமியாடி G.சண்முகம் ஆவார்.",
+
+        answerEn: "The designated spiritual trance vehicle for Sri Veeramalayaandi is G. Shanmugam.",
+
+        category: "mediums"
+
+    },
+
+    {
+
+        question: "ஸ்ரீ மலையாள முத்தைய்யன் சுவாமியின் சாமியாடி யார்?",
+
+        questionEn: "Who is the official Samiyadi for Sri Malayalam Muthaiyan?",
+
+        keywords: ["நாகராஜன்", "சாமியாடி", "nagarajan", "samiyadi"],
+
+        answer: "ஸ்ரீ மலையாள முத்தைய்யன் சுவாமியின் சாமியாடி S.நாகராஜன் ஆவார்.",
+
+        answerEn: "The state-recognized spiritual medium for Sri Malayalam Muthaiyan is S. Nagarajan.",
+
+        category: "mediums"
+
+    },
+
+    {
+
+        question: "ஸ்ரீ மதுரைவீரன் சுவாமியின் சாமியாடி யார்?",
+
+        keywords: ["சக்திவேல்", "சாமியாடி", "shaktivel", "samiyadi"],
+
+        questionEn: "Who is the designated trance medium for Sri Maduraiveeran Swamy?",
+
+        answer: "ஸ்ரீ மதுரைவீரன் சுவாமியின் சாமியாடி S.சக்திவேல் ஆவார்.",
+
+        answerEn: "The official designated medium for Sri Maduraiveeran Swamy is S. Shaktivel.",
+
+        category: "mediums"
+
+    },
+
+    {
+
+        question: "அழைப்பிதழில் மொத்தம் எத்தனை சாமியாடிகளின் பெயர்கள் பட்டியலிடப்பட்டுள்ளன?",
+
+        questionEn: "How many total Samiyadis have their names listed transparently in the invite?",
+
+        keywords: ["எத்தனை", "சாமியாடிகள்", "how many", "mediums", "total"],
+
+        answer: "பரிவார தெய்வங்கள் உட்பட மொத்தம் 8 சாமியாடிகளின் பெயர்கள் தெளிவாகக் குறிப்பிடப்பட்டுள்ளன.",
+
+        answerEn: "In total, 8 specific Samiyadi names are structurally listed for different shrines.",
+
+        category: "mediums"
+
+    },
+
+
+
+    // CATEGORY: TRUST ORGANIZERS & EXECUTIVES (77-100)
+
+    {
+
+        question: "ராஜா மற்றும் பட்டக்காரர் பதவியில் திருவிழாவை முன்னின்று நடத்துபவர் யார்?",
+
+        questionEn: "Who leads the festival holding the title of Raja and Pattakarar?",
+
+        keywords: ["ராஜா", "பட்டக்காரர்", "சண்முகம்", "raja", "pattakarar", "shanmugam"],
+
+        answer: "A.சண்முகம் செட்டியார் (96776 38335) அவர்கள் ராஜா & பட்டக்காரர் பொறுப்பில் உள்ளார்.",
+
+        answerEn: "A. Shanmugam Chettiyar (96776 38335) leads in the capacity of Raja & Pattakarar.",
+
+        category: "management"
+
+    },
+
+    {
+
+        question: "மத்தியஸ்தர் பொறுப்பில் உள்ள முக்கிய நிர்வாகி யார்?",
+
+        questionEn: "Who is the key official holding the position of Mediator (Madhyasthar)?",
+
+        keywords: ["மத்தியஸ்தர்", "செல்வராஜ்", "mediator", "madhyasthar", "selvaraj"],
+
+        answer: "வைகோ @ A.செல்வராஜ் அவர்கள் இத்திருக்கோயில் திருவிழாவின் மத்தியஸ்தர் ஆவார்.",
+
+        answerEn: "Vaiko @ A. Selvaraj acts as the official Mediator (Madhyasthar) for the event.",
+
+        category: "management"
+
+    },
+
+    {
+
+        question: "மந்திரி மற்றும் டிரஸ்டி பொறுப்பில் உள்ளவர் யார்?",
+
+        questionEn: "Who is holding the administrative post of Minister & Trustee?",
+
+        keywords: ["மந்திரி", "டிரஸ்டி", "ரவிக்குமார்", "mantri", "trustee", "ravikumar"],
+
+        answer: "MDS.ரவிக்குமார் (94435 32338) அவர்கள் மந்திரி & டிரஸ்டி பொறுப்பில் உள்ளார்.",
+
+        answerEn: "MDS. Ravikumar (94435 32338) serves in the joint role of Mantri & Trustee.",
+
+        category: "management"
+
+    },
+
+    {
+
+        question: "அறக்கட்டளையின் தற்போதைய தலைவர் யார்?",
+
+        questionEn: "Who is the sitting President (Thalaivar) of the temple trust?",
+
+        keywords: ["தலைவர்", "ராஜகோபால்", "president", "thalaivar", "rajagopal"],
+
+        answer: "M.ராஜகோபால் (99760 92571) அவர்கள் அறக்கட்டளையின் தலைவராக உள்ளார்.",
+
+        answerEn: "M. Rajagopal (99760 92571) is the official President of the working temple trust.",
+
+        category: "management"
+
+    },
+
+    {
+
+        question: "அறக்கட்டளையின் துணைத்தலைவர் யார்?",
+
+        questionEn: "Who occupies the post of Vice-President (Thunai Thalaivar)?",
+
+        keywords: ["துணைத்தலைவர்", "கார்த்திகேயன்", "vice president", "karthikeyan"],
+
+        answer: "T.P.L.கார்த்திகேயன் (99949 45641) அவர்கள் துணைத்தலைவர் ஆவார்.",
+
+        answerEn: "T.P.L. Karthikeyan (99949 45641) holds the office of the trust's Vice-President.",
+
+        category: "management"
+
+    },
+
+    {
+
+        question: "அறக்கட்டளையின் செயலாளர் பொறுப்பில் இருப்பவர் யார்?",
+
+        questionEn: "Who is currently handling the duties of the Trust Secretary?",
+
+        keywords: ["செயலாளர்", "ஸ்ரீராம்", "secretary", "secrelap", "sriram"],
+
+        answer: "V.R.ஸ்ரீராம் (94431 15689) அவர்கள் செயலாளர் பொறுப்பை வகிக்கிறார்.",
+
+        answerEn: "V.R. Sriram (94431 15689) efficiently handles the duties as the Secretary.",
+
+        category: "management"
+
+    },
+
+    {
+
+        question: "அறக்கட்டளையின் துணைச்செயலாளர் யார்?",
+
+        questionEn: "Who is the designated Joint Secretary (Thunai Seyalalar)?",
+
+        keywords: ["துணைச்செயலாளர்", "மாரியப்பன்", "joint secretary", "mariyappan"],
+
+        answer: "N.மாரியப்பன் (95858 28141) அவர்கள் துணைச்செயலாளர் ஆவார்.",
+
+        answerEn: "N. Mariyappan (95858 28141) serves as the Joint Secretary of the organization.",
+
+        category: "management"
+
+    },
+
+    {
+
+        question: "அறக்கட்டளையின் பொருளாளராக கணக்குகளை கவனிப்பவர் யார்?",
+
+        questionEn: "Who manages the funds as the official Treasurer (Porulalar)?",
+
+        keywords: ["பொருளாளர்", "காசிராமன்", "treasurer", "porulalar", "kasiraman"],
+
+        answer: "ரமேஷ் (ஏ) M.D.D.காசிராமன் (90877 54096) அவர்கள் பொருளாளர் ஆவார்.",
+
+        answerEn: "Ramesh (a) M.D.D. Kasiraman (90877 54096) functions as the official Treasurer.",
+
+        category: "management"
+
+    },
+
+    {
+        question: "நிர்வாகிகளின் தொடர்பு எண்கள் யாவை?",
+        questionEn: "What are the contact details of the organizers?",
+        keywords: ["தொடர்பு எண்", "contact details", "phone", "mobile", "எண்", "தொடர்பு", "நிர்வாகிகள்"],
+        answer: "A.சண்முகம் செட்டியார் (ராஜா & பட்டக்காரர்): 96776 38335\n" +
+                "MDS.ரவிக்குமார் (மந்திரி & டிரஸ்டி): 94435 32338\n" +
+                "M.ராஜகோபால் (தலைவர்): 99760 92571\n" +
+                "T.P.L.கார்த்திகேயன் (துணைத்தலைவர்): 99949 45641\n" +
+                "V.R.ஸ்ரீராம் (செயலாளர்): 94431 15689\n" +
+                "N.மாரியப்பன் (துணைச்செயலாளர்): 95858 28141\n" +
+                "ரமேஷ் (ஏ) M.D.D.காசிராமன் (பொருளாளர்): 90877 54096",
+        answerEn: "A. Shanmugam Chettiyar (Raja & Pattakarar): 96776 38335\n" +
+                  "MDS. Ravikumar (Mantri & Trustee): 94435 32338\n" +
+                  "M. Rajagopal (President): 99760 92571\n" +
+                  "T.P.L. Karthikeyan (Vice President): 99949 45641\n" +
+                  "V.R. Sriram (Secretary): 94431 15689\n" +
+                  "N. Mariyappan (Joint Secretary): 95858 28141\n" +
+                  "Ramesh (a) M.D.D. Kasiraman (Treasurer): 90877 54096",
+        category: "contacts"
+    },
+
+    {
+
+        question: "அழைப்பிதழில் உள்ள கமிட்டி உறுப்பினர்கள் நால்வர் யார்?",
+
+        questionEn: "Who are the four primary committee members named explicitly?",
+
+        keywords: ["கமிட்டி", "உறுப்பினர்கள்", "committee", "members", "four"],
+
+        answer: "A.முருகேசன், S.சதாசிவம், M.D.S.முத்துகுமார், மற்றும் A.A.V.ரமேஷ் பழனியப்பன்.",
+
+        answerEn: "A. Murugesan, S. Sadhasivam, M.D.S. Muthukumar, and A.A.V. Ramesh Palaniappan.",
+
+        category: "management"
+
+    },
+
+    {
+
+        question: "துவக்கத்தில் பெயரிடப்பட்டுள்ள மூன்று முக்கிய ஒருங்கிணைப்பாளர்கள் யார்?",
+
+        questionEn: "Who are the three key coordinators mentioned in the lower panel?",
+
+        keywords: ["ஒருங்கிணைப்பாளர்கள்", "தீனதயாளன்", "coordinators", "deenadhayalan"],
+
+        answer: "A.சண்முகம், M.D.S.ரவிக்குமார், மற்றும் V.R.தீனதயாளன் ஆகியோர் முக்கிய ஒருங்கிணைப்பாளர்கள்.",
+
+        answerEn: "A. Shanmugam, M.D.S. Ravikumar, and V.R. Deenadhayalan are key coordinators.",
+
+        category: "management"
+
+    },
+
+    {
+
+        question: "அறக்கட்டளையின் கௌரவத்தலைவர்கள் யார்?",
+
+        questionEn: "Who are listed as the Honorary Presidents (Gaurava Thalaivargal)?",
+
+        keywords: ["கௌரவத்தலைவர்கள்", "honorary", "presidents", "gaurava"],
+
+        answer: "M.D.தனக்கோடி, A.A.V.பழனியப்பன், M.D.S.முத்துக்குமார், M.M.P.R.பொன்னுச்சாமி, A.முருகேசன்.",
+
+        answerEn: "M.D. Dhanakodi, A.A.V. Palaniappan, M.D.S. Muthukumar, M.M.P.R. Ponnusamy, A. Murugesan.",
+
+        category: "management"
+
+    },
+
+    {
+
+        question: "திருச்சி பகுதியைச் சேர்ந்த பொதுக்குழு பிரதிநிதிகள் யார்?",
+
+        questionEn: "Who are the general body representatives from the Trichy zone?",
+
+        keywords: ["திருச்சி", "பிரதிநிதிகள்", "trichy", "representatives", "zone"],
+
+        answer: "M.பாலகிருஷ்ணன், Prof.M.சுப்ரமணியன், M.D.R.தியாகராஜன், M.M.P.V.சந்திரசேகரன், M.M.P.V.சண்முகசுந்தரம்.",
+
+        answerEn: "M. Balakrishnan, Prof. M. Subramanian, M.D.R. Thiyagarajan, M.M.P.V. Chandrasekaran, M.M.P.V. Shanmugasundaram.",
+
+        category: "management"
+
+    },
+
+    {
+
+        question: "அரியமங்கலம் பகுதியைச் சேர்ந்த முக்கிய பொறுப்பாளர்கள் யார்?",
+
+        questionEn: "Who are the key executive coordinators from Ariyamangalam area?",
+
+        keywords: ["அரியமங்கலம்", "ரவி", "aniyamangalam", "ravi"],
+
+        answer: "M.ரவி, A.P.கணேசன், V.G.ராமச்சந்திரன், P.A.சுப்ரமணியன் (வெள்ளக்காரர்), S.B.T.குமார் ஆகியோர்.",
+
+        answerEn: "M. Ravi, A.P. Ganesan, V.G. Ramachandran, P.A. Subramanian (Vellakarar), and S.B.T. Kumar.",
+
+        category: "management"
+
+    },
+
+    {
+
+        question: "சாளக்கிராமம் பகுதியைச் சேர்ந்த பிரதிநிதிகள் யார்?",
+
+        questionEn: "Who are the documented representatives from the Salagramam cluster?",
+
+        keywords: ["சாளக்கிராமம்", "சண்முகம்", "salagramam", "shanmugam"],
+
+        answer: "R.சண்முகம், P.குணசேகரன் ஆகிய இருவரும் சாளக்கிராமப் பகுதிக்குக் குறிப்பிடப்பட்டுள்ளனர்.",
+
+        answerEn: "R. Shanmugam and P. Gunasekaran are the two officials noted for Salagramam.",
+
+        category: "management"
+
+    },
+
+    {
+
+        question: "மண்ணச்சநல்லூர் பகுதியில் இருந்து யாரெல்லாம் கமிட்டியில் உள்ளனர்?",
+
+        questionEn: "Which citizens represent the Mannachanallur zone?",
+
+        keywords: ["மண்ணச்சநல்லூர்", "ராஜாராம்", "mannachanallur", "rajaram"],
+
+        answer: "P.பாலகணேசன், V.ராஜாராம், P.K.குமார், H.நல்லபெருமாள், V.விஸ்வநாதன், L.சரவணன்.",
+
+        answerEn: "P. Balaganesan, V. Rajaram, P.K. Kumar, H. Nallaperumal, V. Viswanathan, L. Saravanan.",
+
+        category: "management"
+
+    },
+
+    {
+
+        question: "லால்குடி மற்றும் நத்தம் பகுதியின் பிரதிநிதிகள் யார்?",
+
+        questionEn: "Who are the representatives from Lalgudi and Natham?",
+
+        keywords: ["லால்குடி", "நத்தம்", "lalgudi", "natham"],
+
+        answer: "லால்குடிக்கு சுரேஷ்; நத்தம் பகுதிக்கு S.A.தியாகராஜன், S.A.சரவணன், N.பாண்டியராஜன், A.பாலகிருஷ்ணன்.",
+
+        answerEn: "Suresh for Lalgudi; S.A. Thiyagarajan, S.A. Saravanan, N. Pandiyarajan, A. Balakrishnan for Natham.",
+
+        category: "management"
+
+    },
+
+    {
+
+        question: "மதுரை மற்றும் இனாம்புலியூர் பகுதிகளில் இருந்து பங்கேற்பவர்கள் யார்?",
+
+        questionEn: "Who are the participants listed from Madurai and Inampuliyur?",
+
+        keywords: ["மதுரை", "இனாம்புலியூர்", "madurai", "inampuliyur"],
+
+        answer: "மதுரை: M.முருகேசன், S.நடராஜன், K.சுந்தர்ராஜன். இனாம்புலியூர்: D.தங்கராஜ், A.சுப்ரமணியன், திருமதி. சரோஜா நாகராஜன்.",
+
+        answerEn: "Madurai: M. Murugesan, S. Natarajan, K. Sundararajan. Inampuliyur: D. Thangaraj, A. Subramanian, Mrs. Saroja Nagarajan.",
+
+        category: "management"
+
+    },
+
+    {
+
+        question: "இனுங்கூர் மற்றும் எருமைபட்டி பகுதியில் இருந்து இடம்பெற்றுள்ள முக்கியஸ்தர்கள் யார்?",
+
+        questionEn: "Who are the notable figures included from Inungoor and Erumaipatti?",
+
+        keywords: ["இனுங்கூர்", "எருமைபட்டி", "inungoor", "erumaipatti"],
+
+        answer: "இனுங்கூர்: D.ராஜேந்திரன், T.பரமசிவம், P.ஆறுமுகம், P.குணசேகரன். எருமைபட்டி: ராஜா (ஏ) B.சதாசிவம், ராஜா (ஏ) A.V.கதிர்வேல், ராஜகுமாரன், சாத்தையா.",
+
+        answerEn: "Inungoor: D. Rajendran, T. Paramasivam. Erumaipatti: Raja (a) B. Sadhasivam, Raja (a) A.V. Kathirvel.",
+
+        category: "management"
+
+    },
+
+    {
+
+        question: "ராசிபுரம், தா.பேட்டை மற்றும் நொச்சியம் பிரதிநிதிகள் யார்?",
+
+        questionEn: "Who are the regional leads for Rasipuram, Thathaipettai, and Nochiyam?",
+
+        keywords: ["ராசிபுரம்", "தா.பேட்டை", "நொச்சியம்", "rasipuram", "thathampettai", "nochiyam"],
+
+        answer: "ராசிபுரம்: M.ராஜேந்திரன், J.கார்த்திக். தா.பேட்டை: A.வீரப்பன் செட்டியார். நொச்சியம்: P.சந்திரசேகரன்.",
+
+        answerEn: "Rasipuram: M. Rajendran, J. Karthik. Th.Pettai: A. Veerappan Chettiyar. Nochiyam: P. Chandrasekaran.",
+
+        category: "management"
+
+    },
+
+    {
+
+        question: "அலகரை, தாராபுரம், மற்றும் விருத்தாச்சலம் ஊர்களின் பிரதிநிதிகள் யார்?",
+
+        questionEn: "Who represent the towns of Alagarai, Dharapuram, and Virudhachalam?",
+
+        keywords: ["அலகரை", "தாராபுரம்", "விருத்தாச்சலம்", "alagarai", "dharapuram", "virudhachalam"],
+
+        answer: "அலகரை: S.தனகோபால். தாராபுரம்: M.நடராஜன், M.கோதண்டபாணி. விருத்தாச்சலம்: தங்க. லோகநாதன்.",
+
+        answerEn: "Alagarai: S. Dhanagopal. Dharapuram: M. Natarajan, M. Kodhandapani. Virudhachalam: Thanga. Loganathan.",
+
+        category: "management"
+
+    },
+
+    {
+
+        question: "தலைநகர் சென்னை சார்பில் பொதுக்குழுவில் இடம் பெற்றுள்ளவர்கள் யார்?",
+
+        questionEn: "Who are representing the capital city Chennai in the general council?",
+
+        keywords: ["சென்னை", "இன்பராஜன்", "chennai", "inbarajan"],
+
+        answer: "MDK.இன்பராஜன் மற்றும் T.சண்முகம் ஆகிய இருவரும் சென்னையின் சார்பில் உள்ளனர்.",
+
+        answerEn: "MDK. Inbarajan and T. Shanmugam are the two representing the Chennai cluster.",
+
+        category: "management"
+
+    },
+
+    {
+
+        question: "இளைஞர் அணியைச் சேர்ந்த முக்கிய பிரதிநிதிகள் சிலரின் பெயர்களைக் கூறுக?",
+
+        questionEn: "Can you name a few key young generational members listed in the panels?",
+
+        keywords: ["அருண்குமார்", "அஸ்வின்", "arunkumar", "aswin"],
+
+        answer: "M.D.S.M.அருண்குமார், M.D.S.M.சரண் குமார், M.D.S.அஸ்வின் ரவிக்குமார், V.மோகன், மணி (ஏ) விஸ்வநாதன்.",
+
+        answerEn: "M.D.S.M. Arunkumar, M.D.S.M. Sarankumar, M.D.S. Ashwin Ravikumar, V. Mohan, Mani (a) Viswanathan.",
+
+        category: "management"
+
+    },
+
+    {
+
+        question: "K.M.கணேசன், V.M.செல்வம் ஆகியோர் எந்தக் குழுவில் இடம் பெற்றுள்ளனர்?",
+
+        questionEn: "In which committee panel are K.M. Ganesan and V.M. Selvam accommodated?",
+
+        keywords: ["கணேசன்", "செல்வம்", "ganesan", "selvam"],
+
+        answer: "அவர்கள் அழைப்பிதழின் இறுதிப் பகுதியில் பொதுக்குழு உறுப்பினர்கள் வரிசையில் பட்டியலிடப்பட்டுள்ளனர்.",
+
+        answerEn: "They are categorized directly under the general council body members row at the base layout.",
+
+        category: "management"
+
+    },
+
+    {
+
+        question: "அழைப்பிதழில் குறிப்பிடப்பட்டுள்ள 'வெள்ளக்காரர்' என்ற புனைப்பெயர் யாருக்குரியது?",
+
+        questionEn: "To whom does the unique alias 'Vellakarar' mentioned in the card belong?",
+
+        keywords: ["வெள்ளக்காரர்", "புனைப்பெயர்", "vellakarar", "alias"],
+
+        answer: "அரியமங்கலம் பகுதியைச் சேர்ந்த P.A.சுப்ரமணியன் என்பவருக்கு 'வெள்ளக்காரர்' என்ற அடைமொழி உள்ளது.",
+
+        answerEn: "It belongs to P.A. Subramanian from the Ariyamangalam sector, noted with the alias 'Vellakarar'.",
+
+        category: "management"
+
+    }
+];
+
 
         // ============================================================
         // LANGUAGE
@@ -9895,11 +12405,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (langTa) langTa.classList.toggle('active', lang === 'ta');
             if (langEn) langEn.classList.toggle('active', lang === 'en');
 
-            document.getElementById('chatTitle').textContent = t.title;
-            document.getElementById('chatStatus').textContent = t.status;
-            document.getElementById('welcomeMsg').textContent = t.welcome;
-            document.getElementById('chatInput').placeholder = t.placeholder;
-            document.getElementById('footerText').textContent = t.footer;
+          
 
             const quickBtns = document.querySelectorAll('#quickButtons button');
             const quickTexts = t.quick;
@@ -9908,11 +12414,11 @@ document.addEventListener('DOMContentLoaded', function() {
                     const icon = btn.textContent.match(/^.{1,2}/)?.[0] || '📌';
                     btn.textContent = icon + ' ' + quickTexts[i].replace(/^.{1,2}\s/, '');
                     const questions = lang === 'ta' ?
-                        ['திருவிழா எப்போது தொடங்குகிறது?', 'திருவிழா நிகழ்வுகள் என்ன?', 'கோயில் எங்கே உள்ளது?', 'எஜமானின் தொடர்பு எண்?',
+                        ['திருவிழா எப்போது தொடங்குகிறது?', 'திருவிழா நிகழ்வுகள் என்ன?', 'கோயில் எங்கே உள்ளது?', 'தொடர்பு எண்?',
                             'அன்னதானம் எப்போது?'
                         ] :
                         ['When does the festival start?', 'What are the festival events?', 'Where is the temple located?',
-                            'What is the Ejaman\'s contact number?', 'When is the community feast?'
+                            'What is the contact number?', 'When is the community feast?'
                         ];
                     btn.setAttribute('data-question', questions[i] || btn.getAttribute('data-question'));
                 }
@@ -9958,7 +12464,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    if (bestMatch && bestScore >= 2) {
+    if (bestMatch && bestScore >= 1) {
         return isQuestionTa ? bestMatch.answer : bestMatch.answerEn;
     }
 
@@ -10311,8 +12817,8 @@ function syncChatbotLanguage(lang) {
     const quickBtns = document.querySelectorAll('#quickButtons button');
     const quickTexts = t.quick;
     const questions = lang === 'ta' ?
-        ['திருவிழா எப்போது தொடங்குகிறது?', 'திருவிழா நிகழ்வுகள் என்ன?', 'கோயில் எங்கே உள்ளது?', 'எஜமானின் தொடர்பு எண்?', 'அன்னதானம் எப்போது?'] :
-        ['When does the festival start?', 'What are the festival events?', 'Where is the temple located?', 'What is the Ejaman\'s contact number?', 'When is the community feast?'];
+        ['திருவிழா எப்போது தொடங்குகிறது?', 'திருவிழா நிகழ்வுகள் என்ன?', 'கோயில் எங்கே உள்ளது?', 'தொடர்பு எண்?', 'அன்னதானம் எப்போது?'] :
+        ['When does the festival start?', 'What are the festival events?', 'Where is the temple located?', 'contact number?', 'When is the community feast?'];
 
     quickBtns.forEach((btn, i) => {
         if (quickTexts[i] && btn) {
